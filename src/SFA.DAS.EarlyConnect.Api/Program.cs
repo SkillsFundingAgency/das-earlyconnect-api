@@ -19,7 +19,6 @@ builder.Services.Configure<EarlyConnectConfiguration>(rootConfiguration.GetSecti
 builder.Services.AddSingleton(cfg => cfg.GetService<IOptions<EarlyConnectConfiguration>>().Value);
 builder.Services.AddSingleton(new EnvironmentConfiguration(rootConfiguration["EnvironmentName"]));
 
-// Add services to the container.
 var earlyConnectConfiguration = rootConfiguration
     .GetSection(nameof(EarlyConnectConfiguration))
     .Get<EarlyConnectConfiguration>();
@@ -68,7 +67,6 @@ builder.Services
 
 builder.Services.AddApplicationInsightsTelemetry();
 
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "EarlyConnectApi", Version = "v1" });
@@ -79,9 +77,7 @@ builder.Services.AddApiVersioning(opt => {
     opt.ApiVersionReader = new HeaderApiVersionReader("X-Version");
 });
 
-
 var app = builder.Build();
-
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -90,16 +86,13 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty;
 });
 
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
+
 app.UseAuthentication();
-
-
 app.UseHttpsRedirection();
-
 app.UseRouting();
 app.UseAuthorization();
 
@@ -107,7 +100,6 @@ if (!app.Configuration["EnvironmentName"]!.Equals("DEV", StringComparison.Curren
 {
     app.UseHealthChecks();
 }
-
 
 app.UseEndpoints(config =>
 {
