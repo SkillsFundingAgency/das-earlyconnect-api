@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Azure.Core;
 using Azure.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SFA.DAS.EarlyConnect.Domain.Configuration;
@@ -36,6 +33,32 @@ namespace SFA.DAS.EarlyConnect.Data
             _azureServiceTokenProvider = azureServiceTokenProvider;
             _environmentConfiguration = environmentConfiguration;
             _configuration = config.Value;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+
+            if (_configuration == null) return;
+
+            var connection = new SqlConnection
+            {
+                ConnectionString = _configuration.DatabaseConnectionString
+            };
+
+            if (!(_environmentConfiguration.EnvironmentName.Equals("DEV", StringComparison.CurrentCultureIgnoreCase)
+                || _environmentConfiguration.EnvironmentName.Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase)))
+            {
+                connection.AccessToken = _azureServiceTokenProvider
+                    .GetTokenAsync(new TokenRequestContext(scopes: new string[] { AzureResource })).Result.Token;
+            }
+
+            optionsBuilder.UseSqlServer(connection, options =>
+                options.EnableRetryOnFailure(
+                    5,
+                    TimeSpan.FromSeconds(20),
+                    null
+                ));
         }
     }
 }
