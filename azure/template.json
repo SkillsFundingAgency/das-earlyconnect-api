@@ -337,11 +337,11 @@
         }
     ],
     "outputs": {
+        "AppServiceName": {
+            "type": "string",
+            "value": "[variables('apiAppServiceName')]"
+        },
         "ResourceGroupName": {
-            "AppServiceName": {
-                "type": "string",
-                "value": "[variables('apiAppServiceName')]"
-            },
             "type": "string",
             "value": "[variables('resourceGroupName')]"
         },
