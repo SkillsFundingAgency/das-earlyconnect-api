@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Api", "SFA.DAS.EarlyConnect.Api\SFA.DAS.EarlyConnect.Api.csproj", "{32A51BD3-8466-4B6F-B03C-8D440C290027}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Data", "SFA.DAS.EarlyConnect.Data\SFA.DAS.EarlyConnect.Data.csproj", "{1B23A849-32C5-49C2-B028-EEB4468A0CEB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Application", "SFA.DAS.EarlyConnect.Application\SFA.DAS.EarlyConnect.Application.csproj", "{F6788B2F-D7CE-4CA0-B4C2-AA55B7E0F01E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Domain", "SFA.DAS.EarlyConnect.Domain\SFA.DAS.EarlyConnect.Domain.csproj", "{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Database", "SFA.DAS.EarlyConnect.Database\SFA.DAS.EarlyConnect.Database.csproj", "{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F5193D31-304B-4185-BEBB-45711F0406AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Api.Tests", "SFA.DAS.EarlyConnect.Api.Tests\SFA.DAS.EarlyConnect.Api.Tests.csproj", "{6F619147-E48E-403F-B047-83B6EEA61E32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Application.Tests", "SFA.DAS.EarlyConnect.Application.Tests\SFA.DAS.EarlyConnect.Application.Tests.csproj", "{BCD6CF6A-9B52-4796-8E71-AA2A888681EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Data.Tests", "SFA.DAS.EarlyConnect.Data.Tests\SFA.DAS.EarlyConnect.Data.Tests.csproj", "{FA535688-1B4E-4734-A151-7B514F29DDB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Domain.Tests", "SFA.DAS.EarlyConnect.Domain.Tests\SFA.DAS.EarlyConnect.Domain.Tests.csproj", "{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32A51BD3-8466-4B6F-B03C-8D440C290027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32A51BD3-8466-4B6F-B03C-8D440C290027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32A51BD3-8466-4B6F-B03C-8D440C290027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32A51BD3-8466-4B6F-B03C-8D440C290027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B23A849-32C5-49C2-B028-EEB4468A0CEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B23A849-32C5-49C2-B028-EEB4468A0CEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B23A849-32C5-49C2-B028-EEB4468A0CEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B23A849-32C5-49C2-B028-EEB4468A0CEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6788B2F-D7CE-4CA0-B4C2-AA55B7E0F01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6788B2F-D7CE-4CA0-B4C2-AA55B7E0F01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6788B2F-D7CE-4CA0-B4C2-AA55B7E0F01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6788B2F-D7CE-4CA0-B4C2-AA55B7E0F01E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F619147-E48E-403F-B047-83B6EEA61E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F619147-E48E-403F-B047-83B6EEA61E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F619147-E48E-403F-B047-83B6EEA61E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F619147-E48E-403F-B047-83B6EEA61E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD6CF6A-9B52-4796-8E71-AA2A888681EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD6CF6A-9B52-4796-8E71-AA2A888681EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD6CF6A-9B52-4796-8E71-AA2A888681EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD6CF6A-9B52-4796-8E71-AA2A888681EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA535688-1B4E-4734-A151-7B514F29DDB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA535688-1B4E-4734-A151-7B514F29DDB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA535688-1B4E-4734-A151-7B514F29DDB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA535688-1B4E-4734-A151-7B514F29DDB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6F619147-E48E-403F-B047-83B6EEA61E32} = {F5193D31-304B-4185-BEBB-45711F0406AE}
+		{BCD6CF6A-9B52-4796-8E71-AA2A888681EF} = {F5193D31-304B-4185-BEBB-45711F0406AE}
+		{FA535688-1B4E-4734-A151-7B514F29DDB0} = {F5193D31-304B-4185-BEBB-45711F0406AE}
+		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E} = {F5193D31-304B-4185-BEBB-45711F0406AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CAEDFB7-699B-4737-8CF7-B185A29EFFC2}
+	EndGlobalSection
+EndGlobal
