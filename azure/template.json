@@ -75,9 +75,6 @@
         "logAnalyticsWorkspaceName": {
             "type": "string"
         },
-        "subnetObject": {
-            "type": "object"
-        },
         "appServicePlanInstances": {
             "type": "int",
             "defaultValue": 1
@@ -173,13 +170,13 @@
                         "value": "[variables('apiAppServiceName')]"
                     },
                     "appServicePlanName": {
-                        "value": "[variables('appServicePlanName')]"
+                        "value": "[parameters('sharedBackEndAppServicePlanName')]"
                     },
                     "appServicePlanResourceGroup": {
-                        "value": "[variables('resourceGroupName')]"
+                        "value": "[parameters('sharedEnvResourceGroup')]"
                     },
                     "subnetResourceId": {
-                        "value": "[reference(concat(parameters('subnetObject').name, '-', parameters('utcValue'))).outputs.SubnetResourceId.value]"
+                        "value": "[parameters('sharedBackEndSubnetResourceId')]"
                     },
                     "appServiceAppSettings": {
                         "value": {
