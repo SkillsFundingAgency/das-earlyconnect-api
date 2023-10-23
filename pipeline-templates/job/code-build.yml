@@ -33,6 +33,12 @@ jobs:
       TargetFolder: $(build.artifactstagingdirectory)/publish
       OverWrite: true
 
+  - task: CopyFiles@2
+      displayName: 'Copy dacpac file to  $(build.artifactstagingdirectory)/DacpacArtifact'
+      inputs:
+        contents: '**/*.dacpac'
+        targetFolder: '$(build.artifactStagingDirectory)/DacpacArtifact'
+
   - task: PublishPipelineArtifact@1
     displayName: Publish Build Artifact
     inputs:
