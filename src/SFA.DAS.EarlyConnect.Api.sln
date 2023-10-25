@@ -9,19 +9,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Data",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Application", "SFA.DAS.EarlyConnect.Application\SFA.DAS.EarlyConnect.Application.csproj", "{F6788B2F-D7CE-4CA0-B4C2-AA55B7E0F01E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Domain", "SFA.DAS.EarlyConnect.Domain\SFA.DAS.EarlyConnect.Domain.csproj", "{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Domain", "SFA.DAS.EarlyConnect.Domain\SFA.DAS.EarlyConnect.Domain.csproj", "{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Database", "SFA.DAS.EarlyConnect.Database\SFA.DAS.EarlyConnect.Database.csproj", "{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Database", "SFA.DAS.EarlyConnect.Database\SFA.DAS.EarlyConnect.Database.csproj", "{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F5193D31-304B-4185-BEBB-45711F0406AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Api.Tests", "SFA.DAS.EarlyConnect.Api.Tests\SFA.DAS.EarlyConnect.Api.Tests.csproj", "{6F619147-E48E-403F-B047-83B6EEA61E32}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Api.Tests", "SFA.DAS.EarlyConnect.Api.Tests\SFA.DAS.EarlyConnect.Api.Tests.csproj", "{6F619147-E48E-403F-B047-83B6EEA61E32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Application.Tests", "SFA.DAS.EarlyConnect.Application.Tests\SFA.DAS.EarlyConnect.Application.Tests.csproj", "{BCD6CF6A-9B52-4796-8E71-AA2A888681EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Application.Tests", "SFA.DAS.EarlyConnect.Application.Tests\SFA.DAS.EarlyConnect.Application.Tests.csproj", "{BCD6CF6A-9B52-4796-8E71-AA2A888681EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Data.Tests", "SFA.DAS.EarlyConnect.Data.Tests\SFA.DAS.EarlyConnect.Data.Tests.csproj", "{FA535688-1B4E-4734-A151-7B514F29DDB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Data.Tests", "SFA.DAS.EarlyConnect.Data.Tests\SFA.DAS.EarlyConnect.Data.Tests.csproj", "{FA535688-1B4E-4734-A151-7B514F29DDB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EarlyConnect.Domain.Tests", "SFA.DAS.EarlyConnect.Domain.Tests\SFA.DAS.EarlyConnect.Domain.Tests.csproj", "{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Domain.Tests", "SFA.DAS.EarlyConnect.Domain.Tests\SFA.DAS.EarlyConnect.Domain.Tests.csproj", "{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F3D535E-1D6C-4A0F-822D-B5DD34A9EC72}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,4 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.EarlyConnect.Domain\SFA.DAS.EarlyConnect.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
 </Project>

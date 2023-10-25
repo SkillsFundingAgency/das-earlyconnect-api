@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.EarlyConnect.Api.AppStart;
-using SFA.DAS.EarlyConnect.Application.Queries;
 using SFA.DAS.EarlyConnect.Data;
 using SFA.DAS.EarlyConnect.Domain.Configuration;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -11,6 +10,7 @@ using SFA.DAS.Api.Common.Infrastructure;
 using System.Text.Json.Serialization;
 using SFA.DAS.Api.Common.AppStart;
 using Microsoft.Extensions.Logging.ApplicationInsights;
+using SFA.DAS.EarlyConnect.Application.Commands;
 
 namespace SFA.DAS.EarlyConnect.Api
 {
@@ -35,7 +35,7 @@ namespace SFA.DAS.EarlyConnect.Api
                 .Get<EarlyConnectConfiguration>();
 
             services.AddDatabaseRegistration(earlyConnectConfiguration, _configuration["EnvironmentName"]);
-            services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<DummyQuery>());
+            services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<CreateStudentDataCommand>());
 
             services.AddHealthChecks()
                 .AddDbContextCheck<EarlyConnectDataContext>();
