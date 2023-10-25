@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SFA.DAS.EarlyConnect.Data\SFA.DAS.EarlyConnect.Data.csproj" />
     <ProjectReference Include="..\SFA.DAS.EarlyConnect.Domain\SFA.DAS.EarlyConnect.Domain.csproj" />
   </ItemGroup>
 

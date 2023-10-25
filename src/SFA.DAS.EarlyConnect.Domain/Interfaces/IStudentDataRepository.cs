@@ -4,6 +4,6 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
 {
     public interface IStudentDataRepository
     {
-        Task UpsertAsync(IEnumerable<StudentData> studentDataList);
+        Task AddManyAsync(IEnumerable<StudentData> studentDataList);
     }
 }

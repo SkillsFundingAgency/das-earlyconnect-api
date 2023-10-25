@@ -21,7 +21,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands
         {
             _logger.LogInformation($"Updating student data");
             
-            await _studentDataRepository.UpsertAsync(command.StudentDataList);
+            await _studentDataRepository.AddManyAsync(command.StudentDataList);
 
             return Unit.Value;
         }

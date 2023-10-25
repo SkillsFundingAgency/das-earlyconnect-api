@@ -4,19 +4,18 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using SFA.DAS.EarlyConnect.Domain.Configuration;
+using SFA.DAS.EarlyConnect.Domain.Entities;
 
 namespace SFA.DAS.EarlyConnect.Data
 {
-    public interface IEarlyConnectDataContext
-    {
-    }
-
     public class EarlyConnectDataContext : DbContext, IEarlyConnectDataContext
     {
         private const string AzureResource = "https://database.windows.net/";
         private readonly ChainedTokenCredential _azureServiceTokenProvider;
         private readonly EnvironmentConfiguration _environmentConfiguration;
         private readonly EarlyConnectConfiguration? _configuration;
+
+        public DbSet<StudentData> StudentData { get; set; }
 
         public EarlyConnectDataContext()
         {
@@ -33,6 +32,12 @@ namespace SFA.DAS.EarlyConnect.Data
             _azureServiceTokenProvider = azureServiceTokenProvider;
             _environmentConfiguration = environmentConfiguration;
             _configuration = config.Value;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<StudentData>().ToTable("StudentData");
+            modelBuilder.Entity<StudentData>().HasKey(x => x.Id);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

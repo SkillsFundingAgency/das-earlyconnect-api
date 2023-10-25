@@ -11,6 +11,8 @@ using System.Text.Json.Serialization;
 using SFA.DAS.Api.Common.AppStart;
 using Microsoft.Extensions.Logging.ApplicationInsights;
 using SFA.DAS.EarlyConnect.Application.Commands;
+using SFA.DAS.EarlyConnect.Domain.Interfaces;
+using SFA.DAS.EarlyConnect.Application.RegistrationExtensions;
 
 namespace SFA.DAS.EarlyConnect.Api
 {
@@ -35,7 +37,8 @@ namespace SFA.DAS.EarlyConnect.Api
                 .Get<EarlyConnectConfiguration>();
 
             services.AddDatabaseRegistration(earlyConnectConfiguration, _configuration["EnvironmentName"]);
-            services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<CreateStudentDataCommand>());
+            services.AddMediatRHandlers();
+            services.AddDataRepositories();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<EarlyConnectDataContext>();
