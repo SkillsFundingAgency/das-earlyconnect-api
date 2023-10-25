@@ -28,13 +28,13 @@ namespace SFA.DAS.EarlyConnect.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.Configure<EarlyConnectConfiguration>(_configuration.GetSection(nameof(EarlyConnectConfiguration)));
-            services.AddSingleton(cfg => cfg.GetService<IOptions<EarlyConnectConfiguration>>().Value);
+            services.Configure<EarlyConnectApiConfiguration>(_configuration.GetSection("EarlyConnectApi"));
+            services.AddSingleton(cfg => cfg.GetService<IOptions<EarlyConnectApiConfiguration>>().Value);
             services.AddSingleton(new EnvironmentConfiguration(_configuration["EnvironmentName"]));
 
             var earlyConnectConfiguration = _configuration
-                .GetSection(nameof(EarlyConnectConfiguration))
-                .Get<EarlyConnectConfiguration>();
+                .GetSection("EarlyConnectApi")
+                .Get<EarlyConnectApiConfiguration>();
 
             services.AddDatabaseRegistration(earlyConnectConfiguration, _configuration["EnvironmentName"]);
             services.AddMediatRHandlers();

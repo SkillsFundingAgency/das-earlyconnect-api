@@ -13,7 +13,7 @@ namespace SFA.DAS.EarlyConnect.Data
         private const string AzureResource = "https://database.windows.net/";
         private readonly ChainedTokenCredential _azureServiceTokenProvider;
         private readonly EnvironmentConfiguration _environmentConfiguration;
-        private readonly EarlyConnectConfiguration? _configuration;
+        private readonly EarlyConnectApiConfiguration? _configuration;
 
         public DbSet<StudentData> StudentData { get; set; }
 
@@ -27,7 +27,7 @@ namespace SFA.DAS.EarlyConnect.Data
             
         }
 
-        public EarlyConnectDataContext(IOptions<EarlyConnectConfiguration> config, DbContextOptions options, ChainedTokenCredential azureServiceTokenProvider, EnvironmentConfiguration environmentConfiguration) : base(options)
+        public EarlyConnectDataContext(IOptions<EarlyConnectApiConfiguration> config, DbContextOptions options, ChainedTokenCredential azureServiceTokenProvider, EnvironmentConfiguration environmentConfiguration) : base(options)
         {
             _azureServiceTokenProvider = azureServiceTokenProvider;
             _environmentConfiguration = environmentConfiguration;

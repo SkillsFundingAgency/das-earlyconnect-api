@@ -8,7 +8,7 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
     {
         public static IEnumerable<StudentData> MapFromStudentDataPostRequest(this StudentDataPostRequest request)
         {
-            var listoStudentData = new List<StudentData>();
+            var listOfStudentData = new List<StudentData>();
 
             foreach (StudentDataDto dto in request.ListOfStudentData) 
             {
@@ -23,10 +23,10 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                     DateInterestShown = dto.DateOfInterest
                 };
 
-                listoStudentData.Add(studentData);
+                listOfStudentData.Add(studentData);
             }
 
-            return listoStudentData;
+            return listOfStudentData;
         }
     }
 }
