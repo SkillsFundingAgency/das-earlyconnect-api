@@ -13,7 +13,7 @@ namespace SFA.DAS.EarlyConnect.Api.AppStart
             services.AddHttpContextAccessor();
             if (environmentName.Equals("DEV", StringComparison.CurrentCultureIgnoreCase))
             {
-                services.AddDbContext<EarlyConnectDataContext>(options => options.UseInMemoryDatabase("SFA.DAS.EmployerProfiles"), ServiceLifetime.Transient);
+                services.AddDbContext<EarlyConnectDataContext>(options => options.UseInMemoryDatabase("SFA.DAS.EarlyConnect"), ServiceLifetime.Transient);
             }
             else if (environmentName.Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase))
             {
