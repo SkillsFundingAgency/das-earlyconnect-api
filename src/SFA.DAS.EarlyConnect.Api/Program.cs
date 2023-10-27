@@ -15,13 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 var rootConfiguration = builder.Configuration.LoadConfiguration();
 builder.Services.AddOptions();
-builder.Services.Configure<EarlyConnectConfiguration>(rootConfiguration.GetSection(nameof(EarlyConnectConfiguration)));
-builder.Services.AddSingleton(cfg => cfg.GetService<IOptions<EarlyConnectConfiguration>>().Value);
+builder.Services.Configure<EarlyConnectApi>(rootConfiguration.GetSection(nameof(EarlyConnectApi)));
+builder.Services.AddSingleton(cfg => cfg.GetService<IOptions<EarlyConnectApi>>().Value);
 builder.Services.AddSingleton(new EnvironmentConfiguration(rootConfiguration["EnvironmentName"]));
 
 var earlyConnectConfiguration = rootConfiguration
-    .GetSection(nameof(EarlyConnectConfiguration))
-    .Get<EarlyConnectConfiguration>();
+    .GetSection(nameof(EarlyConnectApi))
+    .Get<EarlyConnectApi>();
 
 builder.Services.AddDatabaseRegistration(earlyConnectConfiguration, rootConfiguration["EnvironmentName"]);
 builder.Services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<DummyQuery>());
