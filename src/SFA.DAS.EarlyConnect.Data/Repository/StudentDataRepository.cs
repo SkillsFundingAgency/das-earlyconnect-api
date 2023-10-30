@@ -17,7 +17,6 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             foreach (StudentData student in studentDataList) 
             {
                 student.DateAdded = DateTime.Now;
-                student.LepDateSent = new DateTime(1900, 01, 01); // dummy LepDateSent
                 await _dbContext.AddAsync(student);
             }
 

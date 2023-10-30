@@ -8,6 +8,6 @@
         public string Email { get; set; }
         public string Postcode { get; set; }
         public string Industry { get; set; }
-        public DateTime DateOfInterest { get; set; }
+        public DateTime? DateOfInterest { get; set; }
     }
 }
