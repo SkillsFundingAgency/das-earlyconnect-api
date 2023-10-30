@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using SFA.DAS.EarlyConnect.Application.Commands;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

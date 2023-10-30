@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
-namespace SFA.DAS.EarlyConnect.Application.Commands
+namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
 {
     public class CreateStudentDataCommandHandler : IRequestHandler<CreateStudentDataCommand, Unit>
     {
@@ -10,7 +10,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands
         private readonly ILogger<CreateStudentDataCommandHandler> _logger;
 
         public CreateStudentDataCommandHandler(
-            IStudentDataRepository studentDataRepository, 
+            IStudentDataRepository studentDataRepository,
             ILogger<CreateStudentDataCommandHandler> logger)
         {
             _studentDataRepository = studentDataRepository;
@@ -20,7 +20,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands
         public async Task<Unit> Handle(CreateStudentDataCommand command, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Updating student data");
-            
+
             await _studentDataRepository.AddManyAsync(command.StudentDataList);
 
             return Unit.Value;
