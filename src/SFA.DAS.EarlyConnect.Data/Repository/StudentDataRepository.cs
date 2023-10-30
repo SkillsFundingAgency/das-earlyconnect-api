@@ -1,10 +1,5 @@
 ﻿using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
@@ -21,6 +16,8 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
         {
             foreach (StudentData student in studentDataList) 
             {
+                student.DateAdded = DateTime.Now;
+                student.LepDateSent = new DateTime(1900, 01, 01); // dummy LepDateSent
                 await _dbContext.AddAsync(student);
             }
 
