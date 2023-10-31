@@ -3,6 +3,7 @@ using Azure.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.Identity.Client;
 using SFA.DAS.EarlyConnect.Domain.Configuration;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 
@@ -37,7 +38,31 @@ namespace SFA.DAS.EarlyConnect.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StudentData>().ToTable("StudentData");
-            modelBuilder.Entity<StudentData>().HasKey(x => x.Id);
+            modelBuilder.Entity<StudentData>().HasKey(student => student.Id);
+
+            modelBuilder.Entity<ECAPILog>().ToTable("ECAPILog");
+            modelBuilder.Entity<ECAPILog>().HasKey(log => log.Id);
+            modelBuilder.Entity<ECAPILog>().HasMany(log => log.StudentData)
+                .WithOne(student => student.Log)
+                .HasForeignKey(lookup => lookup.LogId);
+            modelBuilder.Entity<ECAPILog>().HasMany(log => log.ApprenticeMetricsData)
+                .WithOne(metric => metric.Log)
+                .HasForeignKey(metric => metric.LogId);
+
+            modelBuilder.Entity<ApprenticeMetricsData>().ToTable("ApprenticeMetricsData");
+            modelBuilder.Entity<ApprenticeMetricsData>().HasKey(m => m.Id);
+            modelBuilder.Entity<ApprenticeMetricsData>().HasMany(m => m.MetricsFlagLookups)
+                .WithOne(lookup => lookup.MetricsData)
+                .HasForeignKey(lookup => lookup.MetricsId);
+
+            modelBuilder.Entity<MetricsFlagLookup>().ToTable("MetricsFlagLookup");
+            modelBuilder.Entity<MetricsFlagLookup>().HasKey(x => x.Id);
+
+            modelBuilder.Entity<ApprenticeMetricsFlag>().ToTable("ApprenticeMetricsFlag");
+            modelBuilder.Entity<ApprenticeMetricsFlag>().HasKey(x => x.Id);
+            modelBuilder.Entity<ApprenticeMetricsFlag>().HasMany(flag => flag.MetricsFlagLookups)
+                .WithOne(lookup => lookup.MetricsFlag)
+                .HasForeignKey(lookup => lookup.FlagId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
