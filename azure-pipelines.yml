@@ -54,7 +54,7 @@ stages:
     parameters:
       SolutionBaseName: $(SolutionBaseName)
       SqlProjectPath: src/$(SolutionBaseName).Database/$(SolutionBaseName).Database.sqlproj
-
+  
 - stage: Deploy_AT
   dependsOn: Build
   displayName: Deploy to AT

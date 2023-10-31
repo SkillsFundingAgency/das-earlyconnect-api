@@ -35,9 +35,6 @@
         "resourceGroupLocation": {
             "type": "string"
         },
-        "sharedEnvVirtualNetworkName": {
-            "type": "string"
-        },
         "sharedBackEndAppServicePlanName": {
             "type": "string"
         },
@@ -75,14 +72,6 @@
         "logAnalyticsWorkspaceName": {
             "type": "string"
         },
-        "appServicePlanInstances": {
-            "type": "int",
-            "defaultValue": 1
-        },
-        "appServicePlanSize": {
-            "type": "string",
-            "defaultValue": "1"
-        },
         "utcValue": {
             "type": "string",
             "defaultValue": "[utcNow()]"
@@ -91,10 +80,9 @@
     "variables": {
         "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
         "resourceNamePrefix": "[toLower(concat('das-', parameters('resourceEnvironmentName'),'-', parameters('serviceName')))]",
-        "resourceGroupName": "[concat(variables('resourceNamePrefix'), '-rg')]",
+        "resourceGroupName": "[concat(variables('resourceNamePrefix'), 'api-rg')]",
         "databaseName": "[concat(variables('resourceNamePrefix'), '-db')]",
         "apiAppServiceName": "[concat(variables('resourceNamePrefix'), 'api-as')]",
-        "appServicePlanName": "[concat(variables('resourceNamePrefix'), '-asp')]",
         "configNames": "SFA.DAS.EarlyConnect.Api"
     },
     "resources": [
@@ -180,36 +168,36 @@
                     },
                     "appServiceAppSettings": {
                         "value": {
-                            "array": [
-                                {
-                                    "name": "EnvironmentName",
-                                    "value": "[parameters('environmentName')]"
-                                },
-                                {
-                                    "name": "ConfigurationStorageConnectionString",
-                                    "value": "[parameters('configurationStorageConnectionString')]"
-                                },
-                                {
-                                    "name": "ConfigNames",
-                                    "value": "[variables('configNames')]"
-                                },
-                                {
-                                    "name": "Version",
-                                    "value": "1.0"
-                                },
-                                {
-                                    "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                                    "value": "[reference(concat(variables('apiAppServiceName'), '-application-insights-', parameters('utcValue'))).outputs.InstrumentationKey.value]"
-                                },
-                                {
-                                    "name": "LoggingRedisConnectionString",
-                                    "value": "[parameters('loggingRedisConnectionString')]"
-                                },
-                                {
-                                    "name": "LoggingRedisKey",
-                                    "value": "[parameters('loggingRedisKey')]"
-                                }
-                            ]
+                          "array": [
+                            {
+                              "name": "EnvironmentName",
+                              "value": "[parameters('environmentName')]"
+                            },
+                            {
+                              "name": "ConfigurationStorageConnectionString",
+                              "value": "[parameters('configurationStorageConnectionString')]"
+                            },
+                            {
+                              "name": "ConfigNames",
+                              "value": "[variables('configNames')]"
+                            },
+                            {
+                              "name": "Version",
+                              "value": "1.0"
+                            },
+                            {
+                              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                              "value": "[reference(concat(variables('apiAppServiceName'), '-application-insights-', parameters('utcValue'))).outputs.InstrumentationKey.value]"
+                            },
+                            {
+                              "name": "LoggingRedisConnectionString",
+                              "value": "[parameters('loggingRedisConnectionString')]"
+                            },
+                            {
+                              "name": "LoggingRedisKey",
+                              "value": "[parameters('loggingRedisKey')]"
+                            }
+                          ]
                         }
                     },
                     "customHostName": {
@@ -220,33 +208,6 @@
                     },
                     "ipSecurityRestrictions": {
                         "value": "[parameters('backEndAccessRestrictions')]"
-                    }
-                }
-            },
-            "dependsOn": [
-                "[variables('resourceGroupName')]"
-            ]
-        },
-        {
-            "apiVersion": "2021-04-01",
-            "name": "[concat(variables('appServicePlanName'), '-', parameters('utcValue'))]",
-            "type": "Microsoft.Resources/deployments",
-            "resourceGroup": "[variables('resourceGroupName')]",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[concat(variables('deploymentUrlBase'),'app-service-plan.json')]",
-                    "contentVersion": "1.0.0.0"
-                },
-                "parameters": {
-                    "appServicePlanName": {
-                        "value": "[variables('appServicePlanName')]"
-                    },
-                    "aspSize": {
-                        "value": "[parameters('appServicePlanSize')]"
-                    },
-                    "aspInstances": {
-                        "value": "[parameters('appServicePlanInstances')]"
                     }
                 }
             },
@@ -302,7 +263,7 @@
         "ResourceGroupName": {
             "type": "string",
             "value": "[variables('resourceGroupName')]"
-        },
+         },
         "DatabaseName": {
             "type": "string",
             "value": "[variables('databaseName')]"

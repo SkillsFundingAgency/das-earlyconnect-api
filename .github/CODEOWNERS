@@ -1,3 +1,5 @@
+# Assign the following team as codeowners for this repository
+@chrisfoster76 @DavidRimarDfE @ratheeshri1984
 #Changes to the following files/folders require review from listed teams
 .github/CODEOWNERS      @SkillsFundingAgency/das-platform-engineering
 /azure/                 @SkillsFundingAgency/das-platform-engineering
