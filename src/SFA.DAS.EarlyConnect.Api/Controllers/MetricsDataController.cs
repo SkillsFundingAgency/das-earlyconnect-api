@@ -26,8 +26,6 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         [Route("")]
         public async Task<IActionResult> MetricsData([FromBody] MetricsDataPostRequest request)
         {
-            // TODO: Get LEPSData by the Region
-
             var command = request.MapFromMetricsDataPostRequest();
 
             await _mediator.Send(new CreateMetricsDataCommand

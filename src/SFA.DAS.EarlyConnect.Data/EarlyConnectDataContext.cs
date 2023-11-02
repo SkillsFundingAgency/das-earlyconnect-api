@@ -17,6 +17,9 @@ namespace SFA.DAS.EarlyConnect.Data
         private readonly EarlyConnectApiConfiguration? _configuration;
 
         public DbSet<StudentData> StudentData { get; set; }
+        public DbSet<ECAPILog> ECAPILogs { get; set; }
+        public DbSet<LEPSData> LEPSData { get; set; }
+        public DbSet<ApprenticeMetricsData> MetricsData { get; set; }
 
         public EarlyConnectDataContext()
         {
