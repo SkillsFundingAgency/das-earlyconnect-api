@@ -1,6 +1,6 @@
-﻿namespace SFA.DAS.EarlyConnect.Api.Requests
+﻿namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
 {
-    public class StudentDataDto
+    public class StudentRequestModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

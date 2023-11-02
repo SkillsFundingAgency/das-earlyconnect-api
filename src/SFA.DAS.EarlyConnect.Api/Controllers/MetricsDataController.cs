@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Application.Commands;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using System.Net;
 
@@ -10,26 +10,29 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
-    [Route("/api/student-data/")]
-    public class StudentDataController : ControllerBase
+    [Route("/api/metrics-data/")]
+    public class MetricsDataController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public StudentDataController(IMediator mediator)
+        public MetricsDataController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("")]
-        public async Task<IActionResult> StudentData([FromBody] StudentDataPostRequest request)
+        public async Task<IActionResult> MetricsData([FromBody] MetricsDataPostRequest request)
         {
-            var command = request.MapFromStudentDataPostRequest();
+            // TODO: Get LEPSData by the Region
 
-            await _mediator.Send(new CreateStudentDataCommand
+            var command = request.MapFromMetricsDataPostRequest();
+
+            await _mediator.Send(new CreateMetricsDataCommand
             {
-                StudentDataList = command
+                MetricsData = command
             });
 
             return Ok();

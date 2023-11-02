@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.EarlyConnect.Api.Requests;
+using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
+using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 
 namespace SFA.DAS.EarlyConnect.Api.Mappers
@@ -10,7 +11,7 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
         {
             var listOfStudentData = new List<StudentData>();
 
-            foreach (StudentDataDto dto in request.ListOfStudentData) 
+            foreach (StudentRequestModel dto in request.ListOfStudentData) 
             {
                 var studentData = new StudentData
                 {

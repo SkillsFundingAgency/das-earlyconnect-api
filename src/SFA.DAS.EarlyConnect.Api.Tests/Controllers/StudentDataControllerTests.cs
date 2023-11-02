@@ -6,7 +6,8 @@ using Microsoft.Identity.Client;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
-using SFA.DAS.EarlyConnect.Api.Requests;
+using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
+using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 using System;
@@ -70,13 +71,13 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                 Times.Once);
         }
 
-        private IEnumerable<StudentDataDto> CreateTestStudentData(int numberOfStudents) 
+        private IEnumerable<StudentRequestModel> CreateTestStudentData(int numberOfStudents) 
         {
-            List<StudentDataDto> studentList = new List<StudentDataDto>();
+            List<StudentRequestModel> studentList = new List<StudentRequestModel>();
 
             for (int i = 0; i < numberOfStudents; i++) 
             {
-                var student = new StudentDataDto()
+                var student = new StudentRequestModel()
                 {
                     FirstName = GetRandomString(),
                     LastName = GetRandomString(),
