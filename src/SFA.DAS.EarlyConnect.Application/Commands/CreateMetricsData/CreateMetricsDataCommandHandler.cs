@@ -6,7 +6,7 @@ using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
 {
-    public class CreateMetricsDataCommandHandler
+    public class CreateMetricsDataCommandHandler : IRequestHandler<CreateMetricsDataCommand, Unit>
     {
         private readonly IMetricsDataRepository _metricsDataRepository;
         private readonly ILogger<CreateMetricsDataCommandHandler> _logger;

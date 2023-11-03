@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
 
 namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
 {
@@ -13,6 +11,9 @@ namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
         public static IServiceCollection AddMediatRHandlers(this IServiceCollection services)
         {
             services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<CreateStudentDataCommand>());
+            services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<CreateMetricsDataCommand>());
+            services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<CreateLogCommand>());
+            services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<UpdateLogCommand>());
 
             return services;
         }

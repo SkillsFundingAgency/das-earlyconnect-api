@@ -28,12 +28,12 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         {
             var command = request.MapFromLogCreateRequest();
 
-            await _mediator.Send(new CreateLogCommand
+            var logId = await _mediator.Send(new CreateLogCommand
             {
                 Log = command
             });
 
-            return Ok();
+            return Ok(logId);
         }
 
         [HttpPost]
