@@ -13,6 +13,7 @@
       <None Remove="Tables\ApprenticeMetricsData.sql" />
       <None Remove="Tables\ApprenticeMetricsFlag.sql" />
       <None Remove="Tables\ECAPILOG.sql" />
+      <None Remove="Tables\LEPSCoverage.sql" />
       <None Remove="Tables\LEPSData.sql" />
       <None Remove="Tables\LEPSUser.sql" />
       <None Remove="Tables\MatchedVacancy.sql" />
