@@ -1,21 +1,12 @@
 ﻿using AutoFixture;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
-using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
