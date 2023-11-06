@@ -1,6 +1,8 @@
-﻿namespace SFA.DAS.EarlyConnect.Application.Commands.UpdateLog
+﻿using MediatR;
+
+namespace SFA.DAS.EarlyConnect.Application.Commands.UpdateLog
 {
-    public class UpdateLogCommand
+    public class UpdateLogCommand : IRequest<bool>
     {
         public int LogId { get; set; }
         public string Status { get; set; }

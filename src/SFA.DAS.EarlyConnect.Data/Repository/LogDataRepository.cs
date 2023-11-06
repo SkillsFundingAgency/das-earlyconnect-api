@@ -1,5 +1,6 @@
-﻿using Microsoft.Identity.Client;
+﻿using Microsoft.EntityFrameworkCore;
 using SFA.DAS.EarlyConnect.Domain.Entities;
+using SFA.DAS.EarlyConnect.Domain.Exceptions;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
@@ -19,6 +20,19 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             await _dbContext.SaveChangesAsync();
 
             return log.Id;
+        }
+
+        public async Task UpdateStatusAndErrorAsync(int logId, string status, string error)
+        {
+            var log = await _dbContext.ECAPILogs.SingleOrDefaultAsync(log => log.Id == logId);
+
+            if (log == null)
+                throw new EntityNotFoundException($"LogId {logId} not found!");
+
+            log.Status = status;
+            log.Error = error;
+
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
