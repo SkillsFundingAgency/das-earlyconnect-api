@@ -44,6 +44,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(okResult);
+            Assert.That(okResult.StatusCode.Equals(200));
             _mediator.Verify(x => x.Send(It.Is<CreateLogCommand>(command => command.Log.RequestSource == request.RequestSource
                 && command.Log.RequestIP == request.RequestIP
                 && command.Log.FileName == request.FileName
@@ -71,6 +72,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             // Assert
             Assert.IsNotNull(okResult);
+            Assert.That(okResult.StatusCode.Equals(200));
             _mediator.Verify(x => x.Send(It.Is<UpdateLogCommand>(command => command.LogId == request.LogId
                 && command.Status == request.Status
                 && command.Error == request.Error),
