@@ -15,5 +15,6 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
         public bool WillingnessToRelocate { get; set; }
         public int NoOfGCSCs { get; set; }
         public int NoOfStudents { get; set; }
+        public int LogId { get; set; }
     }
 }

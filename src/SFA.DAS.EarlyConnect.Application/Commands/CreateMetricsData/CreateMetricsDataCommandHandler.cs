@@ -28,19 +28,20 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
             
             foreach (MetricDto metricDto in command.MetricsData) 
             {
-                var lepId = await _mediator.Send(new GetLEPSDataByRegionQuery
+                var lepsId = await _mediator.Send(new GetLEPSDataByRegionQuery
                 {
                     Region = metricDto.Region
                 });
 
                 var metrics = new ApprenticeMetricsData
                 {
-                    LEPSId = lepId,
+                    LEPSId = lepsId,
                     IntendedStartYear = metricDto.IntendedStartYear,
                     MaxTravelInMiles = metricDto.MaxTravelInMiles,
                     WillingnessToRelocate = metricDto.WillingnessToRelocate,
                     NoOfGCSCs = metricDto.NoOfGCSCs,
-                    NoOfStudents = metricDto.NoOfStudents
+                    NoOfStudents = metricDto.NoOfStudents,
+                    LogId = metricDto.LogId
                 };
 
                 metricsData.Add(metrics);

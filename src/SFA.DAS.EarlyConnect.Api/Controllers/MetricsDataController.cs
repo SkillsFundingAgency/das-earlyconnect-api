@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers

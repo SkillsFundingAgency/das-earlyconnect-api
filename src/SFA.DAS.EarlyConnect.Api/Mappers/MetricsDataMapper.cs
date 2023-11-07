@@ -20,7 +20,8 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                     MaxTravelInMiles = model.MaxTravelInMiles,
                     WillingnessToRelocate = model.WillingnessToRelocate,
                     NoOfGCSCs = model.NoOfGCSCs,
-                    NoOfStudents = model.NoOfStudents
+                    NoOfStudents = model.NoOfStudents,
+                    LogId = model.LogId,
                 };
 
                 metrics.Add(metric);

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 
 namespace SFA.DAS.EarlyConnect.Api.Mappers
@@ -21,7 +22,8 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                     Email = dto.Email,
                     Postcode = dto.Postcode,
                     Industry = dto.Industry,
-                    DateInterestShown = dto.DateOfInterest
+                    DateInterestShown = dto.DateOfInterest,
+                    LogId = dto.LogId
                 };
 
                 listOfStudentData.Add(studentData);
