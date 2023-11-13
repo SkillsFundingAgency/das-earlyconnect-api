@@ -35,42 +35,46 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
                 {
                     Region = metricDto.Region
                 });
-
-                var metrics = new ApprenticeMetricsData
+                if (lepsId > 0)
                 {
-                    LEPSId = lepsId,
-                    IntendedStartYear = metricDto.IntendedStartYear,
-                    MaxTravelInMiles = metricDto.MaxTravelInMiles,
-                    WillingnessToRelocate = metricDto.WillingnessToRelocate,
-                    NoOfGCSCs = metricDto.NoOfGCSCs,
-                    NoOfStudents = metricDto.NoOfStudents,
-                    LogId = metricDto.LogId,
-                    MetricsFlagLookups = new List<ApprenticeMetricsFlagData>() // Initialize the collection
-                };
-                if (metricDto.MetricFlags != null)
-                {
-                    foreach (var metricFlag in metricDto.MetricFlags)
+                    var metrics = new ApprenticeMetricsData
                     {
-                        var matchingMetricsFlag = metricsFlag.FirstOrDefault(x => x.FlagCode == metricFlag.ToString());
-
-                        if (matchingMetricsFlag != null)
+                        LEPSId = lepsId,
+                        IntendedStartYear = metricDto.IntendedStartYear,
+                        MaxTravelInMiles = metricDto.MaxTravelInMiles,
+                        WillingnessToRelocate = metricDto.WillingnessToRelocate,
+                        NoOfGCSCs = metricDto.NoOfGCSCs,
+                        NoOfStudents = metricDto.NoOfStudents,
+                        LogId = metricDto.LogId,
+                        MetricsFlagLookups = new List<ApprenticeMetricsFlagData>() // Initialize the collection
+                    };
+                    if (metricDto.MetricFlags != null)
+                    {
+                        foreach (var metricFlag in metricDto.MetricFlags)
                         {
-                            var metricsFlagLookup = new ApprenticeMetricsFlagData
+                            var matchingMetricsFlag = metricsFlag.FirstOrDefault(x =>
+                                x.FlagCode?.Trim().Replace(" ", "").ToUpperInvariant() == metricFlag?.ToString().Trim().Replace(" ", "").ToUpperInvariant());
+
+
+                            if (matchingMetricsFlag != null)
                             {
-                                FlagId = matchingMetricsFlag.Id,
-                                FlagValue = true
-                            };
+                                var metricsFlagLookup = new ApprenticeMetricsFlagData
+                                {
+                                    FlagId = matchingMetricsFlag.Id,
+                                    FlagValue = true
+                                };
 
-                            metrics.MetricsFlagLookups.Add(metricsFlagLookup);
-                        }
-                        else
-                        {
-                            _logger.LogWarning($"FlagId not found for FlagCode: {metricFlag}");
+                                metrics.MetricsFlagLookups.Add(metricsFlagLookup);
+                            }
+                            else
+                            {
+                                _logger.LogWarning($"FlagId not found for FlagCode: {metricFlag}");
+                            }
                         }
                     }
-                }
 
-                metricsData.Add(metrics);
+                    metricsData.Add(metrics);
+                }
             }
 
             _logger.LogInformation($"Updating metrics data");

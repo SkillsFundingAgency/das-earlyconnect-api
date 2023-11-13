@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
-using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
@@ -16,9 +14,11 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task<int> GetLepsIdByRegionAsync(string region)
         {
-            return await _dbContext.LEPSData.Where(a => a.Region == region)
+            return await _dbContext.LEPSData
+                .Where(a => a.Region != null && a.Region.Trim().Replace(" ", "").ToLower() == region.Trim().Replace(" ", "").ToLower())
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();
+
         }
     }
 }
