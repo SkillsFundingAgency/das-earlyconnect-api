@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
-using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
+﻿using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 
 namespace SFA.DAS.EarlyConnect.Api.Mappers
@@ -15,10 +12,10 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                 RequestSource = request.RequestSource,
                 RequestType = request.RequestType,
                 RequestIP = request.RequestIP,
-                FileName = request.FileName,
+                FileName = request.FileName ?? string.Empty,
                 Payload = request.Payload,
                 Status = request.Status,
-                Error = request.Error
+                Error = string.Empty
             };
 
             return log;

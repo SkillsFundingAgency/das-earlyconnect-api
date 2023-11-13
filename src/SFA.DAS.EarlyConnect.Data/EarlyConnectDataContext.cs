@@ -3,7 +3,6 @@ using Azure.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Microsoft.Identity.Client;
 using SFA.DAS.EarlyConnect.Domain.Configuration;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 
@@ -19,16 +18,17 @@ namespace SFA.DAS.EarlyConnect.Data
         public DbSet<StudentData> StudentData { get; set; }
         public DbSet<ECAPILog> ECAPILogs { get; set; }
         public DbSet<LEPSData> LEPSData { get; set; }
+        public DbSet<MetricsFlag> MetricsFlag { get; set; }
         public DbSet<ApprenticeMetricsData> MetricsData { get; set; }
 
         public EarlyConnectDataContext()
         {
-            
+
         }
 
         public EarlyConnectDataContext(DbContextOptions options) : base(options)
         {
-            
+
         }
 
         public EarlyConnectDataContext(IOptions<EarlyConnectApiConfiguration> config, DbContextOptions options, ChainedTokenCredential azureServiceTokenProvider, EnvironmentConfiguration environmentConfiguration) : base(options)
@@ -58,12 +58,12 @@ namespace SFA.DAS.EarlyConnect.Data
                 .WithOne(lookup => lookup.MetricsData)
                 .HasForeignKey(lookup => lookup.MetricsId);
 
-            modelBuilder.Entity<MetricsFlagLookup>().ToTable("MetricsFlagLookup");
-            modelBuilder.Entity<MetricsFlagLookup>().HasKey(x => x.Id);
+            modelBuilder.Entity<ApprenticeMetricsFlagData>().ToTable("ApprenticeMetricsFlagData");
+            modelBuilder.Entity<ApprenticeMetricsFlagData>().HasKey(x => x.Id);
 
-            modelBuilder.Entity<ApprenticeMetricsFlag>().ToTable("ApprenticeMetricsFlag");
-            modelBuilder.Entity<ApprenticeMetricsFlag>().HasKey(x => x.Id);
-            modelBuilder.Entity<ApprenticeMetricsFlag>().HasMany(flag => flag.MetricsFlagLookups)
+            modelBuilder.Entity<MetricsFlag>().ToTable("MetricsFlag");
+            modelBuilder.Entity<MetricsFlag>().HasKey(x => x.Id);
+            modelBuilder.Entity<MetricsFlag>().HasMany(flag => flag.MetricsFlagLookups)
                 .WithOne(lookup => lookup.MetricsFlag)
                 .HasForeignKey(lookup => lookup.FlagId);
         }

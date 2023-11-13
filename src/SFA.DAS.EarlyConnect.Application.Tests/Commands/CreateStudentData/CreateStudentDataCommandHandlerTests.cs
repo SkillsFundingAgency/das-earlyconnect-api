@@ -22,13 +22,20 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentData
             _mockStudentDataRepository = new Mock<IStudentDataRepository>();
             _logger = new Mock<ILogger<CreateStudentDataCommandHandler>>();
             _handler = new CreateStudentDataCommandHandler(_mockStudentDataRepository.Object, _logger.Object);
+
+            _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
+                .ForEach(b => _fixture.Behaviors.Remove(b));
+            _fixture.Behaviors.Add(new OmitOnRecursionBehavior());
+
         }
 
         [Test]
         public async Task SavesStudentData_ReturnsUnitValue()
         {
+
             // Arrange
             var command = _fixture.Create<CreateStudentDataCommand>();
+     
 
             _mockStudentDataRepository.Setup(repository => repository.AddManyAsync(command.StudentDataList))
                 .Returns(Task.CompletedTask);

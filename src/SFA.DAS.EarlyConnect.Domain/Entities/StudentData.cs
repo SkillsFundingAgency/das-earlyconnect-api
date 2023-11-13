@@ -10,10 +10,10 @@
         public string Postcode { get; set; }
         public string Industry { get; set; }
         public DateTime? DateInterestShown { get; set; }
-        public int? LepId { get; set; }
+        public int? LepsId { get; set; }
         public DateTime? LepDateSent { get; set; }
         public DateTime DateAdded { get; set; }
         public int LogId { get; set; }
-        public ECAPILog Log { get; set; }
+        public virtual ECAPILog Log { get; set; }
     }
 }

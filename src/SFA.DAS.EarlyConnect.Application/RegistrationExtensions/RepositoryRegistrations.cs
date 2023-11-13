@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SFA.DAS.EarlyConnect.Data.Repository;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
 {
@@ -15,6 +10,7 @@ namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
         {
             services.AddTransient<IStudentDataRepository, StudentDataRepository>();
             services.AddTransient<IMetricsDataRepository, MetricsDataRepository>();
+            services.AddTransient<IMetricsFlagRepository, MetricsFlagRepository>();
             services.AddTransient<ILEPSDataRepository, LEPSDataRepository>();
             services.AddTransient<ILogDataRepository, LogDataRepository>();
 

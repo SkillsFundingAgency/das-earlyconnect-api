@@ -11,6 +11,6 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
         public int NoOfGCSCs { get; set; }
         public int NoOfStudents { get; set; }
         public int LogId { get; set; }
-        public MetricFlagRequestModel MetricFlagRequestModel { get; set; }
+        public IList<string> MetricFlags { get; set; }
     }
 }

@@ -1,11 +1,4 @@
-﻿using SFA.DAS.EarlyConnect.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
+﻿namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
 {
     public class MetricDto
     {
@@ -16,5 +9,6 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
         public int NoOfGCSCs { get; set; }
         public int NoOfStudents { get; set; }
         public int LogId { get; set; }
+        public IList<string> MetricFlags { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
 
 namespace SFA.DAS.EarlyConnect.Api.Mappers
@@ -22,6 +21,9 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                     NoOfGCSCs = model.NoOfGCSCs,
                     NoOfStudents = model.NoOfStudents,
                     LogId = model.LogId,
+                    MetricFlags = model.MetricFlags != null
+                        ? model.MetricFlags.ToList()
+                        : null
                 };
 
                 metrics.Add(metric);

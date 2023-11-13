@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int LogId { get; set; } // FK to ECAPILog
-        public ECAPILog Log { get; set; } // Navigation Property to ECAPILog
+        public virtual ECAPILog Log { get; set; } // Navigation Property to ECAPILog
         public int LEPSId { get; set; } // FK to LEPSData
         public decimal IntendedStartYear { get; set; }
         public int MaxTravelInMiles { get; set; }
@@ -13,6 +13,6 @@
         public int NoOfStudents { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime DateAdded { get; set; }
-        public ICollection<MetricsFlagLookup>? MetricsFlagLookups { get; set; } // 1-to-Many with MetricsFlagLookup
+        public virtual ICollection<ApprenticeMetricsFlagData>? MetricsFlagLookups { get; set; } // 1-to-Many with MetricsFlagLookup
     }
 }

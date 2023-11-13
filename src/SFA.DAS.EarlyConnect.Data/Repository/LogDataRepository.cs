@@ -15,6 +15,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task<int> CreateAsync(ECAPILog log)
         {
+            log.DateAdded = DateTime.Now;
             await _dbContext.AddAsync(log);
 
             await _dbContext.SaveChangesAsync();
@@ -31,6 +32,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             log.Status = status;
             log.Error = error;
+            log.CompletedDate = DateTime.Now;
 
             await _dbContext.SaveChangesAsync();
         }

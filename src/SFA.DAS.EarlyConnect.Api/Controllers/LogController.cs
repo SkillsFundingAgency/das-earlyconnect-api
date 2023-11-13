@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
+using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
 using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
 using System.Net;
@@ -33,7 +34,12 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 Log = command
             });
 
-            return Ok(logId);
+            var model = new LogResponseModel()
+            {
+                LogId = logId
+            };
+
+            return Ok(model);
         }
 
         [HttpPost]
@@ -45,10 +51,11 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             {
                 LogId = request.LogId,
                 Status = request.Status,
-                Error = request.Error
+                Error = request.Error ?? string.Empty
+
             });
 
-            return Ok(); 
+            return Ok();
 
         }
     }

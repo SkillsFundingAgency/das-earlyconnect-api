@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SFA.DAS.EarlyConnect.Domain.Entities
+﻿namespace SFA.DAS.EarlyConnect.Domain.Entities
 {
     public class ECAPILog
     {
@@ -18,7 +12,7 @@ namespace SFA.DAS.EarlyConnect.Domain.Entities
         public string Error { get; set; }
         public DateTime? CompletedDate { get; set; }
         public DateTime DateAdded { get; set; }
-        public ICollection<StudentData> StudentData { get; set; }
-        public ICollection<ApprenticeMetricsData> ApprenticeMetricsData { get; set; }
+        public virtual ICollection<StudentData> StudentData { get; set; }
+        public virtual ICollection<ApprenticeMetricsData> ApprenticeMetricsData { get; set; }
     }
 }

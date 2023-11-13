@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSData;
+using SFA.DAS.EarlyConnect.Application.Queries.GetMetricsFlag;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
@@ -25,8 +26,10 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
         public async Task<Unit> Handle(CreateMetricsDataCommand command, CancellationToken cancellationToken)
         {
             var metricsData = new List<ApprenticeMetricsData>();
-            
-            foreach (MetricDto metricDto in command.MetricsData) 
+
+            var metricsFlag = await _mediator.Send(new GetMetricsFlagQuery());
+
+            foreach (MetricDto metricDto in command.MetricsData)
             {
                 var lepsId = await _mediator.Send(new GetLEPSDataByRegionQuery
                 {
@@ -41,8 +44,22 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
                     WillingnessToRelocate = metricDto.WillingnessToRelocate,
                     NoOfGCSCs = metricDto.NoOfGCSCs,
                     NoOfStudents = metricDto.NoOfStudents,
-                    LogId = metricDto.LogId
+                    LogId = metricDto.LogId,
+                    MetricsFlagLookups = new List<ApprenticeMetricsFlagData>() // Initialize the collection
                 };
+                if (metricDto.MetricFlags != null)
+                {
+                    foreach (var metricFlag in metricDto.MetricFlags)
+                    {
+                        var metricsFlagLookup = new ApprenticeMetricsFlagData
+                        {
+                            FlagId = metricsFlag.FirstOrDefault(x => x.FlagCode == metricFlag.ToString())?.Id ?? 0,
+                            FlagValue = true
+                        };
+
+                        metrics.MetricsFlagLookups.Add(metricsFlagLookup);
+                    }
+                }
 
                 metricsData.Add(metrics);
             }
