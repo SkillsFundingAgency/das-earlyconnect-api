@@ -59,6 +59,14 @@
     <Folder Include="Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\StudentData.sql" />
+	<Build Include="Tables\ApprenticeMetricsData.sql" />
+	<Build Include="Tables\ApprenticeMetricsFlagData.sql" />
+	<Build Include="Tables\ECAPILOG.sql" />
+	<Build Include="Tables\LEPSCoverage.sql" />
+	<Build Include="Tables\LEPSData.sql" />
+	<Build Include="Tables\LEPSUser.sql" />
+	<Build Include="Tables\MatchedVacancy.sql" />
+	<Build Include="Tables\MetricsFlag.sql" />
+	<Build Include="Tables\StudentData.sql" />
   </ItemGroup>
 </Project>
