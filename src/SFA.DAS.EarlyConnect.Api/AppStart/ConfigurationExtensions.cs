@@ -7,7 +7,7 @@ namespace SFA.DAS.EarlyConnect.Api.AppStart
         public static IConfigurationRoot LoadConfiguration(this IConfiguration config)
         {
             var configBuilder = new ConfigurationBuilder()
-                .AddConfiguration(config)
+                //.AddConfiguration(config)
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddEnvironmentVariables();
 
