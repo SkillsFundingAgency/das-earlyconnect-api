@@ -51,13 +51,22 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
                 {
                     foreach (var metricFlag in metricDto.MetricFlags)
                     {
-                        var metricsFlagLookup = new ApprenticeMetricsFlagData
-                        {
-                            FlagId = metricsFlag.FirstOrDefault(x => x.FlagCode == metricFlag.ToString())?.Id ?? 0,
-                            FlagValue = true
-                        };
+                        var matchingMetricsFlag = metricsFlag.FirstOrDefault(x => x.FlagCode == metricFlag.ToString());
 
-                        metrics.MetricsFlagLookups.Add(metricsFlagLookup);
+                        if (matchingMetricsFlag != null)
+                        {
+                            var metricsFlagLookup = new ApprenticeMetricsFlagData
+                            {
+                                FlagId = matchingMetricsFlag.Id,
+                                FlagValue = true
+                            };
+
+                            metrics.MetricsFlagLookups.Add(metricsFlagLookup);
+                        }
+                        else
+                        {
+                            _logger.LogWarning($"FlagId not found for FlagCode: {metricFlag}");
+                        }
                     }
                 }
 
