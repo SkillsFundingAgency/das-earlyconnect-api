@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Domain", "SFA.DAS.EarlyConnect.Domain\SFA.DAS.EarlyConnect.Domain.csproj", "{E3469D4B-8910-4EFB-B8A6-4ABBD68B37A7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Database", "SFA.DAS.EarlyConnect.Database\SFA.DAS.EarlyConnect.Database.csproj", "{BDB3A8A0-CF48-44CE-A858-E698763EAF9B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F5193D31-304B-4185-BEBB-45711F0406AE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Api.Tests", "SFA.DAS.EarlyConnect.Api.Tests\SFA.DAS.EarlyConnect.Api.Tests.csproj", "{6F619147-E48E-403F-B047-83B6EEA61E32}"
@@ -23,10 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Data.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SFA.DAS.EarlyConnect.Domain.Tests", "SFA.DAS.EarlyConnect.Domain.Tests\SFA.DAS.EarlyConnect.Domain.Tests.csproj", "{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7F3D535E-1D6C-4A0F-822D-B5DD34A9EC72}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "SFA.DAS.EarlyConnect.Database", "SFA.DAS.EarlyConnect.Database\SFA.DAS.EarlyConnect.Database.sqlproj", "{5218BC52-5145-4C16-98FF-55DAB36642C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +65,12 @@ Global
 		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C068D4DB-4D01-450F-91B4-AAEDC8B0D20E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5218BC52-5145-4C16-98FF-55DAB36642C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5218BC52-5145-4C16-98FF-55DAB36642C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5218BC52-5145-4C16-98FF-55DAB36642C2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5218BC52-5145-4C16-98FF-55DAB36642C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5218BC52-5145-4C16-98FF-55DAB36642C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5218BC52-5145-4C16-98FF-55DAB36642C2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

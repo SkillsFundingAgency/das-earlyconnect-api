@@ -10,6 +10,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Tables\ApprenticeMetricsData.sql" />
+      <None Remove="Tables\ApprenticeMetricsFlagData.sql" />
+      <None Remove="Tables\ECAPILOG.sql" />
+      <None Remove="Tables\LEPSCoverage.sql" />
+      <None Remove="Tables\LEPSData.sql" />
+      <None Remove="Tables\LEPSUser.sql" />
+      <None Remove="Tables\MatchedVacancy.sql" />
+      <None Remove="Tables\MetricsFlag.sql" />
       <None Remove="Tables\StudentData.sql" />
     </ItemGroup>
 </Project>
