@@ -18,7 +18,7 @@ namespace SFA.DAS.EarlyConnect.Api.AppStart
             else if (environmentName.Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase))
             {
                 services.AddDbContext<EarlyConnectDataContext>(
-                    options => options.UseSqlServer(config.DatabaseConnectionString), ServiceLifetime.Transient);
+                    options => options.UseSqlServer(config.EarlyConnectApi.DatabaseConnectionString), ServiceLifetime.Transient);
             }
             else
             {
