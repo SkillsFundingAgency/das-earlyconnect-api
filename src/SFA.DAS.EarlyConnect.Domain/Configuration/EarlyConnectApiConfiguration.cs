@@ -1,6 +1,6 @@
 ﻿namespace SFA.DAS.EarlyConnect.Domain.Configuration
 {
-    public class EarlyConnectConfiguration
+    public class EarlyConnectApiConfiguration
     {
         public EarlyConnectApi EarlyConnectApi { get; set; }
         public AzureAd AzureAd { get; set; }

@@ -7,7 +7,7 @@ namespace SFA.DAS.EarlyConnect.Api.AppStart
 {
     public static class DatabaseExtensions
     {
-        public static void AddDatabaseRegistration(this IServiceCollection services, EarlyConnectApi config,
+        public static void AddDatabaseRegistration(this IServiceCollection services, EarlyConnectApiConfiguration config,
             string? environmentName)
         {
             services.AddHttpContextAccessor();
@@ -18,7 +18,7 @@ namespace SFA.DAS.EarlyConnect.Api.AppStart
             else if (environmentName.Equals("LOCAL", StringComparison.CurrentCultureIgnoreCase))
             {
                 services.AddDbContext<EarlyConnectDataContext>(
-                    options => options.UseSqlServer(config.DatabaseConnectionString), ServiceLifetime.Transient);
+                    options => options.UseSqlServer(config.EarlyConnectApi.DatabaseConnectionString), ServiceLifetime.Transient);
             }
             else
             {

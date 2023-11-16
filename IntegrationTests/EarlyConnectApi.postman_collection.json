@@ -1,0 +1,491 @@
+{
+	"info": {
+		"_postman_id": "be8c9373-a5c2-4d6f-b33f-4d9390873a78",
+		"name": "EarlyConnectApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31157588"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "log",
+					"item": [
+						{
+							"name": "add",
+							"item": [
+								{
+									"name": "/api/log/add",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": "1.0"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"requestType\": \"Post\",\n  \"requestSource\": \"Dynamics\",\n  \"requestIP\": \"190.000.000.2\",\n  \"payload\": \"post something\",\n  \"fileName\": \"filename.csv\",\n  \"status\": \"processing\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/log/add",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"log",
+												"add"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"description": "(Required) ",
+														"key": "X-Version",
+														"value": ""
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"requestType\": \"<string>\",\n  \"requestSource\": \"<string>\",\n  \"requestIP\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/log/add",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"log",
+														"add"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										},
+										{
+											"name": "Bad Request",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"description": "(Required) ",
+														"key": "X-Version",
+														"value": ""
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													},
+													{
+														"key": "Accept",
+														"value": "text/plain"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"requestType\": \"<string>\",\n  \"requestSource\": \"<string>\",\n  \"requestIP\": \"<string>\",\n  \"payload\": \"<string>\",\n  \"fileName\": \"<string>\",\n  \"status\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/log/add",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"log",
+														"add"
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n  \"type\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"instance\": \"<string>\"\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "update",
+							"item": [
+								{
+									"name": "/api/log/update",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": "1.0"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"logId\": \"1\",\n  \"status\": \"Completed\",\n  \"error\": \"\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/log/update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"log",
+												"update"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"description": "(Required) ",
+														"key": "X-Version",
+														"value": ""
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n  \"logId\": \"<integer>\",\n  \"status\": \"<string>\",\n  \"error\": \"<string>\"\n}",
+													"options": {
+														"raw": {
+															"headerFamily": "json",
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{baseUrl}}/api/log/update",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"api",
+														"log",
+														"update"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "text",
+											"header": [],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "metrics-data",
+					"item": [
+						{
+							"name": "/api/metrics-data",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) ",
+										"key": "X-Version",
+										"value": "1.0"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"metricsData\": [\n    {\n      \"region\": \"North East\",\n      \"intendedStartYear\": \"2023\",\n      \"maxTravelInMiles\": \"45\",\n      \"willingnessToRelocate\": false,\n      \"noOfGCSCs\": \"2\",\n      \"noOfStudents\": \"2\",\n      \"logId\": \"1\",\n      \"metricFlags\": [\n        \"gcse_grade4_english_flag\",\n        \"gcse_grade4_maths_flag\"\n      ]\n    },\n    {\n      \"region\": \"London\",\n      \"intendedStartYear\": \"2023\",\n      \"maxTravelInMiles\": \"35\",\n      \"willingnessToRelocate\": true,\n      \"noOfGCSCs\": \"3\",\n      \"noOfStudents\": \"1\",\n      \"logId\": \"1\",\n      \"metricFlags\": [\n        \"gcse_grade4_maths_flag\",\n        \"gcse_grade4_english_flag\"\n      ]\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/metrics-data",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"metrics-data"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": ""
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"metricsData\": [\n    {\n      \"region\": \"<string>\",\n      \"intendedStartYear\": \"<double>\",\n      \"maxTravelInMiles\": \"<integer>\",\n      \"willingnessToRelocate\": \"<boolean>\",\n      \"noOfGCSCs\": \"<integer>\",\n      \"noOfStudents\": \"<integer>\",\n      \"logId\": \"<integer>\",\n      \"metricFlags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"region\": \"<string>\",\n      \"intendedStartYear\": \"<double>\",\n      \"maxTravelInMiles\": \"<integer>\",\n      \"willingnessToRelocate\": \"<boolean>\",\n      \"noOfGCSCs\": \"<integer>\",\n      \"noOfStudents\": \"<integer>\",\n      \"logId\": \"<integer>\",\n      \"metricFlags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/metrics-data",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"metrics-data"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": ""
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"metricsData\": [\n    {\n      \"region\": \"<string>\",\n      \"intendedStartYear\": \"<double>\",\n      \"maxTravelInMiles\": \"<integer>\",\n      \"willingnessToRelocate\": \"<boolean>\",\n      \"noOfGCSCs\": \"<integer>\",\n      \"noOfStudents\": \"<integer>\",\n      \"logId\": \"<integer>\",\n      \"metricFlags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"region\": \"<string>\",\n      \"intendedStartYear\": \"<double>\",\n      \"maxTravelInMiles\": \"<integer>\",\n      \"willingnessToRelocate\": \"<boolean>\",\n      \"noOfGCSCs\": \"<integer>\",\n      \"noOfStudents\": \"<integer>\",\n      \"logId\": \"<integer>\",\n      \"metricFlags\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/metrics-data",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"metrics-data"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"type\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"instance\": \"<string>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "student-data",
+					"item": [
+						{
+							"name": "/api/student-data",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) ",
+										"key": "X-Version",
+										"value": "1.0"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"David\",\n      \"lastName\": \"Hellenberger\",\n      \"dateOfBirth\": \"2000-11-11T00:00:00\",\n      \"email\": \"david.hellenberger@example.com\",\n      \"postcode\": \"G512S\",\n      \"industry\": \"Gaming\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": \"1\"\n    },\n    {\n      \"firstName\": \"Mira\",\n      \"lastName\": \"Falkirt\",\n      \"dateOfBirth\": \"1998-06-11T00:00:00\",\n      \"email\": \"mira.falkirt@example.com\",\n      \"postcode\": \"LH111G\",\n      \"industry\": \"Hospitality\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": \"1\"\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/student-data",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"student-data"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": ""
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"postcode\": \"<string>\",\n      \"industry\": \"<string>\",\n      \"dateOfInterest\": \"<dateTime>\",\n      \"logId\": \"<integer>\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"postcode\": \"<string>\",\n      \"industry\": \"<string>\",\n      \"dateOfInterest\": \"<dateTime>\",\n      \"logId\": \"<integer>\"\n    }\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/student-data",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"student-data"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
