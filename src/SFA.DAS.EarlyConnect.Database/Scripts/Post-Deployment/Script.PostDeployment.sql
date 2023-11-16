@@ -10,7 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-:r .\SeedData\LEPSData.sql
+:r .\SeedData\LEPSData.sql 
 :r .\SeedData\LEPSUser.sql
 :r .\SeedData\MetricsFlag.sql
 :r .\SeedData\LEPSCoverage.sql
