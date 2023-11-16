@@ -55,7 +55,6 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
                             var matchingMetricsFlag = metricsFlag.FirstOrDefault(x =>
                                 x.FlagCode?.Trim().Replace(" ", "").ToUpperInvariant() == metricFlag?.ToString().Trim().Replace(" ", "").ToUpperInvariant());
 
-
                             if (matchingMetricsFlag != null)
                             {
                                 var metricsFlagLookup = new ApprenticeMetricsFlagData
