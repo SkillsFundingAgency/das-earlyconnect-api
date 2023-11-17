@@ -76,7 +76,7 @@ namespace SFA.DAS.EarlyConnect.Data
 
             var connection = new SqlConnection
             {
-                ConnectionString = _configuration.EarlyConnectApi.DatabaseConnectionString
+                ConnectionString = _configuration.DatabaseConnectionString
             };
 
             if (!(_environmentConfiguration.EnvironmentName.Equals("DEV", StringComparison.CurrentCultureIgnoreCase)
