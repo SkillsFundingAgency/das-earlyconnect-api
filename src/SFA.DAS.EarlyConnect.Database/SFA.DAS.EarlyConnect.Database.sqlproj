@@ -57,16 +57,26 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Scripts" />
+    <Folder Include="Scripts\Post-Deployment" />
+    <Folder Include="Scripts\Post-Deployment\SeedData" />
   </ItemGroup>
   <ItemGroup>
-	<Build Include="Tables\ApprenticeMetricsData.sql" />
-	<Build Include="Tables\ApprenticeMetricsFlagData.sql" />
-	<Build Include="Tables\ECAPILOG.sql" />
-	<Build Include="Tables\LEPSCoverage.sql" />
-	<Build Include="Tables\LEPSData.sql" />
-	<Build Include="Tables\LEPSUser.sql" />
-	<Build Include="Tables\MatchedVacancy.sql" />
-	<Build Include="Tables\MetricsFlag.sql" />
-	<Build Include="Tables\StudentData.sql" />
+    <Build Include="Tables\ApprenticeMetricsData.sql" />
+    <Build Include="Tables\ApprenticeMetricsFlagData.sql" />
+    <Build Include="Tables\ECAPILOG.sql" />
+    <Build Include="Tables\LEPSCoverage.sql" />
+    <Build Include="Tables\LEPSData.sql" />
+    <Build Include="Tables\LEPSUser.sql" />
+    <Build Include="Tables\MatchedVacancy.sql" />
+    <Build Include="Tables\MetricsFlag.sql" />
+    <Build Include="Tables\StudentData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\LEPSData.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\LEPSUser.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\MetricsFlag.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\LEPSCoverage.sql" />
   </ItemGroup>
 </Project>
