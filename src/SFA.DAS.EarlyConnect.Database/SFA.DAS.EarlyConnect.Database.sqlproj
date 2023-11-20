@@ -64,7 +64,7 @@
   <ItemGroup>
     <Build Include="Tables\ApprenticeMetricsData.sql" />
     <Build Include="Tables\ApprenticeMetricsFlagData.sql" />
-    <Build Include="Tables\ECAPILOG.sql" />
+    <Build Include="Tables\ECAPILog.sql" />
     <Build Include="Tables\LEPSCoverage.sql" />
     <Build Include="Tables\LEPSData.sql" />
     <Build Include="Tables\LEPSUser.sql" />
