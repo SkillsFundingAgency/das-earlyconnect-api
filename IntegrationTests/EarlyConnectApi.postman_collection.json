@@ -17,6 +17,28 @@
 							"item": [
 								{
 									"name": "/api/log/add",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"const response = pm.response.json();\r",
+													"\r",
+													"pm.test('Check Log Creation Response', () => {\r",
+													"    if(pm.response.code === 200) {\r",
+													"        console.log(\"Log Creation Response 200\")\r",
+													"        pm.collectionVariables.set(\"logId\", response.logId);\r",
+													"    }\r",
+													"\r",
+													"    if(pm.response.code != 200) {\r",
+													"        console.log(\"Log could not be created!\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "POST",
 										"header": [
@@ -163,6 +185,21 @@
 							"item": [
 								{
 									"name": "/api/log/update",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test('Check Log Update Response', () => {\r",
+													"    if(pm.response.code === 200) {\r",
+													"        console.log(\"Log Update Response 200\")\r",
+													"    }\r",
+													"})"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "POST",
 										"header": [
@@ -178,7 +215,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"logId\": \"1\",\n  \"status\": \"Completed\",\n  \"error\": \"\"\n}",
+											"raw": "{\n  \"logId\": \"{{logId}}\",\n  \"status\": \"{{status}}\",\n  \"error\": \"{{error}}\"\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -254,6 +291,27 @@
 					"item": [
 						{
 							"name": "/api/metrics-data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Metrics Data Response', () => {\r",
+											"    if(pm.response.code === 200) {\r",
+											"        console.log(\"Metrics Data Response 200\")\r",
+											"        pm.collectionVariables.set(\"status\", \"Completed\");\r",
+											"    }\r",
+											"\r",
+											"    if(pm.response.code != 200) {\r",
+											"        pm.collectionVariables.set(\"status\", \"Error\");\r",
+											"        pm.collectionVariables.set(\"error\", \"Something has gone wrong!\");\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -273,7 +331,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"metricsData\": [\n    {\n      \"region\": \"North East\",\n      \"intendedStartYear\": \"2023\",\n      \"maxTravelInMiles\": \"45\",\n      \"willingnessToRelocate\": false,\n      \"noOfGCSCs\": \"2\",\n      \"noOfStudents\": \"2\",\n      \"logId\": \"1\",\n      \"metricFlags\": [\n        \"gcse_grade4_english_flag\",\n        \"gcse_grade4_maths_flag\"\n      ]\n    },\n    {\n      \"region\": \"London\",\n      \"intendedStartYear\": \"2023\",\n      \"maxTravelInMiles\": \"35\",\n      \"willingnessToRelocate\": true,\n      \"noOfGCSCs\": \"3\",\n      \"noOfStudents\": \"1\",\n      \"logId\": \"1\",\n      \"metricFlags\": [\n        \"gcse_grade4_maths_flag\",\n        \"gcse_grade4_english_flag\"\n      ]\n    }\n  ]\n}",
+									"raw": "{\n  \"metricsData\": [\n    {\n      \"region\": \"North East\",\n      \"intendedStartYear\": \"2023\",\n      \"maxTravelInMiles\": \"45\",\n      \"willingnessToRelocate\": false,\n      \"noOfGCSCs\": \"2\",\n      \"noOfStudents\": \"2\",\n      \"logId\": {{logId}},\n      \"metricFlags\": [\n        \"gcse_grade4_english_flag\",\n        \"gcse_grade4_maths_flag\"\n      ]\n    },\n    {\n      \"region\": \"London\",\n      \"intendedStartYear\": \"2023\",\n      \"maxTravelInMiles\": \"35\",\n      \"willingnessToRelocate\": true,\n      \"noOfGCSCs\": \"3\",\n      \"noOfStudents\": \"1\",\n      \"logId\": {{logId}},\n      \"metricFlags\": [\n        \"gcse_grade4_maths_flag\",\n        \"gcse_grade4_english_flag\"\n      ]\n    }\n  ]\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -397,6 +455,27 @@
 					"item": [
 						{
 							"name": "/api/student-data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Student Data Response', () => {\r",
+											"    if(pm.response.code === 200) {\r",
+											"        console.log(\"Student Data Response 200\")\r",
+											"        pm.collectionVariables.set(\"status\", \"Completed\");\r",
+											"    }\r",
+											"\r",
+											"    if(pm.response.code != 200) {\r",
+											"        pm.collectionVariables.set(\"status\", \"Error\");\r",
+											"        pm.collectionVariables.set(\"error\", \"Something has gone wrong!\");\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -412,7 +491,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"David\",\n      \"lastName\": \"Hellenberger\",\n      \"dateOfBirth\": \"2000-11-11T00:00:00\",\n      \"email\": \"david.hellenberger@example.com\",\n      \"postcode\": \"G512S\",\n      \"industry\": \"Gaming\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": \"1\"\n    },\n    {\n      \"firstName\": \"Mira\",\n      \"lastName\": \"Falkirt\",\n      \"dateOfBirth\": \"1998-06-11T00:00:00\",\n      \"email\": \"mira.falkirt@example.com\",\n      \"postcode\": \"LH111G\",\n      \"industry\": \"Hospitality\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": \"1\"\n    }\n  ]\n}",
+									"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"David\",\n      \"lastName\": \"Hellenberger\",\n      \"dateOfBirth\": \"2000-11-11T00:00:00\",\n      \"email\": \"david.hellenberger@example.com\",\n      \"postcode\": \"G512S\",\n      \"industry\": \"Gaming\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": {{logId}}\n    },\n    {\n      \"firstName\": \"Mira\",\n      \"lastName\": \"Falkirt\",\n      \"dateOfBirth\": \"1998-06-11T00:00:00\",\n      \"email\": \"mira.falkirt@example.com\",\n      \"postcode\": \"LH111G\",\n      \"industry\": \"Hospitality\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": {{logId}}\n    }\n  ]\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -431,61 +510,52 @@
 									]
 								}
 							},
-							"response": [
-								{
-									"name": "Success",
-									"originalRequest": {
-										"method": "POST",
-										"header": [
-											{
-												"description": "(Required) ",
-												"key": "X-Version",
-												"value": ""
-											},
-											{
-												"key": "Content-Type",
-												"value": "application/json"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"postcode\": \"<string>\",\n      \"industry\": \"<string>\",\n      \"dateOfInterest\": \"<dateTime>\",\n      \"logId\": \"<integer>\"\n    },\n    {\n      \"firstName\": \"<string>\",\n      \"lastName\": \"<string>\",\n      \"dateOfBirth\": \"<dateTime>\",\n      \"email\": \"<string>\",\n      \"postcode\": \"<string>\",\n      \"industry\": \"<string>\",\n      \"dateOfInterest\": \"<dateTime>\",\n      \"logId\": \"<integer>\"\n    }\n  ]\n}",
-											"options": {
-												"raw": {
-													"headerFamily": "json",
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "{{baseUrl}}/api/student-data",
-											"host": [
-												"{{baseUrl}}"
-											],
-											"path": [
-												"api",
-												"student-data"
-											]
-										}
-									},
-									"status": "OK",
-									"code": 200,
-									"_postman_previewlanguage": "text",
-									"header": [],
-									"cookie": [],
-									"body": ""
-								}
-							]
+							"response": []
 						}
 					]
 				}
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "baseUrl",
 			"value": "/"
+		},
+		{
+			"key": "logId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "status",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "error",
+			"value": "\"\"",
+			"type": "string"
 		}
 	]
 }
