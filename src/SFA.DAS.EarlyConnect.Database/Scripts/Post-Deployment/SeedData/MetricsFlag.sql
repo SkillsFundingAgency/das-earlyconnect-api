@@ -12,7 +12,7 @@ Post-Deployment Script Template
 
 
 IF NOT EXISTS (SELECT Id FROM [dbo].[MetricsFlag])
-    BEGIN
+    SET IDENTITY_INSERT [dbo].[MetricsFlag] ON
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (1, N'GCSE Grade 4 English', N'gcse_grade4_english_flag', 1, CAST(N'2023-11-09T09:49:39.977' AS DateTime))
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (2, N'NGCSE Grade 4 MathsULL', N'gcse_grade4_maths_flag', 1, CAST(N'2023-11-09T09:50:10.183' AS DateTime))
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (3, N'Interested in Agriculture', N'interested_in_agricultute_flag', 1, CAST(N'2023-11-09T09:50:25.837' AS DateTime))
@@ -36,4 +36,4 @@ IF NOT EXISTS (SELECT Id FROM [dbo].[MetricsFlag])
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (21, N'Desired in Level 3', N'desired_level3_flag', 1, CAST(N'2023-11-09T09:54:39.930' AS DateTime))
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (22, N'Desired in Level 4 to 7', N'desired_level4_to_7_flag', 1, CAST(N'2023-11-09T09:54:51.757' AS DateTime))
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (23, N'Desired in Level 6 to 7', N'desired_level6_to_7_flag', 1, CAST(N'2023-11-09T09:55:03.723' AS DateTime))
-    END
+    SET IDENTITY_INSERT [dbo].[MetricsFlag] OFF
