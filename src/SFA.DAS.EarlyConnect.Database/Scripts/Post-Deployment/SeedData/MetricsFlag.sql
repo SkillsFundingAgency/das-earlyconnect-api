@@ -11,7 +11,7 @@ Post-Deployment Script Template
 */
 
 
-IF NOT EXISTS (SELECT Id FROM [dbo].[LEPSData])
+IF NOT EXISTS (SELECT Id FROM [dbo].[MetricsFlag])
     BEGIN
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (1, N'GCSE Grade 4 English', N'gcse_grade4_english_flag', 1, CAST(N'2023-11-09T09:49:39.977' AS DateTime))
         INSERT [dbo].[MetricsFlag] ([Id], [FlagName], [FlagCode], [IsActive], [DateAdded]) VALUES (2, N'NGCSE Grade 4 MathsULL', N'gcse_grade4_maths_flag', 1, CAST(N'2023-11-09T09:50:10.183' AS DateTime))

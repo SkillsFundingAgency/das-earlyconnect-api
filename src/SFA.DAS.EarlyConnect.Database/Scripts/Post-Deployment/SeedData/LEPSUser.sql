@@ -10,7 +10,7 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 
-IF NOT EXISTS(SELECT * FROM [dbo].[LEPSData])
+IF NOT EXISTS(SELECT * FROM [dbo].[LEPSUser])
     BEGIN
         INSERT INTO dbo.LEPSUser (LEPSId, FirstName, LastName, Email, PhoneNumber, JobTitle, GDPRCompliance, DateAdded)
         VALUES
