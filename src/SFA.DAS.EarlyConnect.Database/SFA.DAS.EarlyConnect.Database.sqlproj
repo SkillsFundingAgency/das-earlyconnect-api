@@ -77,6 +77,5 @@
     <None Include="Scripts\Post-Deployment\SeedData\LEPSData.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\LEPSUser.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\MetricsFlag.sql" />
-    <None Include="Scripts\Post-Deployment\SeedData\LEPSCoverage.sql" />
   </ItemGroup>
 </Project>
