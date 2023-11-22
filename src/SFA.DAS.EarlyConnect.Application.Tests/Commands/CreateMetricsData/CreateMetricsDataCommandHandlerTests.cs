@@ -36,8 +36,12 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateMetricsData
         }
 
         [Test]
-        public async Task SavesMetricsData_ReturnsUnitValue()
+        public async Task SavesMetricsData_ReturnsSuccess()
         {
+            var expectedResponse = new CreateMetricsDataResponse 
+            {
+                ResultCode = Responses.ResponseCode.Success,
+            };
 
             var command = new CreateMetricsDataCommand
             {
@@ -91,7 +95,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateMetricsData
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            Assert.AreEqual(Unit.Value, result);
+            Assert.That(expectedResponse.ResultCode.Equals(result.ResultCode));
             _mockMetricsDataRepository.Verify(x => x.AddManyAsync(It.IsAny<List<ApprenticeMetricsData>>()), Times.Once);
         }
 

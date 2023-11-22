@@ -5,16 +5,8 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
@@ -45,7 +37,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                    && command.MetricsData.First().WillingnessToRelocate.Equals(request.MetricsData.First().WillingnessToRelocate)
                    && command.MetricsData.First().NoOfGCSCs.Equals(request.MetricsData.First().NoOfGCSCs)
                    ), It.IsAny<CancellationToken>()))
-               .ReturnsAsync(Unit.Value);
+               .ReturnsAsync(new CreateMetricsDataResponse { ResultCode = Application.Responses.ResponseCode.Success});
 
             // Act
             var actionResult = await _metricsDataController.MetricsData(request);
