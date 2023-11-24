@@ -296,6 +296,8 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
 											"pm.test('Check Metrics Data Response', () => {\r",
 											"    if(pm.response.code === 200) {\r",
 											"        console.log(\"Metrics Data Response 200\")\r",
@@ -304,7 +306,7 @@
 											"\r",
 											"    if(pm.response.code != 200) {\r",
 											"        pm.collectionVariables.set(\"status\", \"Error\");\r",
-											"        pm.collectionVariables.set(\"error\", \"Something has gone wrong!\");\r",
+											"        pm.collectionVariables.set(\"error\", response.errors[0].message);\r",
 											"    }\r",
 											"})"
 										],

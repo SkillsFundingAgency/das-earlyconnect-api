@@ -31,10 +31,15 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         {
             var command = request.MapFromMetricsDataPostRequest();
 
-            await _mediator.Send(new CreateMetricsDataCommand
+            var response = await _mediator.Send(new CreateMetricsDataCommand
             {
                 MetricsData = command
             });
+
+            if (response.ResultCode.Equals(ResponseCode.InvalidRequest)) 
+            {
+                return BadRequest(new { Errors = response.ValidationErrors });
+            }
 
             return Ok();
         }
