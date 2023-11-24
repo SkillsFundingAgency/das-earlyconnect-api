@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
+using SFA.DAS.EarlyConnect.Application.Responses;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
@@ -27,10 +28,15 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         {
             var command = request.MapFromMetricsDataPostRequest();
 
-            await _mediator.Send(new CreateMetricsDataCommand
+            var response = await _mediator.Send(new CreateMetricsDataCommand
             {
                 MetricsData = command
             });
+
+            if (response.ResultCode.Equals(ResponseCode.InvalidRequest)) 
+            {
+                return BadRequest(new { Errors = response.ValidationErrors });
+            }
 
             return Ok();
         }
