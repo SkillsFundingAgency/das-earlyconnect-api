@@ -18,5 +18,6 @@
         public string APIKeyName { get; set; }
         public string APIKeyValue { get; set; }
         public DateTime DateAdded { get; set; }
+        public virtual ICollection<LEPSUser>? LEPSUsers { get; set; } // 1-to-Many with LEPSUsers
     }
 }
