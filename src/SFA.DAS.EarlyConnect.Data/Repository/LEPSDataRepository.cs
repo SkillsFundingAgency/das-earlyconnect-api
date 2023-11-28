@@ -37,5 +37,10 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .Select(l => l.Region)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<ICollection<LEPSData>> GetAllLepsDataAsync()
+        {
+            return await _dbContext.LEPSData.ToListAsync();
+        }
     }
 }

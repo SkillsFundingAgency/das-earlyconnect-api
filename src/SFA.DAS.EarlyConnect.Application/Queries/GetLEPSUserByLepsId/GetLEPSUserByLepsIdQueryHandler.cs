@@ -1,10 +1,11 @@
-﻿using SFA.DAS.EarlyConnect.Application.Models;
+﻿using MediatR;
+using SFA.DAS.EarlyConnect.Application.Models;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Application.Queries.GetLEPSUserByLepsId
 {
-    public class GetLEPSUserByLepsIdQueryHandler
+    public class GetLEPSUserByLepsIdQueryHandler : IRequestHandler<GetLEPSUserByLepsIdQuery, GetLEPSUsersByLepsIdResult>
     {
         private readonly ILEPSUserRepository _lepsUserRepository;
 

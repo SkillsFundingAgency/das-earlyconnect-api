@@ -13,7 +13,7 @@
         public string Country { get; set; }
         public string Postcode { get; set; }
         public string PhoneNumber { get; set; }
-        public string TechnicalContant { get; set; }
+        public string TechnicalContact { get; set; }
         public string PostAPIUrl { get; set; }
         public string APIKeyName { get; set; }
         public string APIKeyValue { get; set; }

@@ -10,7 +10,7 @@
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string JobTitle { get; set; }
-        public string GDPRCompliance { get; set; }
+        public bool GDPRCompliance { get; set; }
         public DateTime DateAdded { get; set; }
     }
 }
