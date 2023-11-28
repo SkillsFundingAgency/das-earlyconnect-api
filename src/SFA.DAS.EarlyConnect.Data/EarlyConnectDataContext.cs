@@ -56,7 +56,8 @@ namespace SFA.DAS.EarlyConnect.Data
             modelBuilder.Entity<ApprenticeMetricsData>().HasKey(m => m.Id);
             modelBuilder.Entity<ApprenticeMetricsData>().HasMany(m => m.MetricsFlagLookups)
                 .WithOne(lookup => lookup.MetricsData)
-                .HasForeignKey(lookup => lookup.MetricsId);
+                .HasForeignKey(lookup => lookup.MetricsId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<ApprenticeMetricsFlagData>().ToTable("ApprenticeMetricsFlagData");
             modelBuilder.Entity<ApprenticeMetricsFlagData>().HasKey(x => x.Id);
