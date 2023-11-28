@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using SFA.DAS.EarlyConnect.Application.Models;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByLepsCode;
+using SFA.DAS.EarlyConnect.Application.Queries.GetMetricsFlag;
 using SFA.DAS.EarlyConnect.Application.Responses;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
@@ -12,12 +13,14 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetMetricsDataByLepsCode
         private readonly ILEPSDataRepository _lepsDataRepository;
         private readonly IMetricsDataRepository _metricsDataRepository;
         private readonly IMediator _mediator;
+        private IEnumerable<MetricsFlag> _allMetricsFlags { get; set; }
 
         public GetMetricsDataByLepsCodeQueryHandler(ILEPSDataRepository lepsDataRepository, IMetricsDataRepository metricsDataRepository, IMediator mediator)
         {
             _lepsDataRepository = lepsDataRepository;
             _metricsDataRepository = metricsDataRepository;
             _mediator = mediator;
+            _allMetricsFlags = new List<MetricsFlag>();
         }
 
         public async Task<GetMetricsDataByLepsCodeResult> Handle(GetMetricsDataByLepsCodeQuery request, CancellationToken cancellationToken)
@@ -41,6 +44,8 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetMetricsDataByLepsCode
                                 }.Cast<object>().ToList()
                 };
             }
+
+            _allMetricsFlags = await _mediator.Send(new GetMetricsFlagQuery());
 
             var metricsData = await _metricsDataRepository.GetByLepsIdAsync(lepsData.LepId);
 
@@ -88,17 +93,30 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetMetricsDataByLepsCode
         {
             var metricsFlagDtoList = new List<MetricsFlagDto>();
 
-            if (metricsFlagLookupList != null)
+            foreach (var flag in _allMetricsFlags)
             {
-                foreach (var metricsFlagLookup in metricsFlagLookupList)
+                if (metricsFlagLookupList != null)
                 {
-                    var metricsFlagDto = new MetricsFlagDto
+                    if (metricsFlagLookupList.Any(lookup => lookup.FlagId == flag.Id))
                     {
-                        Flag = metricsFlagLookup.MetricsFlag.FlagName,
-                        FlagCode = metricsFlagLookup.MetricsFlag.FlagCode,
-                        FlagValue = metricsFlagLookup.FlagValue
-                    };
-                    metricsFlagDtoList.Add(metricsFlagDto);
+                        var metricsFlagDto = new MetricsFlagDto
+                        {
+                            Flag = flag.FlagName,
+                            FlagCode = flag.FlagCode,
+                            FlagValue = true
+                        };
+                        metricsFlagDtoList.Add(metricsFlagDto);
+                    }
+                    else 
+                    {
+                        var metricsFlagDto = new MetricsFlagDto
+                        {
+                            Flag = flag.FlagName,
+                            FlagCode = flag.FlagCode,
+                            FlagValue = false
+                        };
+                        metricsFlagDtoList.Add(metricsFlagDto);
+                    }
                 }
             }
 
