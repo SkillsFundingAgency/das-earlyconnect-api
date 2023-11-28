@@ -93,9 +93,9 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetMetricsDataByLepsCode
         {
             var metricsFlagDtoList = new List<MetricsFlagDto>();
 
-            foreach (var flag in _allMetricsFlags)
+            if (metricsFlagLookupList != null)
             {
-                if (metricsFlagLookupList != null)
+                foreach (var flag in _allMetricsFlags)
                 {
                     if (metricsFlagLookupList.Any(lookup => lookup.FlagId == flag.Id))
                     {
