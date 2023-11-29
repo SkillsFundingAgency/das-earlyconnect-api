@@ -7,7 +7,8 @@
 	DateAdded		DATETIME NOT NULL DEFAULT GETDATE()
 	CONSTRAINT FK_ApprenticeMetricsFlagData_ApprenticeMetricsData 
         FOREIGN KEY(MetricsId) 
-        REFERENCES dbo.ApprenticeMetricsData(Id),
+        REFERENCES dbo.ApprenticeMetricsData(Id)
+		ON DELETE CASCADE,
 	CONSTRAINT FK_ApprenticeMetricsFlagDatag_MetricsFlag 
         FOREIGN KEY(FlagId) 
         REFERENCES dbo.MetricsFlag(Id)

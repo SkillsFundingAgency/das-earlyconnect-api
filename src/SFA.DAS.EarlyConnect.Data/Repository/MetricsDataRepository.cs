@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SFA.DAS.EarlyConnect.Data.Models;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using System.Linq;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
@@ -15,15 +13,62 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             _dbContext = dbContext;
         }
 
-        public async Task AddManyAsync(IEnumerable<ApprenticeMetricsData> metricsData)
+        public async Task AddManyAndDelete(IEnumerable<ApprenticeMetricsData> metricsData)
         {
-            foreach (ApprenticeMetricsData metrics in metricsData)
-            {
-                metrics.DateAdded = DateTime.Now;
-                await _dbContext.AddAsync(metrics);
-            }
+            var executionStrategy = _dbContext.Database.CreateExecutionStrategy();
 
-            await _dbContext.SaveChangesAsync();
+            await executionStrategy.ExecuteAsync(async () =>
+            {
+                using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+                {
+                    try
+                    {
+                        // Step 1: Hard Delete the Soft Deleted Records
+
+                        var metricsDataToDelete = _dbContext.MetricsData.Where(metrics => metrics.IsDeleted);
+                        _dbContext.MetricsData.RemoveRange(metricsDataToDelete);
+
+                        await _dbContext.SaveChangesAsync();
+
+                        // Step 2: Soft Delete Existing Records
+
+                        var allMetricsData = _dbContext.MetricsData.Include(data => data.MetricsFlagLookups)
+                            .Where(metrics => !metrics.IsDeleted);
+
+                        foreach (var record in allMetricsData)
+                        {
+                            record.IsDeleted = true;
+
+                            if (record.MetricsFlagLookups != null)
+                            {
+                                foreach (var flagData in record.MetricsFlagLookups)
+                                {
+                                    flagData.IsDeleted = true;
+                                }
+                            }
+                        }
+
+                        await _dbContext.SaveChangesAsync();
+
+                        // Step 3: Add New Records
+
+                        foreach (var metrics in metricsData)
+                        {
+                            metrics.DateAdded = DateTime.Now;
+                            await _dbContext.AddAsync(metrics);
+                        }
+
+                        await _dbContext.SaveChangesAsync();
+
+                        await transaction.CommitAsync();
+                    }
+                    catch (Exception)
+                    {
+                        await transaction.RollbackAsync();
+                        throw;
+                    }
+                }
+            });
         }
 
         public async Task<ICollection<ApprenticeMetricsData>> GetByLepsIdAsync(int lepsId)

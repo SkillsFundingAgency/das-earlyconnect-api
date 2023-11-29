@@ -99,7 +99,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateMetricsData
 
             Assert.That(expectedResponse.ResultCode.Equals(result.ResultCode));
             Assert.That(result.ValidationErrors.IsNullOrEmpty());
-            _mockMetricsDataRepository.Verify(x => x.AddManyAsync(It.IsAny<List<ApprenticeMetricsData>>()), Times.Once);
+            _mockMetricsDataRepository.Verify(x => x.AddManyAndDelete(It.IsAny<List<ApprenticeMetricsData>>()), Times.Once);
         }
 
         [Test]
@@ -166,7 +166,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateMetricsData
             Assert.That(result.ValidationErrors.Any(error =>
                 ((DetailedValidationError)error).Field.Equals("MetricsFlag", StringComparison.InvariantCultureIgnoreCase) &&
                 ((DetailedValidationError)error).Message.Equals("Invalid Metrics Flag in File")));
-            _mockMetricsDataRepository.Verify(x => x.AddManyAsync(It.IsAny<List<ApprenticeMetricsData>>()), Times.Never);
+            _mockMetricsDataRepository.Verify(x => x.AddManyAndDelete(It.IsAny<List<ApprenticeMetricsData>>()), Times.Never);
         }
 
         [Test]
@@ -233,7 +233,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateMetricsData
             Assert.That(result.ValidationErrors.Any(error =>
                 ((DetailedValidationError)error).Field.Equals("Region", StringComparison.InvariantCultureIgnoreCase) &&
                 ((DetailedValidationError)error).Message.Equals("Invalid Region in File")));
-            _mockMetricsDataRepository.Verify(x => x.AddManyAsync(It.IsAny<List<ApprenticeMetricsData>>()), Times.Never);
+            _mockMetricsDataRepository.Verify(x => x.AddManyAndDelete(It.IsAny<List<ApprenticeMetricsData>>()), Times.Never);
         }
     }
 }
