@@ -13,7 +13,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             _dbContext = dbContext;
         }
 
-        public async Task AddManyAsync(IEnumerable<ApprenticeMetricsData> metricsData)
+        public async Task AddManyAndDelete(IEnumerable<ApprenticeMetricsData> metricsData)
         {
             var executionStrategy = _dbContext.Database.CreateExecutionStrategy();
 
@@ -23,10 +23,14 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 {
                     try
                     {
+                        // Step 1: Hard Delete the Soft Deleted Records
+
                         var metricsDataToDelete = _dbContext.MetricsData.Where(metrics => metrics.IsDeleted);
                         _dbContext.MetricsData.RemoveRange(metricsDataToDelete);
 
                         await _dbContext.SaveChangesAsync();
+
+                        // Step 2: Soft Delete Existing Records
 
                         var allMetricsData = _dbContext.MetricsData.Include(data => data.MetricsFlagLookups)
                             .Where(metrics => !metrics.IsDeleted);
@@ -42,10 +46,11 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                                     flagData.IsDeleted = true;
                                 }
                             }
-
                         }
 
                         await _dbContext.SaveChangesAsync();
+
+                        // Step 3: Add New Records
 
                         foreach (var metrics in metricsData)
                         {

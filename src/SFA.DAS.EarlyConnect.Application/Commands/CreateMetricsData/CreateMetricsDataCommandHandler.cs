@@ -107,7 +107,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData
 
             _logger.LogInformation($"Updating metrics data");
 
-            await _metricsDataRepository.AddManyAsync(metricsData);
+            await _metricsDataRepository.AddManyAndDelete(metricsData);
 
             return new CreateMetricsDataResponse
             {
