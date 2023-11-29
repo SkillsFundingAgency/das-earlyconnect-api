@@ -1,13 +1,7 @@
 ﻿using Moq;
 using NUnit.Framework;
-using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSData;
-using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByLepsCode;
+using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByRegion;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetLEPSDataByRegion
 {
