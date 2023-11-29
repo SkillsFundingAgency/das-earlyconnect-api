@@ -3,5 +3,7 @@
     public interface ILEPSDataRepository
     {
         Task<int> GetLepsIdByRegionAsync(string region);
+        Task<int> GetLepsIdByLepsCodeAsync(string lepsCode);
+        Task<string> GetLepsRegionByLepsCodeAsync(string lepsCode);
     }
 }

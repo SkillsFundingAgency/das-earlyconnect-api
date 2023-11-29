@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
@@ -19,6 +20,22 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .Select(x => x.Id)
                 .FirstOrDefaultAsync();
 
+        }
+
+        public async Task<int> GetLepsIdByLepsCodeAsync(string lepsCode)
+        {
+            return await _dbContext.LEPSData
+                .Where(a => a.LepCode == lepsCode)
+                .Select(l => l.Id)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<string> GetLepsRegionByLepsCodeAsync(string lepsCode)
+        {
+            return await _dbContext.LEPSData
+                .Where(a => a.LepCode == lepsCode)
+                .Select(l => l.Region)
+                .SingleOrDefaultAsync();
         }
     }
 }

@@ -70,5 +70,13 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 }
             });
         }
+
+        public async Task<ICollection<ApprenticeMetricsData>> GetByLepsIdAsync(int lepsId)
+        {
+            return await _dbContext.MetricsData
+                    .Where(m => m.LEPSId == lepsId && m.IsDeleted == false)
+                    .Include(m => m.MetricsFlagLookups)
+                    .ToListAsync();
+        }
     }
 }
