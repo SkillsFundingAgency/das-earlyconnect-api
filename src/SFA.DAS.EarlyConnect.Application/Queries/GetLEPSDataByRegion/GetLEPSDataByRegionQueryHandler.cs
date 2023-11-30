@@ -1,9 +1,7 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
-namespace SFA.DAS.EarlyConnect.Application.Queries.GetLEPSData
+namespace SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByRegion
 {
     public class GetLEPSDataByRegionQueryHandler : IRequestHandler<GetLEPSDataByRegionQuery, int>
     {

@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
-using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSData;
+using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByRegion;
 using SFA.DAS.EarlyConnect.Application.Queries.GetMetricsFlag;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;

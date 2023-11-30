@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSData;
+using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByRegion;
 using SFA.DAS.EarlyConnect.Application.Queries.GetMetricsFlag;
 using SFA.DAS.EarlyConnect.Application.Responses;
 using SFA.DAS.EarlyConnect.Domain.Entities;

@@ -18,6 +18,7 @@ namespace SFA.DAS.EarlyConnect.Data
         public DbSet<StudentData> StudentData { get; set; }
         public DbSet<ECAPILog> ECAPILogs { get; set; }
         public DbSet<LEPSData> LEPSData { get; set; }
+        public DbSet<LEPSUser> LEPSUser { get; set; }
         public DbSet<MetricsFlag> MetricsFlag { get; set; }
         public DbSet<ApprenticeMetricsData> MetricsData { get; set; }
 
@@ -67,6 +68,12 @@ namespace SFA.DAS.EarlyConnect.Data
             modelBuilder.Entity<MetricsFlag>().HasMany(flag => flag.MetricsFlagLookups)
                 .WithOne(lookup => lookup.MetricsFlag)
                 .HasForeignKey(lookup => lookup.FlagId);
+
+            modelBuilder.Entity<LEPSData>().ToTable("LEPSData");
+            modelBuilder.Entity<LEPSData>().HasKey(d => d.Id);
+            modelBuilder.Entity<LEPSData>().HasMany(d=> d.LEPSUsers)
+                .WithOne(user => user.LepsData)
+                .HasForeignKey(d => d.LepsId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
