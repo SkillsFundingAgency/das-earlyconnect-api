@@ -16,7 +16,7 @@
 							"name": "add",
 							"item": [
 								{
-									"name": "/api/log/add",
+									"name": "Create Log",
 									"event": [
 										{
 											"listen": "test",
@@ -184,7 +184,7 @@
 							"name": "update",
 							"item": [
 								{
-									"name": "/api/log/update",
+									"name": "Update Log",
 									"event": [
 										{
 											"listen": "test",
@@ -290,7 +290,7 @@
 					"name": "metrics-data",
 					"item": [
 						{
-							"name": "/api/metrics-data",
+							"name": "Create Metrics Data",
 							"event": [
 								{
 									"listen": "test",
@@ -449,6 +449,31 @@
 									"body": "{\n  \"type\": \"<string>\",\n  \"title\": \"<string>\",\n  \"status\": \"<integer>\",\n  \"detail\": \"<string>\",\n  \"instance\": \"<string>\"\n}"
 								}
 							]
+						},
+						{
+							"name": "Get Metrics Data By Leps Code",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1.0",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/metrics-data/{{lepsCode}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"metrics-data",
+										"{{lepsCode}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -456,7 +481,7 @@
 					"name": "student-data",
 					"item": [
 						{
-							"name": "/api/student-data",
+							"name": "Create Student Data",
 							"event": [
 								{
 									"listen": "test",
@@ -515,6 +540,36 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "leps-data",
+					"item": [
+						{
+							"name": "Get LEPSData",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1.0",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/leps-data/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"leps-data",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
@@ -524,7 +579,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "your_token",
+				"value": "",
 				"type": "string"
 			}
 		]
@@ -567,6 +622,11 @@
 		{
 			"key": "error",
 			"value": "\"\"",
+			"type": "string"
+		},
+		{
+			"key": "lepsCode",
+			"value": "E37000025",
 			"type": "string"
 		}
 	]
