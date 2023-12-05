@@ -32,10 +32,10 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             log.Status = status;
             log.Error = error;
+            log.CompletedDate = DateTime.Now;
 
             if (status.Equals("Completed")) 
             {
-                log.CompletedDate = DateTime.Now;
                 log.Payload = string.Empty;
             }
 
