@@ -34,6 +34,11 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             log.Error = error;
             log.CompletedDate = DateTime.Now;
 
+            if (status.Equals("Completed")) 
+            {
+                log.Payload = string.Empty;
+            }
+
             await _dbContext.SaveChangesAsync();
         }
     }
