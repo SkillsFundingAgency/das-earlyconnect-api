@@ -15,5 +15,6 @@
         public DateTime DateAdded { get; set; }
         public int LogId { get; set; }
         public virtual ECAPILog Log { get; set; }
+        public virtual ICollection<StudentSurvey>? StudentSurveys { get; set; }
     }
 }
