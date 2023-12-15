@@ -7,7 +7,6 @@ using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
 using SFA.DAS.EarlyConnect.Application.Queries.GetMetricsDataByLepsCode;
 using SFA.DAS.EarlyConnect.Application.Responses;
 using System.Net;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
 {
@@ -59,8 +58,8 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             {
                 return BadRequest(new { Errors = queryResult.ValidationErrors });
             }
-            
-            return Created(nameof(MetricsData), (GetMetricsDataByLepsCodeResponse)queryResult);
+
+            return Ok((GetMetricsDataByLepsCodeResponse)queryResult);
         }
     }
 }
