@@ -26,7 +26,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
-        public async Task POST_MetricsData_Returns200()
+        public async Task POST_MetricsData_Returns201()
         {
             // Arrange
             var request = _fixture.Create<MetricsDataPostRequest>();
@@ -42,11 +42,12 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             // Act
             var actionResult = await _metricsDataController.MetricsData(request);
-            var okResult = actionResult as OkResult;
 
-            // Assert
-            Assert.IsNotNull(okResult);
-            Assert.That(okResult.StatusCode.Equals(200));
+            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+
+            var createdResult = (CreatedAtActionResult)actionResult;
+            Assert.AreEqual(201, createdResult.StatusCode);
+
             _mediator.Verify(x => x.Send(It.Is<CreateMetricsDataCommand>(command =>
                    command.MetricsData.First().Region.Equals(request.MetricsData.First().Region)
                    && command.MetricsData.First().IntendedStartYear.Equals(request.MetricsData.First().IntendedStartYear)
