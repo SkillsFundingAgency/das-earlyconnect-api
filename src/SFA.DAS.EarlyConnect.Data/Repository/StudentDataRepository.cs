@@ -22,5 +22,14 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<int> AddStudentDataAsync(StudentData studentData)
+        {
+            await _dbContext.AddAsync(studentData);
+
+            await _dbContext.SaveChangesAsync();
+
+            return studentData.Id;
+        }
     }
 }
