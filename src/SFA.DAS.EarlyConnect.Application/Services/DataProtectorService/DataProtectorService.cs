@@ -4,8 +4,8 @@ namespace SFA.DAS.EarlyConnect.Application.Services.DataProtectorService
 {
     public interface IDataProtectorService
     {
-        string EncodedData(Guid studentSurveyId, string email);
-        Dictionary<Guid, string>? DecodeData(string authCode);
+        string EncodedData(string authCode);
+        string DecodeData(string encryptedAuthCode);
     }
 
     public class DataProtectorService : IDataProtectorService
@@ -17,16 +17,16 @@ namespace SFA.DAS.EarlyConnect.Application.Services.DataProtectorService
             _logger = logger;
         }
 
-        public string EncodedData(Guid studentSurveyId, string emai)
+        public string EncodedData(string authCode)
         {
             return "authCode";
         }
 
-        public Dictionary<Guid, string>? DecodeData(string authCode)
+        public string DecodeData(string encryptedAuthCode)
         {
             // todo
 
-            return new Dictionary<Guid, string>();
+            return "decrypted";
         }
     }
 }
