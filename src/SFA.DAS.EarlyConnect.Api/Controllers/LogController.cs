@@ -22,7 +22,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("add")]
         public async Task<IActionResult> Create([FromBody] LogCreateRequest request)
@@ -39,7 +39,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 LogId = logId
             };
 
-            return Ok(model);
+            return CreatedAtAction(nameof(Create), model);
         }
 
         [HttpPost]

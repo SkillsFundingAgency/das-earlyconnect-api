@@ -1,5 +1,4 @@
-﻿using Azure;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
@@ -24,7 +23,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("")]
         public async Task<IActionResult> MetricsData([FromBody] MetricsDataPostRequest request)
@@ -41,7 +40,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 return BadRequest(new { Errors = response.ValidationErrors });
             }
 
-            return Ok();
+            return CreatedAtAction(nameof(MetricsData), null);
         }
 
         [HttpGet]
@@ -59,7 +58,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             {
                 return BadRequest(new { Errors = queryResult.ValidationErrors });
             }
-            
+
             return Ok((GetMetricsDataByLepsCodeResponse)queryResult);
         }
     }

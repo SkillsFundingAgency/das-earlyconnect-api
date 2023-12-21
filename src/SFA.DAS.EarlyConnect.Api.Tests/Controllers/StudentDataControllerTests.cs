@@ -28,7 +28,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
-        public async Task POST_StudentData_Returns200()
+        public async Task POST_StudentData_Returns201()
         {
             // Arrange
             var studentData = CreateTestStudentData(5);
@@ -48,10 +48,12 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             // Act
             var actionResult = await _studentDataController.StudentData(request);
-            var okResult = actionResult as OkResult;
 
-            // Assert
-            Assert.IsNotNull(okResult);
+            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+
+            var createdResult = (CreatedAtActionResult)actionResult;
+            Assert.AreEqual(201, createdResult.StatusCode);
+
             _mediator.Verify(x => x.Send(It.Is<CreateStudentDataCommand>(command =>
                     command.StudentDataList.First().FirstName.Equals(request.ListOfStudentData.First().FirstName)
                     && command.StudentDataList.First().LastName.Equals(request.ListOfStudentData.First().LastName)
