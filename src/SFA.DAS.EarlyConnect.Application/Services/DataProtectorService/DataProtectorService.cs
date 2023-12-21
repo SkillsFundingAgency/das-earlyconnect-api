@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text;
 
 namespace SFA.DAS.EarlyConnect.Application.Services.DataProtectorService
 {
@@ -10,23 +10,14 @@ namespace SFA.DAS.EarlyConnect.Application.Services.DataProtectorService
 
     public class DataProtectorService : IDataProtectorService
     {
-        private readonly ILogger<DataProtectorService> _logger;
-
-        public DataProtectorService(ILogger<DataProtectorService> logger)
-        {
-            _logger = logger;
-        }
-
         public string EncodedData(string authCode)
         {
-            return "authCode";
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(authCode));
         }
 
         public string DecodeData(string encryptedAuthCode)
         {
-            // todo
-
-            return "decrypted";
+            return Encoding.UTF8.GetString(Convert.FromBase64String(encryptedAuthCode));
         }
     }
 }

@@ -1,14 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
-using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByRegion;
-using SFA.DAS.EarlyConnect.Application.Queries.GetMetricsFlag;
-using SFA.DAS.EarlyConnect.Application.Responses;
+using NServiceBus;
 using SFA.DAS.EarlyConnect.Application.Services.AuthCodeService;
 using SFA.DAS.EarlyConnect.Application.Services.DataProtectorService;
-using SFA.DAS.EarlyConnect.Data.Repository;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
+using SFA.DAS.Notifications.Messages.Commands;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
 {
@@ -20,6 +17,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
         private readonly IStudentSurveyRepository _studentSurveyRepository;
         private readonly IDataProtectorService _dataProtectorService;
         private readonly IAuthCodeService _authCodeService;
+        private readonly IMessageSession _messageSession;
         private readonly ILogger<CreateOtherStudentTriageDataCommandHandler> _logger;
 
         public CreateOtherStudentTriageDataCommandHandler(
@@ -29,6 +27,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             IStudentSurveyRepository studentSurveyRepository,
             IDataProtectorService dataProtectorService,
             IAuthCodeService authCodeService,
+            IMessageSession messageSession,
             ILogger<CreateOtherStudentTriageDataCommandHandler> logger)
         {
             _surveyRepository = surveyRepository;
@@ -37,6 +36,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             _studentSurveyRepository = studentSurveyRepository;
             _dataProtectorService = dataProtectorService;
             _authCodeService = authCodeService;
+            _messageSession = messageSession;
             _logger = logger;
         }
 
@@ -45,17 +45,15 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             // 0. Fetch the first or default survey record
             var survey = await _surveyRepository.GetDefaultSurveyAsync();
 
-            // get lpsId by lepsCode
             var lepsId = await _lepsDataRepository.GetLepsIdByLepsCodeAsync(command.LepsCode);
 
             // 1. Create Student Data (dummy)
-            var studentData = new StudentData
+            var student = await _studentDataRepository.GetByEmailAsync(command.Email);
+            var studentId = (student == null) ? await _studentDataRepository.AddStudentDataAsync(new StudentData
             {
                 Email = command.Email,
                 LepsId = lepsId
-            };
-
-            var studentId = await _studentDataRepository.AddStudentDataAsync(studentData);
+            }) : student.Id;
 
             // 2. Create Student Survey
             var studentSurvey = new StudentSurvey
@@ -76,6 +74,10 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             var encryptedAuthCode = _dataProtectorService.EncodedData(authCode);
 
             // 5. Send Email using Das Notifications Service using authCode
+            await _messageSession.Send(new SendEmailCommand(
+                    "Your GOV Notify email template ID",
+                    command.Email,
+                    new Dictionary<string, string>() { { "TokenKey", "TokenValue" } }));
 
             return new CreateOtherStudentTriageDataCommandResponse
             {
