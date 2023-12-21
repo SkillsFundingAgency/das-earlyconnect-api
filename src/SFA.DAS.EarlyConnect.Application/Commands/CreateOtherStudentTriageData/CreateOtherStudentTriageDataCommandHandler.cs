@@ -60,8 +60,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             var studentSurvey = new StudentSurvey
             {
                 StudentId = studentId,
-                SurveyId = survey.Id,
-                DateAdded = DateTime.UtcNow
+                SurveyId = survey.Id
             };
 
             var studentSurveyId = await _studentSurveyRepository.AddStudentSurveyAsync(studentSurvey);

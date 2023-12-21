@@ -32,7 +32,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
-        public async Task GET_LepsDataWithUsers_ReturnsLepsDataWithUsers()
+        public async Task POST_StudentTriageData_ReturnsOk()
         {
             // Arrange
             var request = _fixture.Create<StudentTriageDataOtherPostRequest>();

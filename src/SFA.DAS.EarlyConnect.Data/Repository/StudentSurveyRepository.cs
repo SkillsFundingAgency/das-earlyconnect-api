@@ -14,6 +14,8 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task<Guid> AddStudentSurveyAsync(StudentSurvey studentSurvey)
         {
+            studentSurvey.DateAdded = DateTime.Now;
+
             await _dbContext.AddAsync(studentSurvey);
 
             await _dbContext.SaveChangesAsync();
