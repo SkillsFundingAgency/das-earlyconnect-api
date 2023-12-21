@@ -21,7 +21,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [Route("survey-create")]
-        public async Task<IActionResult> StudentData([FromBody] StudentTriageDataOtherPostRequest request)
+        public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataOtherPostRequest request)
         {
             var response = await _mediator.Send(new CreateOtherStudentTriageDataCommand
             {
