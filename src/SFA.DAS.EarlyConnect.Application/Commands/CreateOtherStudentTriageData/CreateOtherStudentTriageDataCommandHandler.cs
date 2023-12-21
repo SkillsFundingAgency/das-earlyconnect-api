@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.Azure.Amqp.Serialization;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
 using SFA.DAS.EarlyConnect.Application.Services.AuthCodeService;
@@ -19,6 +20,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
         private readonly IAuthCodeService _authCodeService;
         private readonly IMessageSession _messageSession;
         private readonly ILogger<CreateOtherStudentTriageDataCommandHandler> _logger;
+        public const string TemplateId = "Email confirmation";
 
         public CreateOtherStudentTriageDataCommandHandler(
             ISurveyRepository surveyRepository,
@@ -74,10 +76,11 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             var encryptedAuthCode = _dataProtectorService.EncodedData(authCode);
 
             // 5. Send Email using Das Notifications Service using authCode
-            await _messageSession.Send(new SendEmailCommand(
-                    "Your GOV Notify email template ID",
-                    command.Email,
-                    new Dictionary<string, string>() { { "TokenKey", "TokenValue" } }));
+            var tokens = new Dictionary<string, string> {{ "confirmation code", authCode }};
+
+            _logger.LogInformation($"Sending Email to Student to Confirm Email");
+
+            await _messageSession.Send(new SendEmailCommand(TemplateId, command.Email, tokens));
 
             return new CreateOtherStudentTriageDataCommandResponse
             {
