@@ -20,8 +20,7 @@ namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
             return services
                .AddSingleton(p =>
                {
-                   var sp = services.BuildServiceProvider();
-                   var configuration = sp.GetService<EarlyConnectApiConfiguration>().NServiceBusConfiguration;
+                   var configuration = p.GetService<EarlyConnectApiConfiguration>().NServiceBusConfiguration;
                    var hostingEnvironment = p.GetService<IHostingEnvironment>();
 
                    var endpointConfiguration = new EndpointConfiguration(EndpointName)
