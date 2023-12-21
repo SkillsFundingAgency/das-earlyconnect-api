@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[QuestionType]
+(
+	Id						INT NOT NULL PRIMARY KEY,
+	QuestionTypeText		NVARCHAR(150) NOT NULL,
+	DateAdded				DATETIME NOT NULL DEFAULT GETDATE()
+)

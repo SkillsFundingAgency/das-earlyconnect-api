@@ -71,6 +71,12 @@
     <Build Include="Tables\MatchedVacancy.sql" />
     <Build Include="Tables\MetricsFlag.sql" />
     <Build Include="Tables\StudentData.sql" />
+    <Build Include="Tables\Survey.sql" />
+    <Build Include="Tables\StudentSurvey.sql" />
+    <Build Include="Tables\Question.sql" />
+    <Build Include="Tables\QuestionType.sql" />
+    <Build Include="Tables\Answer.sql" />
+    <Build Include="Tables\StudentAnswer.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
