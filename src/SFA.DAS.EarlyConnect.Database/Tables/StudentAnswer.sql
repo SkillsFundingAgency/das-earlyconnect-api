@@ -5,7 +5,7 @@
 	QuestionId			INT NOT NULL,
 	AnswerId			INT NOT NULL,
 	Response			NVARCHAR(250) NOT NULL DEFAULT (''),
-	DateAdded				DATETIME NOT NULL DEFAULT GETDATE(),
+	DateAdded			DATETIME NOT NULL DEFAULT GETDATE(),
 	CONSTRAINT FK_StudentAnswer_StudentSurvey
         FOREIGN KEY(StudentSurveyId)
         REFERENCES dbo.StudentSurvey(Id),
