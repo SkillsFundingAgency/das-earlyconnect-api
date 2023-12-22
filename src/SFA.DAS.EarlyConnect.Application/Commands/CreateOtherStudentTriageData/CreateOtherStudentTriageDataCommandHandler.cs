@@ -53,7 +53,11 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             var studentId = (student == null) ? await _studentDataRepository.AddStudentDataAsync(new StudentData
             {
                 Email = command.Email,
-                LepsId = lepsId
+                LepsId = lepsId,
+                FirstName = "",
+                LastName = "",
+                Postcode = "",
+                Industry = ""
             }) : student.Id;
 
             // 2. Create Student Survey

@@ -26,6 +26,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task<int> AddStudentDataAsync(StudentData studentData)
         {
+            studentData.DateAdded = DateTime.Now;
             await _dbContext.AddAsync(studentData);
 
             await _dbContext.SaveChangesAsync();

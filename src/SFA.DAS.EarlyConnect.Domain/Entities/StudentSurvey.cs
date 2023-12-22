@@ -8,7 +8,7 @@
         public int SurveyId { get; set; } // FK to Survey
         public virtual Survey Survey { get; set; } // Nav property to Survey
         public DateTime? DateCompleted { get; set; }
-        public DateTime? DateEmailSet { get; set; }
+        public DateTime? DateEmailSent { get; set; }
         public DateTime DateAdded { get; set; }
         public virtual ICollection<StudentAnswer>? StudentAnswers { get; set; }
     }
