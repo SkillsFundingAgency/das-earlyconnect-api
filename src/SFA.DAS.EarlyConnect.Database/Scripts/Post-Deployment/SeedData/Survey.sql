@@ -1,4 +1,4 @@
-﻿/*
+/*
 Post-Deployment Script Template							
 --------------------------------------------------------------------------------------
  This file contains SQL statements that will be appended to the build script.		
@@ -9,7 +9,10 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\SeedData\LEPSData.sql
-:r .\SeedData\LEPSUser.sql
-:r .\SeedData\MetricsFlag.sql
-:r .\SeedData\Survey.sql
+
+IF NOT EXISTS(SELECT * FROM dbo.[Survey])
+    BEGIN
+			INSERT INTO dbo.[Survey] ([Id], [Title], [Description], [StartDate], [EndDate], [IsActive], [DateAdded])
+			VALUES
+				(1, 'Default Dummy Survey', 'Default Dummy Survey', CAST(N'2023-11-09T09:51:49.550' AS DateTime), CAST(N'2024-11-09T09:51:49.550' AS DateTime), 1, GETDATE())
+    END
