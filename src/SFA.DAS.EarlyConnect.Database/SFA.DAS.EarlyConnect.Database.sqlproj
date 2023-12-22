@@ -71,6 +71,7 @@
     <Build Include="Tables\MatchedVacancy.sql" />
     <Build Include="Tables\MetricsFlag.sql" />
     <Build Include="Tables\StudentData.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\LEPSCoverage.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
