@@ -8,3 +8,8 @@
         FOREIGN KEY(LEPSId) 
         REFERENCES dbo.LEPSData(Id)
 )
+GO
+
+CREATE NONCLUSTERED INDEX IX_LEPSCoverage_Postcode_IsDeleted
+ON dbo.LEPSCoverage (Postcode, IsDeleted);
+GO
