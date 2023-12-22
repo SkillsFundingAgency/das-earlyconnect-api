@@ -25,7 +25,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
-        public async Task POST_Create_Returns200()
+        public async Task POST_Create_Returns201()
         {
             // Arrange
             var request = _fixture.Create<LogCreateRequest>();
@@ -34,17 +34,18 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             _mediator.Setup(x => x.Send(It.Is<CreateLogCommand>(command => command.Log.RequestSource == request.RequestSource
                 && command.Log.RequestIP == request.RequestIP
                 && command.Log.FileName == request.FileName
-                && command.Log.Payload == request.Payload), 
+                && command.Log.Payload == request.Payload),
                 It.IsAny<CancellationToken>()))
                 .ReturnsAsync(logId);
 
             // Act
             var actionResult = await _logDataController.Create(request);
-            var okResult = actionResult as OkObjectResult;
 
-            // Assert
-            Assert.IsNotNull(okResult);
-            Assert.That(okResult.StatusCode.Equals(200));
+            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+
+            var createdResult = (CreatedAtActionResult)actionResult;
+            Assert.AreEqual(201, createdResult.StatusCode);
+
             _mediator.Verify(x => x.Send(It.Is<CreateLogCommand>(command => command.Log.RequestSource == request.RequestSource
                 && command.Log.RequestIP == request.RequestIP
                 && command.Log.FileName == request.FileName
