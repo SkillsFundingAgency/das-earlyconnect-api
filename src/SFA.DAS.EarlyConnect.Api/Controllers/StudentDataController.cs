@@ -21,7 +21,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
         [Route("")]
         public async Task<IActionResult> StudentData([FromBody] StudentDataPostRequest request)
         {
@@ -37,7 +37,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 Message = response.Message
             };
 
-            return Ok(model);
+            return CreatedAtAction(nameof(StudentData), model);
         }
     }
 }

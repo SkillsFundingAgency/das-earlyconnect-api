@@ -29,7 +29,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
-        public async Task POST_StudentData_Returns200()
+        public async Task POST_StudentData_Returns201()
         {
             var studentResponse = new CreateStudentDataResult { Message = "Success" };
             var studentData = CreateTestStudentData(5);
@@ -49,12 +49,12 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             var actionResult = await _studentDataController.StudentData(request);
 
-            Assert.IsInstanceOf<OkObjectResult>(actionResult);
+            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
 
-            var okObjectResult = (OkObjectResult)actionResult;
-            Assert.AreEqual(200, okObjectResult.StatusCode);
+            var createdResult = (CreatedAtActionResult)actionResult;
+            Assert.AreEqual(201, createdResult.StatusCode);
 
-            var model = okObjectResult.Value as CreateStudentDataResponse;
+            var model = createdResult.Value as CreateStudentDataResponse;
             Assert.IsNotNull(model);
             Assert.AreEqual("Success", model.Message);
 
