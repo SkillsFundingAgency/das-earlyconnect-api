@@ -6,6 +6,7 @@
 	LastName			NVARCHAR(150) NOT NULL DEFAULT(''),
 	DateOfBirth			DATE NULL,
 	Email				NVARCHAR(100) NOT NULL,
+	Telephone			NVARCHAR(50) NOT NULL DEFAULT (''),
 	PostCode			VARCHAR(10) NOT NULL DEFAULT(''),
 	Industry			NVARCHAR(MAX) NOT NULL DEFAULT(''),
 	DateInterestShown	DATETIME NULL,
