@@ -1,0 +1,24 @@
+﻿CREATE TABLE dbo.SchoolsLeadsData (
+	Id					INT NOT NULL PRIMARY KEY IDENTITY,
+	LogId               INT NOT NULL,
+	LEPSId				INT NOT NULL,
+	OrganisationName	NVARCHAR(200) NOT NULL DEFAULT(''),
+	NoOfYear13Students	INT NOT NULL DEFAULT(0),
+	ConvertedDate		DATETIME NULL,
+	FirstName			NVARCHAR(150) NOT NULL DEFAULT(''),
+	LastName			NVARCHAR(150) NOT NULL DEFAULT(''),
+	Email				NVARCHAR(100) NOT NULL,
+	HasUCASPortalAccess BIT NOT NULL DEFAULT 0,
+	CurrentServices		NVARCHAR(MAX) NOT NULL,
+	OtherServices		NVARCHAR(MAX) NOT NULL,
+	LeadStatus			NVARCHAR(50) NOT NULL DEFAULT(''),
+	IsDeleted           BIT NOT NULL DEFAULT 0,
+	LepDateSent			DATETIME NULL,
+    DateAdded           DATETIME NOT NULL DEFAULT GETDATE(),
+	CONSTRAINT FK_SchoolsLeadsData_ECAPILOG 
+        FOREIGN KEY(LogId) 
+        REFERENCES dbo.ECAPILog(Id),
+	CONSTRAINT FK_SchoolsLeadsData_LEPSData 
+        FOREIGN KEY(LEPSId) 
+        REFERENCES dbo.LEPSData(Id)
+)

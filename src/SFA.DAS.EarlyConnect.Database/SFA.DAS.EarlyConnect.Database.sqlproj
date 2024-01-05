@@ -71,6 +71,8 @@
     <Build Include="Tables\MatchedVacancy.sql" />
     <Build Include="Tables\MetricsFlag.sql" />
     <Build Include="Tables\StudentData.sql" />
+    <Build Include="Tables\SchoolsLeadsData.sql" />
+    <Build Include="Tables\SubjectPreferenceData.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
