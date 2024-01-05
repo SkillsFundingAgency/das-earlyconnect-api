@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[StudentAnswer]
 (
-	Id					INT NOT NULL PRIMARY KEY,
+	Id					INT NOT NULL PRIMARY KEY IDENTITY,
 	StudentSurveyId		UNIQUEIDENTIFIER NOT NULL,
 	QuestionId			INT NOT NULL,
 	AnswerId			INT NOT NULL,

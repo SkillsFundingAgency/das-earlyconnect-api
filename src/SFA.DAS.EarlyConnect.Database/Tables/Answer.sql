@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Answer]
 (
-	Id					INT NOT NULL PRIMARY KEY,
+	Id					INT NOT NULL PRIMARY KEY IDENTITY,
 	QuestionId			INT NOT NULL,
 	AnswerText			NVARCHAR(250) NOT NULL DEFAULT (''),
 	ShortDescription	NVARCHAR(100) NOT NULL DEFAULT (''),

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Survey]
 (
-	Id					INT NOT NULL PRIMARY KEY,
+	Id					INT NOT NULL PRIMARY KEY IDENTITY,
 	Title               NVARCHAR(150) NOT NULL DEFAULT (''),
 	Description			NVARCHAR(250) NOT NULL DEFAULT (''),
 	StartDate			DATETIME NULL,
