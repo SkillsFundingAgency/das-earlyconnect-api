@@ -1,6 +1,6 @@
 ﻿CREATE TABLE dbo.StudentData (
 	Id					INT NOT NULL PRIMARY KEY IDENTITY,
-	LogId               INT NULL,
+	LogId               INT NOT NULL,
 	LEPSId				INT NULL DEFAULT(0),
 	FirstName			NVARCHAR(150) NOT NULL DEFAULT(''),
 	LastName			NVARCHAR(150) NOT NULL DEFAULT(''),
