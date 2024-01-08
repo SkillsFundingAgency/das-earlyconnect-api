@@ -88,7 +88,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
                 .ReturnsAsync(survey);
             _lepsDataRepository.Setup(repository => repository.GetLepsIdByLepsCodeAsync(command.LepsCode))
                 .ReturnsAsync(lepsId);
-            _mockStudentDataRepository.Setup(repository => repository.GetByEmailAsync(command.Email))
+            _mockStudentDataRepository.Setup(repository => repository.GetByEmailAsync(command.Email, "Other"))
                 .ReturnsAsync(student);
             _mockStudentDataRepository.Setup(repository => repository.AddStudentDataAsync(new StudentData { Email = command.Email, LepsId = lepsId }))
                 .ReturnsAsync(studentId);
