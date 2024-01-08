@@ -39,6 +39,8 @@ namespace SFA.DAS.EarlyConnect.Api
             services.AddDatabaseRegistration(earlyConnectConfiguration, _configuration["EnvironmentName"]);
             services.AddMediatRHandlers();
             services.AddDataRepositories();
+            services.AddServices();
+            services.AddNServiceBus();
 
             services.AddHealthChecks()
                 .AddDbContextCheck<EarlyConnectDataContext>();

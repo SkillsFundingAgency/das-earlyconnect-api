@@ -1,4 +1,5 @@
-﻿using SFA.DAS.EarlyConnect.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
@@ -21,6 +22,21 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             }
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<int> AddStudentDataAsync(StudentData studentData)
+        {
+            studentData.DateAdded = DateTime.Now;
+            await _dbContext.AddAsync(studentData);
+
+            await _dbContext.SaveChangesAsync();
+
+            return studentData.Id;
+        }
+
+        public async Task<StudentData?> GetByEmailAsync(string email, string source)
+        {
+            return await _dbContext.StudentData.Where(student => student.Email == email && student.DataSource == source).SingleOrDefaultAsync();
         }
     }
 }
