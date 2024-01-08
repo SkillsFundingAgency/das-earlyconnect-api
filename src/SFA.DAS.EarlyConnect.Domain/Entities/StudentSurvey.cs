@@ -7,7 +7,7 @@
         public virtual StudentData Student { get; set; } // Nav property to StudentData
         public int SurveyId { get; set; } // FK to Survey
         public virtual Survey Survey { get; set; } // Nav property to Survey
-        public DateTime LastUpdated { get; set; }
+        public DateTime? LastUpdated { get; set; }
         public DateTime? DateCompleted { get; set; }
         public DateTime? DateEmailSent { get; set; }
         public DateTime DateAdded { get; set; }
