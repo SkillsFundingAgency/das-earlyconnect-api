@@ -90,8 +90,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             await _mediator.Send(new UpdateLogCommand
             {
                 LogId = logId,
-                Status = "Completed",
-                Error = string.Empty
+                Status = "Completed"
             });
 
             // 3. Generate auth code using the AuthCodeService
