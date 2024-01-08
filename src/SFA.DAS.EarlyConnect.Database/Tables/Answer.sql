@@ -6,7 +6,7 @@
 	ShortDescription	NVARCHAR(100) NOT NULL DEFAULT (''),
 	GroupNumber 		INT NOT NULL DEFAULT(0),
 	GroupLabel			INT NOT NULL DEFAULT(0),
-	SortOrder			INT NOT NULL CHECK (SortOrder IN(0, 1, 2)) DEFAULT(0),
+	SortOrder			INT NOT NULL DEFAULT(0),
 	IsActive			BIT NOT NULL DEFAULT (0),
 	DateAdded			DATETIME NOT NULL DEFAULT GETDATE(),
 	CONSTRAINT FK_Answer_Question
