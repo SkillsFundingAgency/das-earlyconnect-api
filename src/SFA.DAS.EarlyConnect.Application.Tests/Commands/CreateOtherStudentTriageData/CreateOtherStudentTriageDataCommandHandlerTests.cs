@@ -1,9 +1,11 @@
 ﻿using AutoFixture;
 using Azure.Core;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NServiceBus;
 using NUnit.Framework;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
@@ -31,6 +33,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
         public Mock<IAuthCodeService> _authCodeService;
         public Mock<IMessageSession> _messageSession;
         public Mock<ILogger<CreateOtherStudentTriageDataCommandHandler>> _logger;
+        public Mock<IMediator> _mediator;
         private CreateOtherStudentTriageDataCommandHandler _handler;
 
         [SetUp]
@@ -45,6 +48,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
             _authCodeService = new Mock<IAuthCodeService>();
             _messageSession = new Mock<IMessageSession>();
             _logger = new Mock<ILogger<CreateOtherStudentTriageDataCommandHandler>>();
+            _mediator = new Mock<IMediator>();
             _handler = new CreateOtherStudentTriageDataCommandHandler(
                 _surveyRepository.Object,
                 _mockStudentDataRepository.Object,
@@ -53,7 +57,8 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
                 _dataProtectorService.Object,
                 _authCodeService.Object,
                 _messageSession.Object,
-                _logger.Object);
+                _logger.Object,
+                _mediator.Object);
 
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
                 .ForEach(b => _fixture.Behaviors.Remove(b));
@@ -69,6 +74,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
             var survey = _fixture.Create<Survey>();
             var studentId = 21;
             var lepsId = 1;
+            var logId = 1;
             var student = _fixture.Build<StudentData>()
                 .With(x => x.Email, command.Email)
                 .With(x => x.Id, studentId)
@@ -98,6 +104,8 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
                 .Returns(authCode);
             _dataProtectorService.Setup(service => service.EncodedData(authCode))
                 .Returns(encryptedAuthCode);
+            _mediator.Setup(med => med.Send(It.IsAny<CreateLogCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(logId);
 
             // Act
             var response = await _handler.Handle(command, CancellationToken.None);
