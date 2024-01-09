@@ -21,6 +21,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("")]
         public async Task<IActionResult> StudentData([FromBody] StudentDataPostRequest request)
         {
