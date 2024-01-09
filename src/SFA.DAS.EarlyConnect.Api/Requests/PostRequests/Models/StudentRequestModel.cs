@@ -11,7 +11,7 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
         [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Last Name")]
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
-        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Invalid Email")]
+        [EmailAddressAttribute(ErrorMessage = "Invalid Email")]
         public string Email { get; set; }
         [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Postcode")]
         public string Postcode { get; set; }
