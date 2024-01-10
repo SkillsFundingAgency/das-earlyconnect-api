@@ -15,7 +15,7 @@ BEGIN
     VALUES
         (1, 1, 1, 'What is your favorite color?', 'Color Question', 'Color Preference', 'Please choose a color', NULL, 0, 1, GETDATE()),
         (2, 1, 2, 'What is your feedback?', 'Feedback Question', 'Feedback Summary', 'Provide your feedback', NULL, 1, 1, GETDATE()),
-        (3, 2, 3, 'Select your preferences:', 'Preferences Question', 'Preferences Summary', 'Select one or more preferences', NULL, 2, 1, GETDATE());
+        (3, 1, 3, 'Select your preferences:', 'Preferences Question', 'Preferences Summary', 'Select one or more preferences', NULL, 2, 1, GETDATE());
 END
 
 
