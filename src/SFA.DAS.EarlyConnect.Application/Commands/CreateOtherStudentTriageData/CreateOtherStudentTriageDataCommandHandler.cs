@@ -103,7 +103,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
 
             _logger.LogInformation($"Sending Email to Student to Confirm Email");
 
-            await _messageSession.Send(new SendEmailCommand(TemplateId, command.Email, tokens));
+            //await _messageSession.Send(new SendEmailCommand(TemplateId, command.Email, tokens));
 
             return new CreateOtherStudentTriageDataCommandResponse
             {
