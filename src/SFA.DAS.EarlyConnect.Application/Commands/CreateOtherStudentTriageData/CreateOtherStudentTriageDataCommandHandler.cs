@@ -24,7 +24,6 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
         private readonly ILogger<CreateOtherStudentTriageDataCommandHandler> _logger;
         private readonly IMediator _mediator;
         public const string TemplateId = "EarlyConnectAuthenticationEmail";
-        public const string DataSource = "Other";
 
         public CreateOtherStudentTriageDataCommandHandler(
             ISurveyRepository surveyRepository,
@@ -66,13 +65,13 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             });
 
             // 1. Create Student Data (dummy)
-            var student = await _studentDataRepository.GetByEmailAsync(command.Email, DataSource);
+            var student = await _studentDataRepository.GetByEmailAsync(command.Email, "Other");
             var studentId = (student == null) ? await _studentDataRepository.AddStudentDataAsync(new StudentData
             {
                 Email = command.Email,
                 LogId = logId,
                 LepsId = lepsId,
-                DataSource = DataSource
+                DataSource = "Other"
             }) : student.Id;
 
             // 2. Create Student Survey
