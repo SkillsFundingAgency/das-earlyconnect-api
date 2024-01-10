@@ -15,7 +15,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task AddManyAsync(IEnumerable<StudentData> studentDataList)
         {
-            foreach (StudentData student in studentDataList) 
+            foreach (StudentData student in studentDataList)
             {
                 student.DateAdded = DateTime.Now;
                 await _dbContext.AddAsync(student);
@@ -37,6 +37,11 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
         public async Task<StudentData?> GetByEmailAsync(string email)
         {
             return await _dbContext.StudentData.Where(student => student.Email == email).SingleOrDefaultAsync();
+        }
+
+        public async Task<StudentData?> GetByStudentIdAsync(int studentId)
+        {
+            return await _dbContext.StudentData.Where(student => student.Id == studentId).SingleOrDefaultAsync();
         }
     }
 }

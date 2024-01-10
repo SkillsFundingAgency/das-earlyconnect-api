@@ -7,5 +7,6 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
         Task AddManyAsync(IEnumerable<StudentData> studentDataList);
         Task<int> AddStudentDataAsync(StudentData studentData);
         Task<StudentData?> GetByEmailAsync(string email);
+        Task<StudentData?> GetByStudentIdAsync(int studentId);
     }
 }
