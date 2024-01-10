@@ -31,7 +31,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 throw new EntityNotFoundException($"LogId {logId} not found!");
 
             log.Status = status;
-            log.Error = error;
+            log.Error = error != null ? error : "";
             log.CompletedDate = DateTime.Now;
 
             if (status.Equals("Completed")) 
