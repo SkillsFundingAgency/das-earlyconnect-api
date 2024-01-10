@@ -60,7 +60,11 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
                 {
                     RequestType = "CreateOtherStudentTriageDataCommand",
                     RequestSource = "Other",
-                    Status = "Processing"
+                    Status = "Processing",
+                    Error = "",
+                    FileName = "",
+                    Payload = "",
+                    RequestIP = ""
                 }
             });
 
@@ -71,6 +75,11 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
                 Email = command.Email,
                 LogId = logId,
                 LepsId = lepsId,
+                FirstName = "",
+                LastName = "",
+                Industry = "",
+                Telephone = "",
+                Postcode = "",
                 DataSource = "Other"
             }) : student.Id;
 
@@ -103,7 +112,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
 
             _logger.LogInformation($"Sending Email to Student to Confirm Email");
 
-            //await _messageSession.Send(new SendEmailCommand(TemplateId, command.Email, tokens));
+            await _messageSession.Send(new SendEmailCommand(TemplateId, command.Email, tokens));
 
             return new CreateOtherStudentTriageDataCommandResponse
             {
