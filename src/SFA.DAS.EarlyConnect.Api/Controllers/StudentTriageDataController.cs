@@ -44,7 +44,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 StudentSurveyId = surveyGuid
             });
 
-            return Ok(queryResult);
+            return Ok(queryResult.StudentTriageData);
         }
     }
 }
