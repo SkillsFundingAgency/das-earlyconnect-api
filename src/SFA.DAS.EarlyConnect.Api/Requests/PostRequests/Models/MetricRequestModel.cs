@@ -1,9 +1,10 @@
-﻿using SFA.DAS.EarlyConnect.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
 {
     public class MetricRequestModel
     {
+        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Region")]
         public string Region { get; set; }
         public decimal IntendedStartYear { get; set; }
         public int MaxTravelInMiles { get; set; }
