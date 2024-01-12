@@ -1,5 +1,4 @@
 ﻿using AutoFixture;
-using Azure.Core;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -7,18 +6,10 @@ using NServiceBus;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
-using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
 using SFA.DAS.EarlyConnect.Application.Services.AuthCodeService;
 using SFA.DAS.EarlyConnect.Application.Services.DataProtectorService;
-using SFA.DAS.EarlyConnect.Data.Repository;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTriageData
 {

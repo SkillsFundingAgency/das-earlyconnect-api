@@ -6,12 +6,6 @@ using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
-using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
