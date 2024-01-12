@@ -3,5 +3,6 @@
     public class EarlyConnectApiConfiguration
     {
         public string? DatabaseConnectionString { get; set; }
+        public NServiceBusConfiguration NServiceBusConfiguration { get; set; }
     }
 }

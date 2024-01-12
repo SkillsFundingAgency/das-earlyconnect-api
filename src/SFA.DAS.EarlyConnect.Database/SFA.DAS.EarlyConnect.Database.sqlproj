@@ -71,6 +71,12 @@
     <Build Include="Tables\MatchedVacancy.sql" />
     <Build Include="Tables\MetricsFlag.sql" />
     <Build Include="Tables\StudentData.sql" />
+    <Build Include="Tables\Survey.sql" />
+    <Build Include="Tables\StudentSurvey.sql" />
+    <Build Include="Tables\Question.sql" />
+    <Build Include="Tables\QuestionType.sql" />
+    <Build Include="Tables\Answer.sql" />
+    <Build Include="Tables\StudentAnswer.sql" />
     <Build Include="Tables\SchoolsLeadsData.sql" />
     <Build Include="Tables\SubjectPreferenceData.sql" />
   </ItemGroup>
@@ -79,5 +85,6 @@
     <None Include="Scripts\Post-Deployment\SeedData\LEPSData.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\LEPSUser.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\MetricsFlag.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\Survey.sql" />
   </ItemGroup>
 </Project>
