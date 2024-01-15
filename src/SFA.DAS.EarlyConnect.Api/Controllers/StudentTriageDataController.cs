@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
@@ -21,12 +23,38 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [Route("survey-create")]
-        public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataOtherPostRequest request)
+        public async Task<IActionResult> StudentTriageDataOther([FromBody] StudentTriageDataOtherPostRequest request)
         {
             var response = await _mediator.Send(new CreateOtherStudentTriageDataCommand
             {
                 Email = request.Email,
                 LepsCode = request.LepsCode
+            });
+
+            return CreatedAtAction(nameof(StudentTriageDataOther), response);
+        }
+
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [Route("{surveyGuid}")]
+        public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataPostRequest request, [FromRoute] string surveyGuid)
+        {
+            var studentSurvey = request.StudentSurvey.MapFromStudentSurveyRequest();
+
+            var response = await _mediator.Send(new CreateStudentTriageDataCommand
+            {
+                Id = request.Id,
+                LepsId = request.LepsId,
+                LogId = request.LogId,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                DateOfBirth = request.DateOfBirth,
+                Email = request.Email,
+                Postcode = request.Postcode,
+                DataSource = request.DataSource,
+                Industry = request.Industry,
+                DateOfInterest = request.DateOfInterest,
+                StudentSurvey = studentSurvey
             });
 
             return CreatedAtAction(nameof(StudentTriageData), response);
