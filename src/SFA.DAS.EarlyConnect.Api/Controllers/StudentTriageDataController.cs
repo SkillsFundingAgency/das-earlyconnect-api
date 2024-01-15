@@ -4,6 +4,7 @@ using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Models;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
@@ -36,24 +37,28 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        [Route("{surveyGuid}")]
-        public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataPostRequest request, [FromRoute] string surveyGuid)
+        [Route("{studentSurveyGuid}")]
+        public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataPostRequest request, [FromRoute] Guid studentSurveyGuid)
         {
             var studentSurvey = request.StudentSurvey.MapFromStudentSurveyRequest();
 
             var response = await _mediator.Send(new CreateStudentTriageDataCommand
             {
-                Id = request.Id,
-                LepsId = request.LepsId,
-                LogId = request.LogId,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                DateOfBirth = request.DateOfBirth,
-                Email = request.Email,
-                Postcode = request.Postcode,
-                DataSource = request.DataSource,
-                Industry = request.Industry,
-                DateOfInterest = request.DateOfInterest,
+                StudentSurveyGuid = studentSurveyGuid,
+                StudentData = new StudentDataDto 
+                { 
+                    Id = request.Id,
+                    LepsId = request.LepsId,
+                    LogId = request.LogId,
+                    FirstName = request.FirstName,
+                    LastName = request.LastName,
+                    DateOfBirth = request.DateOfBirth,
+                    Email = request.Email,
+                    Postcode = request.Postcode,
+                    DataSource = request.DataSource,
+                    Industry = request.Industry,
+                    DateOfInterest = request.DateOfInterest
+                },
                 StudentSurvey = studentSurvey
             });
 
