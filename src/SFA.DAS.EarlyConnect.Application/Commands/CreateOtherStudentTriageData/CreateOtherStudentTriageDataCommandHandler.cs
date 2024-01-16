@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using Azure.Core;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using NServiceBus;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
+using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
 using SFA.DAS.EarlyConnect.Application.Services.AuthCodeService;
 using SFA.DAS.EarlyConnect.Application.Services.DataProtectorService;
 using SFA.DAS.EarlyConnect.Domain.Entities;
@@ -19,6 +22,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
         private readonly IAuthCodeService _authCodeService;
         private readonly IMessageSession _messageSession;
         private readonly ILogger<CreateOtherStudentTriageDataCommandHandler> _logger;
+        private readonly IMediator _mediator;
         public const string TemplateId = "EarlyConnectAuthenticationEmail";
 
         public CreateOtherStudentTriageDataCommandHandler(
@@ -29,7 +33,8 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             IDataProtectorService dataProtectorService,
             IAuthCodeService authCodeService,
             IMessageSession messageSession,
-            ILogger<CreateOtherStudentTriageDataCommandHandler> logger)
+            ILogger<CreateOtherStudentTriageDataCommandHandler> logger,
+            IMediator mediator)
         {
             _surveyRepository = surveyRepository;
             _studentDataRepository = studentDataRepository;
@@ -39,6 +44,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             _authCodeService = authCodeService;
             _messageSession = messageSession;
             _logger = logger;
+            _mediator = mediator;
         }
 
         public async Task<CreateOtherStudentTriageDataCommandResponse> Handle(CreateOtherStudentTriageDataCommand command, CancellationToken cancellationToken)
@@ -48,16 +54,33 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
 
             var lepsId = await _lepsDataRepository.GetLepsIdByLepsCodeAsync(command.LepsCode);
 
+            var logId = await _mediator.Send(new CreateLogCommand
+            {
+                Log = new ECAPILog 
+                {
+                    RequestType = "CreateOtherStudentTriageDataCommand",
+                    RequestSource = "Other",
+                    Status = "Processing",
+                    Error = "",
+                    FileName = "",
+                    Payload = "",
+                    RequestIP = ""
+                }
+            });
+
             // 1. Create Student Data (dummy)
-            var student = await _studentDataRepository.GetByEmailAsync(command.Email);
+            var student = await _studentDataRepository.GetByEmailAsync(command.Email, "Other");
             var studentId = (student == null) ? await _studentDataRepository.AddStudentDataAsync(new StudentData
             {
                 Email = command.Email,
+                LogId = logId,
                 LepsId = lepsId,
                 FirstName = "",
                 LastName = "",
+                Industry = "",
+                Telephone = "",
                 Postcode = "",
-                Industry = ""
+                DataSource = "Other"
             }) : student.Id;
 
             // 2. Create Student Survey
@@ -70,6 +93,13 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             var studentSurveyId = await _studentSurveyRepository.AddStudentSurveyAsync(studentSurvey);
 
             _logger.LogInformation($"Student Survey created for student with student survey id {studentSurveyId}");
+
+            // update log status
+            await _mediator.Send(new UpdateLogCommand
+            {
+                LogId = logId,
+                Status = "Completed"
+            });
 
             // 3. Generate auth code using the AuthCodeService
             var authCode = _authCodeService.Generate6DigitCode();

@@ -1,4 +1,3 @@
-﻿
 namespace SFA.DAS.EarlyConnect.Domain.Entities
 {
     public class Answer

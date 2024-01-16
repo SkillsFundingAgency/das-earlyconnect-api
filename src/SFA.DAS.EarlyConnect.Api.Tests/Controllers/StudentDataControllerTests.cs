@@ -6,6 +6,7 @@ using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
+using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
@@ -28,9 +29,9 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
-        public async Task POST_StudentData_Returns200()
+        public async Task POST_StudentData_Returns201()
         {
-            // Arrange
+            var studentResponse = new CreateStudentDataResult { Message = "Success" };
             var studentData = CreateTestStudentData(5);
             var request = _fixture.Build<StudentDataPostRequest>()
                 .With(x => x.ListOfStudentData, studentData)
@@ -44,14 +45,19 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                     && command.StudentDataList.First().Industry.Equals(request.ListOfStudentData.First().Industry)
                     && command.StudentDataList.First().DateInterestShown.Equals(request.ListOfStudentData.First().DateOfInterest)
                     ), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(Unit.Value);
+                .ReturnsAsync(studentResponse);
 
-            // Act
             var actionResult = await _studentDataController.StudentData(request);
-            var okResult = actionResult as OkResult;
 
-            // Assert
-            Assert.IsNotNull(okResult);
+            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+
+            var createdResult = (CreatedAtActionResult)actionResult;
+            Assert.AreEqual(201, createdResult.StatusCode);
+
+            var model = createdResult.Value as CreateStudentDataResponse;
+            Assert.IsNotNull(model);
+            Assert.AreEqual("Success", model.Message);
+
             _mediator.Verify(x => x.Send(It.Is<CreateStudentDataCommand>(command =>
                     command.StudentDataList.First().FirstName.Equals(request.ListOfStudentData.First().FirstName)
                     && command.StudentDataList.First().LastName.Equals(request.ListOfStudentData.First().LastName)
@@ -62,11 +68,11 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                 Times.Once);
         }
 
-        private IEnumerable<StudentRequestModel> CreateTestStudentData(int numberOfStudents) 
+        private IEnumerable<StudentRequestModel> CreateTestStudentData(int numberOfStudents)
         {
             List<StudentRequestModel> studentList = new List<StudentRequestModel>();
 
-            for (int i = 0; i < numberOfStudents; i++) 
+            for (int i = 0; i < numberOfStudents; i++)
             {
                 var student = new StudentRequestModel()
                 {
@@ -84,7 +90,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             return studentList;
         }
 
-        private DateTime GenerateRandomDateTime() 
+        private DateTime GenerateRandomDateTime()
         {
             DateTime start = new DateTime(1980, 11, 21);
             int range = (DateTime.Today - start).Days;

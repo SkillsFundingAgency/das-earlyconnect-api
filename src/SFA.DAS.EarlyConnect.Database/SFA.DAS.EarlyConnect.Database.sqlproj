@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -77,9 +77,8 @@
     <Build Include="Tables\QuestionType.sql" />
     <Build Include="Tables\Answer.sql" />
     <Build Include="Tables\StudentAnswer.sql" />
-    <None Include="Scripts\Post-Deployment\SeedData\QuestionType.sql" />
-    <None Include="Scripts\Post-Deployment\SeedData\Question.sql" />
-    <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
+    <Build Include="Tables\SchoolsLeadsData.sql" />
+    <Build Include="Tables\SubjectPreferenceData.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
@@ -87,5 +86,8 @@
     <None Include="Scripts\Post-Deployment\SeedData\LEPSUser.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\MetricsFlag.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Survey.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\QuestionType.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\Question.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
   </ItemGroup>
 </Project>

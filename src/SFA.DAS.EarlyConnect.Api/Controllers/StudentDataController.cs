@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Application.Commands;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using System.Net;
+using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
 {
@@ -21,18 +21,24 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("")]
         public async Task<IActionResult> StudentData([FromBody] StudentDataPostRequest request)
         {
             var command = request.MapFromStudentDataPostRequest();
 
-            await _mediator.Send(new CreateStudentDataCommand
+            var response = await _mediator.Send(new CreateStudentDataCommand
             {
                 StudentDataList = command
             });
 
-            return Ok();
+            var model = new CreateStudentDataResponse()
+            {
+                Message = response.Message
+            };
+
+            return CreatedAtAction(nameof(StudentData), model);
         }
     }
 }

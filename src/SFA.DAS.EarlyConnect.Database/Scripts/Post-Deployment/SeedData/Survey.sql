@@ -12,7 +12,9 @@ Post-Deployment Script Template
 
 IF NOT EXISTS(SELECT * FROM dbo.[Survey])
     BEGIN
+		SET IDENTITY_INSERT [dbo].[Survey] ON
 			INSERT INTO dbo.[Survey] ([Id], [Title], [Description], [StartDate], [EndDate], [IsActive], [DateAdded])
 			VALUES
 				(1, 'Default Dummy Survey', 'Default Dummy Survey', CAST(N'2023-11-09T09:51:49.550' AS DateTime), CAST(N'2024-11-09T09:51:49.550' AS DateTime), 1, GETDATE())
+		SET IDENTITY_INSERT [dbo].[Survey] OFF
     END

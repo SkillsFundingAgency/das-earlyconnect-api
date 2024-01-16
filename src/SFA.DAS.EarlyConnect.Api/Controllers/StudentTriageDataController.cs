@@ -20,7 +20,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
         [Route("survey-create")]
         public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataOtherPostRequest request)
         {
@@ -30,7 +30,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 LepsCode = request.LepsCode
             });
 
-            return Ok(response);
+            return CreatedAtAction(nameof(StudentTriageData), response);
         }
 
         [HttpGet]

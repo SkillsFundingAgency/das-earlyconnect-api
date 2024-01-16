@@ -1,9 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.EarlyConnect.Api.Responses.GetMetricsDataByLepsCode;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
-using SFA.DAS.EarlyConnect.Application.Queries.GetMetricsDataByLepsCode;
-using SFA.DAS.EarlyConnect.Application.Responses;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
