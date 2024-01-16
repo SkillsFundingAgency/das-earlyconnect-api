@@ -53,6 +53,15 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
             });
 
             // 2. Update Student Survey
+            await _studentSurveyRepository.UpdateAsync(new StudentSurvey
+            {
+                Id = command.StudentSurvey.Id,
+                StudentId = command.StudentSurvey.StudentId,
+                SurveyId = command.StudentSurvey.SurveyId,
+                DateAdded = command.StudentSurvey.DateAdded,
+                DateCompleted = command.StudentSurvey.DateCompleted,
+                DateEmailSent = command.StudentSurvey.DateEmailSent
+            });
 
             // 3. Add StudentAnswers
 
