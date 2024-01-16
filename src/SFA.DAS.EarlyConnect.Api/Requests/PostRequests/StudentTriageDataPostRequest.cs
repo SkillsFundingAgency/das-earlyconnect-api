@@ -12,9 +12,10 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests
         public DateTime DateOfBirth { get; set; }
         public string Email { get; set; }
         public string Postcode { get; set; }
+        public string Telephone { get; set; }
         public string DataSource { get; set; }
+        public string SchoolName { get; set; }
         public string Industry { get; set; }
-        public DateTime DateOfInterest { get; set; }
         public StudentSurveyRequestModel StudentSurvey { get; set; }
     }
 }

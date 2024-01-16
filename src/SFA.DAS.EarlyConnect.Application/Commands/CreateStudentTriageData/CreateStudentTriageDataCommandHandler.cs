@@ -1,42 +1,32 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using NServiceBus;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
-using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
-using SFA.DAS.EarlyConnect.Application.Services.AuthCodeService;
-using SFA.DAS.EarlyConnect.Application.Services.DataProtectorService;
+using SFA.DAS.EarlyConnect.Application.Extensions;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using SFA.DAS.Notifications.Messages.Commands;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
 {
     public class CreateStudentTriageDataCommandHandler : IRequestHandler<CreateStudentTriageDataCommand, Unit>
     {
-        private readonly ISurveyRepository _surveyRepository;
+        private readonly IStudentAnswerRepository _studentAnswerRepository;
         private readonly IStudentDataRepository _studentDataRepository;
-        private readonly IStudentSurveyRepository _studentSurveyRepository;
         private readonly ILogger<CreateStudentTriageDataCommandHandler> _logger;
-        private readonly IMediator _mediator;
 
         public CreateStudentTriageDataCommandHandler(
-            ISurveyRepository surveyRepository,
+            IStudentAnswerRepository studentAnswerRepository,
             IStudentDataRepository studentDataRepository,
             IStudentSurveyRepository studentSurveyRepository,
-            ILogger<CreateStudentTriageDataCommandHandler> logger,
-            IMediator mediator)
+            ILogger<CreateStudentTriageDataCommandHandler> logger)
         {
-            _surveyRepository = surveyRepository;
+            _studentAnswerRepository = studentAnswerRepository;
             _studentDataRepository = studentDataRepository;
-            _studentSurveyRepository = studentSurveyRepository;
             _logger = logger;
-            _mediator = mediator;
         }
 
         public async Task<Unit> Handle(CreateStudentTriageDataCommand command, CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Updating Student Data during the Student Triage Data journey");
+
             // 1. Update Student Data
             await _studentDataRepository.UpdateAsync(new StudentData
             {
@@ -47,25 +37,37 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                 DateOfBirth = command.StudentData.DateOfBirth,
                 Email = command.StudentData.Email,
                 Postcode = command.StudentData.Postcode,
+                Telephone = command.StudentData.Telephone,
                 DataSource = command.StudentData.DataSource,
-                Industry = command.StudentData.Industry,
-                DateInterestShown = command.StudentData.DateOfInterest
+                SchoolName = command.StudentData.SchoolName,
+                Industry = command.StudentData.Industry
             });
 
-            // 2. Update Student Survey
-            await _studentSurveyRepository.UpdateAsync(new StudentSurvey
+            var answersToCreate = command.StudentSurvey.Answers.Where(x => x.Id == null).ToList().MapFromAnswersDtoToCreate();
+            var answersToUpdate = command.StudentSurvey.Answers.Where(x => x.Id != null).ToList().MapFromAnswersDtoToUpdate();
+
+            // 2. Add StudentAnswers
+            if (answersToCreate.Any()) 
             {
-                Id = command.StudentSurvey.Id,
-                StudentId = command.StudentSurvey.StudentId,
-                SurveyId = command.StudentSurvey.SurveyId,
-                DateAdded = command.StudentSurvey.DateAdded,
-                DateCompleted = command.StudentSurvey.DateCompleted,
-                DateEmailSent = command.StudentSurvey.DateEmailSent
-            });
+                _logger.LogInformation($"Creating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
 
-            // 3. Add StudentAnswers
+                await _studentAnswerRepository.AddManyAsync(answersToCreate);
+            }
+
+            // 3. Update StudentAnswers
+            if (answersToUpdate.Any())
+            {
+                _logger.LogInformation($"Updating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
+
+                foreach (var answer in answersToUpdate) 
+                {
+                    await _studentAnswerRepository.UpdateAsync(answer);
+                }
+            }
 
             return Unit.Value;
         }
+
+  
     }
 }

@@ -13,12 +13,11 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
             {
                 var answer = new AnswerDto
                 {
-                    Id = model.Id,
+                    Id = ((model.Id != null) ? model.Id : null),
                     StudentSurveyId = model.StudentSurveyId,
                     AnswerId = model.AnswerId,
                     QuestionId = model.QuestionId,
-                    Response = model.Response,
-                    DateAdded = model.DateAdded
+                    Response = model.Response
                 };
 
                 answers.Add(answer);

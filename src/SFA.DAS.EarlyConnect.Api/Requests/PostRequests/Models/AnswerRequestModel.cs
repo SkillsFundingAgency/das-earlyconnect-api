@@ -2,7 +2,7 @@
 {
     public class AnswerRequestModel
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public Guid StudentSurveyId { get; set; }
         public int QuestionId { get; set; }
         public int AnswerId { get; set; }

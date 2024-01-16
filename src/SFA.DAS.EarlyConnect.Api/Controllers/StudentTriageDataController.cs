@@ -55,9 +55,10 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                     DateOfBirth = request.DateOfBirth,
                     Email = request.Email,
                     Postcode = request.Postcode,
-                    DataSource = request.DataSource,
-                    Industry = request.Industry,
-                    DateOfInterest = request.DateOfInterest
+                    Telephone = request.Telephone,
+                    DataSource = "UCAS",
+                    SchoolName = request.SchoolName,
+                    Industry = request.Industry
                 },
                 StudentSurvey = studentSurvey
             });

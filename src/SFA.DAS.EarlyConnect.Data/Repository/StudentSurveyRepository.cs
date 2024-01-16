@@ -35,9 +35,6 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             studentSurvey.StudentId = studentSurveyToUpdate.StudentId;
             studentSurvey.SurveyId = studentSurveyToUpdate.SurveyId;
-            studentSurvey.DateAdded = studentSurveyToUpdate.DateAdded;
-            studentSurvey.DateCompleted = studentSurveyToUpdate.DateCompleted;
-            studentSurvey.DateEmailSent = studentSurveyToUpdate.DateEmailSent;
 
             await _dbContext.SaveChangesAsync();
         }
