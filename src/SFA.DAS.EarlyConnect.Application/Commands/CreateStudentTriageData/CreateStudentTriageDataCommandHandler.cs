@@ -86,6 +86,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                     await _studentAnswerRepository.UpdateAsync(answer);
                 }
             }
+            result.Message = "Success";
 
             return result;
         }

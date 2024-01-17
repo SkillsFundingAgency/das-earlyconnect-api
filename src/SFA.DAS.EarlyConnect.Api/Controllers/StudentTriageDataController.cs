@@ -69,7 +69,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 Message = result.Message
             };
 
-            if (response.Message != null) 
+            if (response.Message != "Success") 
             {
                 return BadRequest(response);
             }
