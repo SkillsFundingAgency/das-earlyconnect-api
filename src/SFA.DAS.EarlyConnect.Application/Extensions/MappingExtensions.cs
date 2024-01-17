@@ -5,7 +5,7 @@ namespace SFA.DAS.EarlyConnect.Application.Extensions
 {
     public static class MappingExtensions
     {
-        public static List<StudentAnswer> MapFromAnswersDtoToCreate(this List<AnswerDto> answersDto)
+        public static List<StudentAnswer> MapFromAnswersDtoToCreate(this List<AnswerDto> answersDto, Guid studentSurveyId)
         {
             var answers = new List<StudentAnswer>();
 
@@ -13,7 +13,7 @@ namespace SFA.DAS.EarlyConnect.Application.Extensions
             {
                 var answer = new StudentAnswer
                 {
-                    StudentSurveyId = dto.StudentSurveyId,
+                    StudentSurveyId = studentSurveyId,
                     AnswerId = dto.AnswerId,
                     QuestionId = dto.QuestionId,
                     Response = dto.Response
@@ -25,7 +25,7 @@ namespace SFA.DAS.EarlyConnect.Application.Extensions
             return answers;
         }
 
-        public static List<StudentAnswer> MapFromAnswersDtoToUpdate(this List<AnswerDto> answersDto)
+        public static List<StudentAnswer> MapFromAnswersDtoToUpdate(this List<AnswerDto> answersDto, Guid studentSurveyId)
         {
             var answers = new List<StudentAnswer>();
 
@@ -34,7 +34,7 @@ namespace SFA.DAS.EarlyConnect.Application.Extensions
                 var answer = new StudentAnswer
                 {
                     Id = (int)dto.Id,
-                    StudentSurveyId = dto.StudentSurveyId,
+                    StudentSurveyId = studentSurveyId,
                     AnswerId = dto.AnswerId,
                     QuestionId = dto.QuestionId,
                     Response = dto.Response

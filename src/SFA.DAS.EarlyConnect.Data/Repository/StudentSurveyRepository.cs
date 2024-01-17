@@ -30,13 +30,25 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             if (studentSurvey == null) 
             {
-                throw new ArgumentException(nameof(studentSurvey), "Cannot find student survey by the supplied ID");
+                throw new ArgumentException("Cannot find student survey by the supplied ID");
             }
 
             studentSurvey.StudentId = studentSurveyToUpdate.StudentId;
             studentSurvey.SurveyId = studentSurveyToUpdate.SurveyId;
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<StudentSurvey> GetByIdAsync(Guid studentSurveyId)
+        {
+            var studentSurvey = await _dbContext.StudentSurveys.Where(x => x.Id.Equals(studentSurveyId)).SingleOrDefaultAsync();
+
+            if (studentSurvey == null)
+            {
+                throw new ArgumentException("Cannot find student survey by the supplied ID");
+            }
+
+            return studentSurvey;
         }
     }
 }

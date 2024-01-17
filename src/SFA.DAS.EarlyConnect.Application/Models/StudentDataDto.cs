@@ -3,8 +3,6 @@
     public class StudentDataDto
     {
         public int Id { get; set; }
-        public int LepsId { get; set; }
-        public int LogId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }

@@ -42,15 +42,13 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task UpdateAsync(StudentData studentData)
         {
-            var student = await _dbContext.StudentData.Where(student => studentData.Id == student.Id && student.DataSource == studentData.DataSource).SingleOrDefaultAsync();
+            var student = await _dbContext.StudentData.Where(student => studentData.Id == student.Id).SingleOrDefaultAsync();
 
             if (student == null) 
             {
                 throw new ArgumentNullException(nameof(student), "No Student ID Found!");
             }
 
-            student.LogId = studentData.LogId;
-            student.LepsId = studentData.LepsId;
             student.DateOfBirth = studentData.DateOfBirth;
             student.Email = studentData.Email;
             student.Postcode = studentData.Postcode;

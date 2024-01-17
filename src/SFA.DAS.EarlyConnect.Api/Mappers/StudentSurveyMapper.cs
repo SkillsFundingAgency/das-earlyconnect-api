@@ -12,9 +12,6 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                 Id = request.Id,
                 StudentId = request.StudentId,
                 SurveyId = request.SurveyId,
-                DateEmailSent = request.DateEmailSent,
-                DateAdded = request.DateAdded,
-                DateCompleted = request.DateCompleted,
                 Answers = request.ResponseAnswers.MapFromAnswersRequest()
             };
 

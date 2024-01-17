@@ -5,8 +5,6 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests
     public class StudentTriageDataPostRequest
     {
         public int Id { get; set; }
-        public int LepsId { get; set; }
-        public int LogId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }

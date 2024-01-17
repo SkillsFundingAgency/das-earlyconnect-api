@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
+using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Models;
@@ -37,19 +39,18 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("{studentSurveyGuid}")]
         public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataPostRequest request, [FromRoute] Guid studentSurveyGuid)
         {
             var studentSurvey = request.StudentSurvey.MapFromStudentSurveyRequest();
 
-            var response = await _mediator.Send(new CreateStudentTriageDataCommand
+            var result = await _mediator.Send(new CreateStudentTriageDataCommand
             {
                 StudentSurveyGuid = studentSurveyGuid,
                 StudentData = new StudentDataDto 
                 { 
                     Id = request.Id,
-                    LepsId = request.LepsId,
-                    LogId = request.LogId,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     DateOfBirth = request.DateOfBirth,
@@ -62,6 +63,16 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 },
                 StudentSurvey = studentSurvey
             });
+
+            var response = new CreateStudentDataResponse()
+            {
+                Message = result.Message
+            };
+
+            if (response.Message != null) 
+            {
+                return BadRequest(response);
+            }
 
             return CreatedAtAction(nameof(StudentTriageData), response);
         }

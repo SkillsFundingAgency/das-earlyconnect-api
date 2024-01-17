@@ -26,7 +26,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
-        public async Task POST_StudentTriageData_ReturnsOk()
+        public async Task POST_StudentTriageDataOther_ReturnsOk()
         {
             // Arrange
             var request = _fixture.Create<StudentTriageDataOtherPostRequest>();
@@ -37,7 +37,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                 .ReturnsAsync(expectedResult);
 
             // Act
-            var actionResult = await _studentTriageDataController.StudentTriageData(request);
+            var actionResult = await _studentTriageDataController.StudentTriageDataOther(request);
             var okObjectResult = actionResult as OkObjectResult;
 
             // Assert

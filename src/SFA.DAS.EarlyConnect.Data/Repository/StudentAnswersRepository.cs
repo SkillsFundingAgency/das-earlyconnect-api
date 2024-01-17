@@ -17,6 +17,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
         {
             foreach (var answer in answers)
             {
+                answer.DateAdded = DateTime.UtcNow;
                 await _dbContext.AddAsync(answer);
             }
 
@@ -32,9 +33,11 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 throw new ArgumentException(nameof(studentAnswer), "Cannot find student answer by the supplied ID");
             }
 
+            studentAnswer.StudentSurveyId = answerToUpdate.StudentSurveyId;
             studentAnswer.QuestionId = answerToUpdate.QuestionId;
             studentAnswer.AnswerId = answerToUpdate.AnswerId;
             studentAnswer.Response = answerToUpdate.Response;
+            studentAnswer.DateAdded = DateTime.Now;
 
             await _dbContext.SaveChangesAsync();
         }
