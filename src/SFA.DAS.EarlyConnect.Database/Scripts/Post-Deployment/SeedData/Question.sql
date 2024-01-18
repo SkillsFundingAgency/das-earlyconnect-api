@@ -11,13 +11,13 @@ Post-Deployment Script Template
 */
 IF NOT EXISTS (SELECT * FROM [dbo].[Question])
 BEGIN
-	SET IDENTITY_INSERT [dbo].[QuestionType] ON
+	SET IDENTITY_INSERT [dbo].[Question] ON
         INSERT INTO dbo.Question (Id, SurveyId, QuestionTypeId, QuestionText, ShortDescription, SummaryLabel, ValidationMessage, DefaultToggleAnswerId, SortOrder, IsActive, DateAdded)
         VALUES
             (1, 1, 1, 'What is your favorite color?', 'Color Question', 'Color Preference', 'Please choose a color', NULL, 0, 1, GETDATE()),
             (2, 1, 2, 'What is your feedback?', 'Feedback Question', 'Feedback Summary', 'Provide your feedback', NULL, 1, 1, GETDATE()),
             (3, 1, 3, 'Select your preferences:', 'Preferences Question', 'Preferences Summary', 'Select one or more preferences', NULL, 2, 1, GETDATE());
-    SET IDENTITY_INSERT [dbo].[QuestionType] OFF
+    SET IDENTITY_INSERT [dbo].[Question] OFF
 END
 
 
