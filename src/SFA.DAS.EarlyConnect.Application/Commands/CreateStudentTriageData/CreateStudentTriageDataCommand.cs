@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Models;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
