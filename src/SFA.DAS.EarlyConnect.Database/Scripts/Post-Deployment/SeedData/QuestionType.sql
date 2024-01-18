@@ -11,11 +11,13 @@ Post-Deployment Script Template
 */
 IF NOT EXISTS (SELECT * FROM [dbo].[QuestionType])
 BEGIN
-    INSERT INTO dbo.QuestionType (Id, QuestionTypeText, DateAdded)
-    VALUES
-        (1, 'Multiple Choice', GETDATE()),
-        (2, 'Text Response', GETDATE()),
-        (3, 'Checkbox', GETDATE());
+	SET IDENTITY_INSERT [dbo].[QuestionType] ON
+        INSERT INTO dbo.QuestionType (Id, QuestionTypeText, DateAdded)
+        VALUES
+            (1, 'Multiple Choice', GETDATE()),
+            (2, 'Text Response', GETDATE()),
+            (3, 'Checkbox', GETDATE());
+    SET IDENTITY_INSERT [dbo].[QuestionType] OFF
 END
 
 
