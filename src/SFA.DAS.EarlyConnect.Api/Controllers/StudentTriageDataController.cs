@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
@@ -30,6 +31,20 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             });
 
             return CreatedAtAction(nameof(StudentTriageData), response);
+        }
+
+        [HttpGet]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Route("{surveyGuid}")]
+        public async Task<IActionResult> StudentTriageData([FromRoute] string surveyGuid)
+        {
+            var queryResult = await _mediator.Send(new GetStudentTriageDataBySurveyIdQuery
+            {
+                StudentSurveyId = surveyGuid
+            });
+
+            return Ok(queryResult.StudentTriageData);
         }
     }
 }
