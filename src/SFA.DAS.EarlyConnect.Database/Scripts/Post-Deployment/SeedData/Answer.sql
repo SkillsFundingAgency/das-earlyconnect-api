@@ -9,10 +9,14 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\SeedData\LEPSData.sql
-:r .\SeedData\LEPSUser.sql
-:r .\SeedData\MetricsFlag.sql
-:r .\SeedData\Survey.sql
-:r .\SeedData\QuestionType.sql
-:r .\SeedData\Question.sql
-:r .\SeedData\Answer.sql
+
+IF NOT EXISTS (SELECT * FROM [dbo].[QuestionType])
+    BEGIN
+		SET IDENTITY_INSERT [dbo].[QuestionType] ON
+			INSERT INTO dbo.QuestionType ([Id], [QuestionTypeText], [DateAdded])
+			VALUES
+				(1, N'Checkbox', CAST(N'2024-01-17T09:49:39.977' AS DateTime)),
+				(2, N'Radio', CAST(N'2024-01-17T09:49:39.977' AS DateTime)),
+				(3, N'Free Text', CAST(N'2024-01-17T09:49:39.977' AS DateTime))	
+		SET IDENTITY_INSERT [dbo].[QuestionType] OFF
+    END
