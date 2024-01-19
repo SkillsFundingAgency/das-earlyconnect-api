@@ -90,7 +90,5 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
 
             return result;
         }
-
-  
     }
 }

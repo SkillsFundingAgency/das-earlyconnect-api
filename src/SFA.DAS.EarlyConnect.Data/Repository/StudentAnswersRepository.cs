@@ -37,7 +37,6 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             studentAnswer.QuestionId = answerToUpdate.QuestionId;
             studentAnswer.AnswerId = answerToUpdate.AnswerId;
             studentAnswer.Response = answerToUpdate.Response;
-            studentAnswer.DateAdded = DateTime.Now;
 
             await _dbContext.SaveChangesAsync();
         }
