@@ -23,6 +23,19 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             return studentSurvey.Id;
         }
+
+        public async Task<StudentSurvey> GetByIdAsync(Guid studentSurveyId)
+        {
+            var studentSurvey = await _dbContext.StudentSurveys.Where(x => x.Id.Equals(studentSurveyId)).SingleOrDefaultAsync();
+
+            if (studentSurvey == null)
+            {
+                throw new ArgumentException("Cannot find student survey by the supplied ID");
+            }
+
+            return studentSurvey;
+        }
+        
         public async Task<StudentSurvey> GetStudentSurveyBySurveyIdAsync(string surveyId)
         {
             Guid guid = Guid.Parse(surveyId);

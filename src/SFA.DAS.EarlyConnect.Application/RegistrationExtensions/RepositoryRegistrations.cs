@@ -19,7 +19,6 @@ namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
             services.AddTransient<IAnswerRepository, AnswerRepository>();
             services.AddTransient<IQuestionRepository, QuestionRepository>();
             services.AddTransient<IStudentAnswerRepository, StudentAnswerRepository>();
-            services.AddTransient<IStudentAnswerRepository, StudentAnswerRepository>();
 
             return services;
         }

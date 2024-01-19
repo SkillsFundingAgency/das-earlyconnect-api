@@ -8,5 +8,6 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
         Task<int> AddStudentDataAsync(StudentData studentData);
         Task<StudentData?> GetByStudentIdAsync(int studentId);
         Task<StudentData?> GetByEmailAsync(string email, string source);
+        Task UpdateAsync(StudentData studentData);
     }
 }
