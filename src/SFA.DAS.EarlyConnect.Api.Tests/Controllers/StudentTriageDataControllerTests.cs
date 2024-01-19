@@ -8,6 +8,7 @@ using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
@@ -111,6 +112,25 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             // Assert
             Assert.IsNotNull(badRequestObjectResult);
             Assert.That(badRequestObjectResult.StatusCode.Equals(400));
+        }
+
+        [Test]
+        public async Task GET_StudentTriageData_ReturnsStudentTriageData()
+        {
+            string surveyGuid = new Guid().ToString();
+            var studentTriageDataDto = _fixture.Create<StudentTriageDataDto>();
+            var expectedResult = _fixture.Build<GetStudentTriageDataBySurveyIdResult>()
+                .With(x => x.StudentTriageData, studentTriageDataDto)
+                .Create();
+
+            _mediator.Setup(x => x.Send(It.IsAny<GetStudentTriageDataBySurveyIdQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(expectedResult);
+
+            var actionResult = await _studentTriageDataController.StudentTriageData(surveyGuid);
+            var okObjectResult = actionResult as OkObjectResult;
+
+            Assert.IsNotNull(okObjectResult);
+            Assert.That(okObjectResult.StatusCode.Equals(200));
         }
     }
 }

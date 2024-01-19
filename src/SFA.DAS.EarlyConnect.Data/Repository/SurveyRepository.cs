@@ -17,5 +17,11 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
         {
             return await _dbContext.Surveys.FirstOrDefaultAsync();
         }
+        public async Task<ICollection<Survey>> GetSurveyBySurveyIdAsync(int surveyId)
+        {
+            return await _dbContext.Surveys
+                .Where(survey => survey.Id == surveyId)
+                .ToListAsync();
+        }
     }
 }

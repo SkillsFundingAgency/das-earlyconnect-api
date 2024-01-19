@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.EarlyConnect.Domain.Entities
+namespace SFA.DAS.EarlyConnect.Domain.Entities
 {
     public class Question
     {
@@ -10,6 +10,7 @@
         public string QuestionText { get; set; }
         public string ShortDescription { get; set; }
         public string SummaryLabel { get; set; }
+        public string ValidationMessage { get; set; }
         public int? DefaultToggleAnswerId { get; set; }
         public int SortOrder { get; set; }
         public bool IsActive { get; set; }

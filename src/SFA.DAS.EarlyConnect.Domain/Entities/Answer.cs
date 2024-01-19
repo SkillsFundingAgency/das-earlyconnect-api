@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.EarlyConnect.Domain.Entities
+namespace SFA.DAS.EarlyConnect.Domain.Entities
 {
     public class Answer
     {
@@ -7,8 +7,8 @@
         public virtual Question Question { get; set; } // FK to Question
         public string AnswerText { get; set; }
         public string ShortDescription { get; set; }
-        public string GroupNumber { get; set; }
-        public string GroupLabel { get; set; }
+        public int GroupNumber { get; set; }
+        public int GroupLabel { get; set; }
         public int SortOrder { get; set; }
         public bool IsActive { get; set; }
         public DateTime DateAdded { get; set; }

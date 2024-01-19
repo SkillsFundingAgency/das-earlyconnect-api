@@ -80,7 +80,8 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
                 Industry = "",
                 Telephone = "",
                 Postcode = "",
-                DataSource = "Other"
+                DataSource = "Other",
+                SchoolName = "",
             }) : student.Id;
 
             // 2. Create Student Survey
