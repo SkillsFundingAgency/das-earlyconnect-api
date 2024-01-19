@@ -5,6 +5,7 @@ using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using System.Net;
 using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
+using SFA.DAS.EarlyConnect.Application.Responses;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
 {
@@ -32,6 +33,11 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             {
                 StudentDataList = command
             });
+
+            if (response.ResultCode.Equals(ResponseCode.InvalidRequest))
+            {
+                return BadRequest(new { Errors = response.ValidationErrors });
+            }
 
             var model = new CreateStudentDataResponse()
             {

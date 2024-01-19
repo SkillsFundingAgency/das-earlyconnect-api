@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using Azure;
+using MediatR;
 using Microsoft.Extensions.Logging;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataByLepsPostCode;
+using SFA.DAS.EarlyConnect.Application.Responses;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
@@ -26,6 +29,23 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
             _logger.LogInformation("Updating student data");
 
             CreateStudentDataResult createStudentDataResult = new CreateStudentDataResult();
+
+            if (command.StudentDataList.Any(s => s.DateOfBirth >= DateTime.Now.Date) || command.StudentDataList.Any(s => s.DateInterestShown >= DateTime.Now.Date))
+            {
+                _logger.LogInformation($"Invalid date found!");
+
+                return new CreateStudentDataResult
+                { 
+                    ResultCode = ResponseCode.InvalidRequest,
+                    ValidationErrors = new List<DetailedValidationError>
+                        {
+                            new DetailedValidationError
+                            {
+                                Field = "DateOfBirth/DateInterestShown", Message = "Invalid DateOfBirth/DateInterestShown in File"
+                            }
+                        }.Cast<object>().ToList()
+                };
+            }
 
             foreach (var studentData in command.StudentDataList)
             {
