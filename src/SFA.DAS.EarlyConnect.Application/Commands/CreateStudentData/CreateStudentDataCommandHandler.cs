@@ -30,21 +30,36 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
 
             CreateStudentDataResult createStudentDataResult = new CreateStudentDataResult();
 
-            if (command.StudentDataList.Any(s => s.DateOfBirth >= DateTime.Now.Date) || command.StudentDataList.Any(s => s.DateInterestShown >= DateTime.Now.Date))
-            {
-                _logger.LogInformation($"Invalid date found!");
+            var validationErrors = new List<DetailedValidationError>(); 
 
-                return new CreateStudentDataResult
-                { 
-                    ResultCode = ResponseCode.InvalidRequest,
-                    ValidationErrors = new List<DetailedValidationError>
-                        {
-                            new DetailedValidationError
-                            {
-                                Field = "DateOfBirth/DateInterestShown", Message = "Invalid DateOfBirth/DateInterestShown in File"
-                            }
-                        }.Cast<object>().ToList()
-                };
+            if (command.StudentDataList.Any(s => s.DateOfBirth >= DateTime.Now.Date))
+            {
+                _logger.LogInformation($"Invalid Date of Birth found!");
+
+                createStudentDataResult.ResultCode = ResponseCode.InvalidRequest;
+                validationErrors.Add(new DetailedValidationError()
+                {
+                    Field = "DateOfBirth", 
+                    Message= "Invalid Date of Birth in File"
+                });
+            }
+
+            if (command.StudentDataList.Any(s => s.DateInterestShown >= DateTime.Now.Date)) 
+            {
+                _logger.LogInformation($"Invalid Date Interest Shown found!");
+
+                createStudentDataResult.ResultCode = ResponseCode.InvalidRequest;
+                validationErrors.Add(new DetailedValidationError()
+                {
+                    Field = "DateInterestShown",
+                    Message = "Invalid Date Interest Shown in File"
+                });
+            }
+
+            if(createStudentDataResult.ResultCode == ResponseCode.InvalidRequest) 
+            {
+                createStudentDataResult.ValidationErrors = validationErrors.Cast<object>().ToList();
+                return createStudentDataResult;
             }
 
             foreach (var studentData in command.StudentDataList)
