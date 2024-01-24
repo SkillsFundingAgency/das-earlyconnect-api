@@ -20,3 +20,4 @@ IF NOT EXISTS (SELECT * FROM [dbo].[QuestionType])
 				(3, N'Free Text', CAST(N'2024-01-17T09:49:39.977' AS DateTime))	
 		SET IDENTITY_INSERT [dbo].[QuestionType] OFF
     END
+

@@ -1,4 +1,5 @@
-﻿using SFA.DAS.EarlyConnect.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
@@ -21,6 +22,26 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             await _dbContext.SaveChangesAsync();
 
             return studentSurvey.Id;
+        }
+
+        public async Task<StudentSurvey> GetByIdAsync(Guid studentSurveyId)
+        {
+            var studentSurvey = await _dbContext.StudentSurveys.Where(x => x.Id.Equals(studentSurveyId)).SingleOrDefaultAsync();
+
+            if (studentSurvey == null)
+            {
+                throw new ArgumentException("Cannot find student survey by the supplied ID");
+            }
+
+            return studentSurvey;
+        }
+        
+        public async Task<StudentSurvey> GetStudentSurveyBySurveyIdAsync(string surveyId)
+        {
+            Guid guid = Guid.Parse(surveyId);
+            return await _dbContext.StudentSurveys
+                .Where(studentSurvey => studentSurvey.Id == guid)
+                .FirstOrDefaultAsync();
         }
     }
 }

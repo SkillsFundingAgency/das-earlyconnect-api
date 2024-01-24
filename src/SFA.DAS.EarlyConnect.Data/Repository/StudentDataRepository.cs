@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
+using System;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
@@ -15,7 +16,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task AddManyAsync(IEnumerable<StudentData> studentDataList)
         {
-            foreach (StudentData student in studentDataList) 
+            foreach (StudentData student in studentDataList)
             {
                 student.DateAdded = DateTime.Now;
                 await _dbContext.AddAsync(student);
@@ -37,6 +38,30 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
         public async Task<StudentData?> GetByEmailAsync(string email, string source)
         {
             return await _dbContext.StudentData.Where(student => student.Email == email && student.DataSource == source).SingleOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(StudentData studentData)
+        {
+            var student = await _dbContext.StudentData.Where(student => studentData.Id == student.Id).SingleOrDefaultAsync();
+
+            if (student == null) 
+            {
+                throw new ArgumentNullException(nameof(student), "No Student ID Found!");
+            }
+
+            student.DateOfBirth = studentData.DateOfBirth;
+            student.Email = studentData.Email;
+            student.Postcode = studentData.Postcode;
+            student.DataSource = studentData.DataSource;
+            student.DateInterestShown = studentData.DateInterestShown;
+            student.Industry = studentData.Industry;
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<StudentData?> GetByStudentIdAsync(int studentId)
+        {
+            return await _dbContext.StudentData.Where(student => student.Id == studentId).SingleOrDefaultAsync();
         }
     }
 }
