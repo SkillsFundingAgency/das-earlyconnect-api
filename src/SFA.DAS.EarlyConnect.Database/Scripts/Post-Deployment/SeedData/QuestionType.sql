@@ -9,15 +9,15 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-IF NOT EXISTS (SELECT * FROM [dbo].[QuestionType])
-BEGIN
-	SET IDENTITY_INSERT [dbo].[QuestionType] ON
-        INSERT INTO dbo.QuestionType (Id, QuestionTypeText, DateAdded)
-        VALUES
-            (1, 'Multiple Choice', GETDATE()),
-            (2, 'Text Response', GETDATE()),
-            (3, 'Checkbox', GETDATE());
-    SET IDENTITY_INSERT [dbo].[QuestionType] OFF
-END
 
+IF NOT EXISTS (SELECT * FROM [dbo].[QuestionType])
+    BEGIN
+		SET IDENTITY_INSERT [dbo].[QuestionType] ON
+			INSERT INTO dbo.QuestionType ([Id], [QuestionTypeText], [DateAdded])
+			VALUES
+				(1, N'Checkbox', CAST(N'2024-01-17T09:49:39.977' AS DateTime)),
+				(2, N'Radio', CAST(N'2024-01-17T09:49:39.977' AS DateTime)),
+				(3, N'Free Text', CAST(N'2024-01-17T09:49:39.977' AS DateTime))	
+		SET IDENTITY_INSERT [dbo].[QuestionType] OFF
+    END
 
