@@ -117,7 +117,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         [Test]
         public async Task GET_StudentTriageData_ReturnsStudentTriageData()
         {
-            string surveyGuid = new Guid().ToString();
+            Guid surveyGuid = new Guid();
             var studentTriageDataDto = _fixture.Create<StudentTriageDataDto>();
             var expectedResult = _fixture.Build<GetStudentTriageDataBySurveyIdResult>()
                 .With(x => x.StudentTriageData, studentTriageDataDto)
