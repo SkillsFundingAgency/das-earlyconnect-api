@@ -8,6 +8,7 @@ using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Models;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
+using SFA.DAS.EarlyConnect.Application.Responses;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
@@ -35,6 +36,10 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 LepsCode = request.LepsCode
             });
 
+            if (response.ResultCode.Equals(ResponseCode.InvalidRequest))
+            {
+                return BadRequest(new { Errors = response.ValidationErrors });
+            }
             return CreatedAtAction(nameof(StudentTriageDataOther), response);
         }
 

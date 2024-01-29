@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using NServiceBus;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
 using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
+using SFA.DAS.EarlyConnect.Application.Responses;
 using SFA.DAS.EarlyConnect.Application.Services.AuthCodeService;
 using SFA.DAS.EarlyConnect.Application.Services.DataProtectorService;
 using SFA.DAS.EarlyConnect.Domain.Entities;
@@ -53,6 +54,23 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             var survey = await _surveyRepository.GetDefaultSurveyAsync();
 
             var lepsId = await _lepsDataRepository.GetLepsIdByLepsCodeAsync(command.LepsCode);
+
+            if (lepsId == 0)
+            {
+                _logger.LogInformation($"No LepsCode found!");
+
+                return new CreateOtherStudentTriageDataCommandResponse
+                {
+                    ResultCode = ResponseCode.InvalidRequest,
+                    ValidationErrors = new List<DetailedValidationError>
+                        {
+                            new DetailedValidationError
+                            {
+                                Field = "LepsCode", Message = "Invalid LepsCode in File"
+                            }
+                        }.Cast<object>().ToList()
+                };
+            }
 
             var logId = await _mediator.Send(new CreateLogCommand
             {
