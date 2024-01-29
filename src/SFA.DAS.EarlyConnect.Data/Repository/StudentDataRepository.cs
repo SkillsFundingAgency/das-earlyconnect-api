@@ -49,6 +49,8 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 throw new ArgumentNullException(nameof(student), "No Student ID Found!");
             }
 
+            student.FirstName = studentData.FirstName;
+            student.LastName = studentData.LastName;    
             student.DateOfBirth = studentData.DateOfBirth;
             student.Email = studentData.Email;
             student.Postcode = studentData.Postcode;
