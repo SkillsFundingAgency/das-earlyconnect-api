@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
@@ -87,7 +86,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("{surveyGuid}")]
-        public async Task<IActionResult> StudentTriageData([FromRoute] string surveyGuid)
+        public async Task<IActionResult> StudentTriageData([FromRoute] Guid surveyGuid)
         {
             var queryResult = await _mediator.Send(new GetStudentTriageDataBySurveyIdQuery
             {

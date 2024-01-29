@@ -37,6 +37,11 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentData
         {
             var command = _fixture.Create<CreateStudentDataCommand>();
 
+            foreach (var student in command.StudentDataList)
+            {
+                student.DateOfBirth = DateTime.Now.AddYears(-5);
+                student.DateInterestShown = DateTime.Now.AddYears(-5);
+            }
 
             _mockStudentDataRepository.Setup(repository => repository.AddManyAsync(command.StudentDataList))
                 .Returns(Task.CompletedTask);

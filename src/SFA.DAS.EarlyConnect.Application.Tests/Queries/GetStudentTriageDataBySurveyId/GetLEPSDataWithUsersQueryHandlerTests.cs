@@ -62,7 +62,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetStudentTriageDataByS
             _questionRepository.Setup(repo => repo.GetQuestionBySurveyIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(questionList);
 
-            _studentSurveyRepository.Setup(repo => repo.GetStudentSurveyBySurveyIdAsync(It.IsAny<string>()))
+            _studentSurveyRepository.Setup(repo => repo.GetStudentSurveyBySurveyIdAsync(It.IsAny<Guid>()))
                 .ReturnsAsync(studentSurvey);
 
             _studentAnswerRepository.Setup(repo => repo.GetStudentAnswerBySurveyIdAsync(It.IsAny<Guid>()))
@@ -79,7 +79,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetStudentTriageDataByS
             Assert.IsInstanceOf<GetStudentTriageDataBySurveyIdResult>(result);
             _studentDataRepository.Verify(x => x.GetByStudentIdAsync(It.IsAny<int>()), Times.Once);
             _questionRepository.Verify(x => x.GetQuestionBySurveyIdAsync(It.IsAny<int>()), Times.Once);
-            _studentSurveyRepository.Verify(x => x.GetStudentSurveyBySurveyIdAsync(It.IsAny<string>()), Times.Once);
+            _studentSurveyRepository.Verify(x => x.GetStudentSurveyBySurveyIdAsync(It.IsAny<Guid>()), Times.Once);
             _studentAnswerRepository.Verify(x => x.GetStudentAnswerBySurveyIdAsync(It.IsAny<Guid>()), Times.Once);
             _answerRepository.Verify(x => x.GetAnswerByQuestionIdAsync(It.IsAny<int>()), Times.AtLeastOnce);
 
