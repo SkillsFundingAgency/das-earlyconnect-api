@@ -79,6 +79,9 @@
     <Build Include="Tables\StudentAnswer.sql" />
     <Build Include="Tables\SchoolsLeadsData.sql" />
     <Build Include="Tables\SubjectPreferenceData.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\Question.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\QuestionType.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />

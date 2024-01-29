@@ -8,6 +8,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public string SchoolName { get; set; }
         public string Telephone { get; set; }
         public string Email { get; set; }
         public string Postcode { get; set; }
@@ -37,7 +38,7 @@
         public string AnswerText { get; set; }
         public string ShortDescription { get; set; }
         public int GroupNumber { get; set; }
-        public int GroupLabel { get; set; }
+        public string GroupLabel { get; set; }
         public int SortOrder { get; set; }
     }
     public class StudentSurveyDto
