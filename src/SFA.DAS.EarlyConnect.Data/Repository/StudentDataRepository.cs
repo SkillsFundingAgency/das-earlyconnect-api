@@ -55,7 +55,6 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             student.Email = studentData.Email;
             student.Postcode = studentData.Postcode;
             student.Telephone = studentData.Telephone;
-            student.DataSource = studentData.DataSource;
             student.DateInterestShown = studentData.DateInterestShown;
             student.Industry = studentData.Industry;
 
