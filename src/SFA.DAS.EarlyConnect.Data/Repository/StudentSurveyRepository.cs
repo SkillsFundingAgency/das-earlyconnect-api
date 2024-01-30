@@ -42,5 +42,20 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .Where(studentSurvey => studentSurvey.Id == surveyId)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task UpdateStudentSurveyAsync(StudentSurvey surveyData)
+        {
+            var survey = await _dbContext.StudentSurveys.Where(survey => survey.SurveyId == surveyData.SurveyId).SingleOrDefaultAsync();
+
+            if (survey == null)
+            {
+                throw new ArgumentNullException(nameof(survey), "No Survey ID Found!");
+            }
+
+            survey.LastUpdated = surveyData.LastUpdated;
+            survey.DateCompleted = surveyData.DateCompleted;
+
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

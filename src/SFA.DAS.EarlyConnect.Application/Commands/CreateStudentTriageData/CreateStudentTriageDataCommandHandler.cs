@@ -54,10 +54,15 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                 return result;
             }
 
-            // checkif studentSurvey exists
+            // update Student Survey
             try
             {
-                var studentSurvey = await _studentSurveyRepository.GetByIdAsync(command.StudentSurveyGuid);
+                await _studentSurveyRepository.UpdateStudentSurveyAsync(new StudentSurvey
+                { 
+                    Id = command.StudentSurvey.Id,
+                    LastUpdated = command.StudentSurvey.LastUpdated,
+                    DateCompleted = command.StudentSurvey.DateCompleted
+                });
             }
             catch (ArgumentException ex)
             {
