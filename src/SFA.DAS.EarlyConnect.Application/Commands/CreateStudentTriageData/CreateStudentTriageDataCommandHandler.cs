@@ -43,12 +43,11 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                     Email = command.StudentData.Email,
                     Postcode = command.StudentData.Postcode,
                     Telephone = command.StudentData.Telephone,
-                    DataSource = command.StudentData.DataSource,
                     SchoolName = command.StudentData.SchoolName,
                     Industry = command.StudentData.Industry
                 });
-            } 
-            catch (ArgumentException ex) 
+            }
+            catch (ArgumentException ex)
             {
                 result.Message = ex.Message;
                 return result;
@@ -69,7 +68,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
             var answersToUpdate = command.StudentSurvey.Answers.Where(x => x.Id != null).ToList().MapFromAnswersDtoToUpdate(command.StudentSurveyGuid);
 
             // 2. Add StudentAnswers
-            if (answersToCreate.Any()) 
+            if (answersToCreate.Any())
             {
                 _logger.LogInformation($"Creating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
 
@@ -81,7 +80,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
             {
                 _logger.LogInformation($"Updating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
 
-                foreach (var answer in answersToUpdate) 
+                foreach (var answer in answersToUpdate)
                 {
                     await _studentAnswerRepository.UpdateAsync(answer);
                 }
