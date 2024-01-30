@@ -87,7 +87,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             });
 
             // 1. Create Student Data (dummy)
-            var student = await _studentDataRepository.GetByEmailAsync(command.Email, "Other");
+            var student = await _studentDataRepository.GetByEmailAsync(command.Email, "Other", lepsId);
             var studentId = (student == null) ? await _studentDataRepository.AddStudentDataAsync(new StudentData
             {
                 Email = command.Email,
