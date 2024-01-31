@@ -30,7 +30,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             if (studentSurvey == null)
             {
-                throw new ArgumentException("Cannot find student studentSurvey by the supplied ID");
+                throw new ArgumentException("Cannot find studentSurvey by the supplied ID");
             }
 
             return studentSurvey;
@@ -52,7 +52,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 throw new ArgumentNullException(nameof(studentSurvey), "No Student Survey Found for the supplied ID!");
             }
 
-            studentSurvey.LastUpdated = studentSurveyData.LastUpdated;
+            studentSurvey.LastUpdated = DateTime.Now;
             studentSurvey.DateCompleted = studentSurveyData.DateCompleted;
 
             await _dbContext.SaveChangesAsync();
