@@ -103,13 +103,14 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData
             }) : student.Id;
 
             // 2. Create Student Survey
-            var studentSurvey = new StudentSurvey
+
+            var existingSurvey = await _studentSurveyRepository.GetStudentSurveyByStudentIdAsync(studentId, survey.Id);
+
+            var studentSurveyId = (existingSurvey == null) ? await _studentSurveyRepository.AddStudentSurveyAsync(new StudentSurvey
             {
                 StudentId = studentId,
                 SurveyId = survey.Id
-            };
-
-            var studentSurveyId = await _studentSurveyRepository.AddStudentSurveyAsync(studentSurvey);
+            }): existingSurvey.Id;
 
             _logger.LogInformation($"Student Survey created for student with student survey id {studentSurveyId}");
 
