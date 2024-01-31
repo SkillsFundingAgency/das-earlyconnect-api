@@ -43,6 +43,14 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .FirstOrDefaultAsync();
         }
 
+
+        public async Task<StudentSurvey> GetStudentSurveyByStudentIdAsync(int studentId, int surveyId)
+        {
+            return await _dbContext.StudentSurveys
+                .Where(studentSurvey => studentSurvey.StudentId == studentId && studentSurvey.SurveyId == surveyId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task UpdateStudentSurveyAsync(StudentSurvey studentSurveyData)
         {
             var studentSurvey = await _dbContext.StudentSurveys.Where(survey => survey.Id == studentSurveyData.Id).SingleOrDefaultAsync();

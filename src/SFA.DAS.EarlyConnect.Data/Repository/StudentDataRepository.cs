@@ -35,9 +35,9 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             return studentData.Id;
         }
 
-        public async Task<StudentData?> GetByEmailAsync(string email, string source)
+        public async Task<StudentData?> GetByEmailAsync(string email, string source, int lepsId)
         {
-            return await _dbContext.StudentData.Where(student => student.Email == email && student.DataSource == source).SingleOrDefaultAsync();
+            return await _dbContext.StudentData.Where(student => student.Email == email && student.DataSource == source && student.LepsId == lepsId).SingleOrDefaultAsync();
         }
 
         public async Task UpdateAsync(StudentData studentData)

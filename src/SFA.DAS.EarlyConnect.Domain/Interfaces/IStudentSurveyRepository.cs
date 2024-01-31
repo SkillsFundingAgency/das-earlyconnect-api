@@ -7,6 +7,7 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
         Task<Guid> AddStudentSurveyAsync(StudentSurvey studentSurvey);
         Task<StudentSurvey> GetByIdAsync(Guid studentSurveyId);
         Task<StudentSurvey> GetStudentSurveyBySurveyIdAsync(Guid surveyId);
+        Task<StudentSurvey> GetStudentSurveyByStudentIdAsync(int studentId, int surveyId);
         Task UpdateStudentSurveyAsync(StudentSurvey studentSurvey);
     }
 }

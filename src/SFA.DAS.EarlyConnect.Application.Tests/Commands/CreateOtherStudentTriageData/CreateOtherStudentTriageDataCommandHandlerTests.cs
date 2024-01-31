@@ -85,12 +85,63 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
                 .ReturnsAsync(survey);
             _lepsDataRepository.Setup(repository => repository.GetLepsIdByLepsCodeAsync(command.LepsCode))
                 .ReturnsAsync(lepsId);
-            _mockStudentDataRepository.Setup(repository => repository.GetByEmailAsync(command.Email, "Other"))
+            _mockStudentDataRepository.Setup(repository => repository.GetByEmailAsync(command.Email, "Other", lepsId))
                 .ReturnsAsync(student);
             _mockStudentDataRepository.Setup(repository => repository.AddStudentDataAsync(new StudentData { Email = command.Email, LepsId = lepsId }))
                 .ReturnsAsync(studentId);
             _studentSurveyRepository.Setup(repository => repository.AddStudentSurveyAsync(It.IsAny<StudentSurvey>()))
                 .ReturnsAsync(studentSurvey.Id);
+            _authCodeService.Setup(service => service.Generate6DigitCode())
+                .Returns(authCode);
+            _dataProtectorService.Setup(service => service.EncodedData(authCode))
+                .Returns(encryptedAuthCode);
+            _mediator.Setup(med => med.Send(It.IsAny<CreateLogCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(logId);
+
+            // Act
+            var response = await _handler.Handle(command, CancellationToken.None);
+
+            // Assert
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.StudentSurveyId.Equals(studentSurvey.Id.ToString()));
+            Assert.That(response.AuthCode.Equals(encryptedAuthCode));
+        }
+
+        [Test]
+        public async Task CreatesStudentDataAndStudentSurvey_ExistingSurvey_ReturnsCreateOtherStudentTriageDataCommandResponse()
+        {
+
+            // Arrange
+            var command = _fixture.Create<CreateOtherStudentTriageDataCommand>();
+            var survey = _fixture.Create<Survey>();
+            var studentId = 21;
+            var lepsId = 1;
+            var logId = 1;
+            var student = _fixture.Build<StudentData>()
+                .With(x => x.Email, command.Email)
+                .With(x => x.Id, studentId)
+                .Create();
+            var studentData = _fixture.Build<StudentData>()
+                .With(x => x.Email, command.Email)
+                .With(x => x.LepsId, lepsId)
+                .Create();
+            var studentSurvey = _fixture.Build<StudentSurvey>()
+                .With(x => x.StudentId, studentId)
+                .With(x => x.SurveyId, survey.Id)
+                .Create();
+            var authCode = "123456";
+            var encryptedAuthCode = "MTIzNDU2";
+
+            _surveyRepository.Setup(repository => repository.GetDefaultSurveyAsync())
+                .ReturnsAsync(survey);
+            _lepsDataRepository.Setup(repository => repository.GetLepsIdByLepsCodeAsync(command.LepsCode))
+                .ReturnsAsync(lepsId);
+            _mockStudentDataRepository.Setup(repository => repository.GetByEmailAsync(command.Email, "Other", lepsId))
+                .ReturnsAsync(student);
+            _mockStudentDataRepository.Setup(repository => repository.AddStudentDataAsync(new StudentData { Email = command.Email, LepsId = lepsId }))
+                .ReturnsAsync(studentId);
+            _studentSurveyRepository.Setup(repository => repository.GetStudentSurveyByStudentIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(studentSurvey);
             _authCodeService.Setup(service => service.Generate6DigitCode())
                 .Returns(authCode);
             _dataProtectorService.Setup(service => service.EncodedData(authCode))
