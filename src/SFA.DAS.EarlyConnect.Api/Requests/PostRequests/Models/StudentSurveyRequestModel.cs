@@ -6,5 +6,7 @@
         public int StudentId { get; set; }
         public int SurveyId { get; set; }
         public List<AnswerRequestModel> ResponseAnswers { get; set; }
+        public DateTime? LastUpdated { get; set; }
+        public DateTime? DateCompleted { get; set; }
     }
 }
