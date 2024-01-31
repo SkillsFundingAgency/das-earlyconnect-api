@@ -59,12 +59,12 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentTriageDat
         public async Task StudentSurveyNotFound_ExceptionCaught()
         {
             var command = _fixture.Create<CreateStudentTriageDataCommand>();
-            var expectedMessage = "Cannot find student survey by the supplied ID";
+            var expectedMessage = "No Student Survey Found for the supplied ID";
 
             _mockStudentDataRepository.Setup(repository => repository.UpdateAsync(It.Is<StudentData>(x => x.Id.Equals(command.StudentData.Id))))
                 .Returns(Task.CompletedTask);
-            _mockStudentSurveyRepository.Setup(repository => repository.GetByIdAsync(It.Is<Guid>(x => x == command.StudentSurveyGuid)))
-                .ThrowsAsync(new ArgumentNullException("Cannot find student survey by the supplied ID"));
+            _mockStudentSurveyRepository.Setup(repository => repository.UpdateStudentSurveyAsync(It.IsAny<StudentSurvey>()))
+                .ThrowsAsync(new ArgumentNullException("No Student Survey Found for the supplied ID"));
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
