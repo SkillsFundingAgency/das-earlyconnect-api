@@ -13,8 +13,7 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                 StudentId = request.StudentId,
                 SurveyId = request.SurveyId,
                 Answers = request.ResponseAnswers.MapFromAnswersRequest(),
-                DateCompleted = request.DateCompleted,
-                LastUpdated = request.LastUpdated
+                DateCompleted = request.DateCompleted
             };
 
             return studentSurvey;
