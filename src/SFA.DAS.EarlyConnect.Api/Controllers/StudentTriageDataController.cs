@@ -85,12 +85,12 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [Route("{surveyGuid}")]
-        public async Task<IActionResult> StudentTriageData([FromRoute] Guid surveyGuid)
+        [Route("{studentSurveyGuid}")]
+        public async Task<IActionResult> StudentTriageData([FromRoute] Guid studentSurveyGuid)
         {
             var queryResult = await _mediator.Send(new GetStudentTriageDataBySurveyIdQuery
             {
-                StudentSurveyId = surveyGuid
+                StudentSurveyId = studentSurveyGuid
             });
 
             return Ok(queryResult.StudentTriageData);
