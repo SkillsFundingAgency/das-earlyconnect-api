@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "be8c9373-a5c2-4d6f-b33f-4d9390873a78",
+		"_postman_id": "94c70449-f309-4da6-b4c3-695f78d5e15d",
 		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31157588"
@@ -569,6 +569,216 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "student-triage-data",
+					"item": [
+						{
+							"name": "GET Student Triage Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json();\r",
+											"\r",
+											"pm.test('GET Student Triage Data 200', () => {\r",
+											"    if(pm.response.code === 200) {\r",
+											"        console.log(\"GET Student Triage Data 200\")\r",
+											"        pm.collectionVariables.set(\"studentId\", response.id);\r",
+											"        pm.collectionVariables.set(\"triageLepsId\", response.lepsId);\r",
+											"        pm.collectionVariables.set(\"triageLogId\", response.logId);\r",
+											"        pm.collectionVariables.set(\"firstName\", response.firstName);\r",
+											"        pm.collectionVariables.set(\"lastName\", response.lastName);\r",
+											"        pm.collectionVariables.set(\"dateOfBirth\", response.dateOfBirth);\r",
+											"        pm.collectionVariables.set(\"email\", response.email);\r",
+											"        pm.collectionVariables.set(\"telephone\", response.telephone);\r",
+											"        pm.collectionVariables.set(\"dateInterest\", response.dateInterest);\r",
+											"        pm.collectionVariables.set(\"industry\", response.industry);\r",
+											"        pm.collectionVariables.set(\"postcode\", response.postcode);\r",
+											"        pm.collectionVariables.set(\"schoolName\", response.schoolName);\r",
+											"        pm.collectionVariables.set(\"dataSource\", response.dataSource);\r",
+											"        pm.collectionVariables.set(\"surveyId\", response.studentSurvey.surveyId);\r",
+											"    }\r",
+											"\r",
+											"    if(pm.response.code != 200) {\r",
+											"        console.log(\"GET Student Triage Data did not succeed!\")\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSIsImtpZCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSJ9.eyJhdWQiOiJodHRwczovL2Zjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbS9kYXMtcHAtYXBpbWVuZHAtZXJseWNvbmFwaS1hcy1hciIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzNhYWNjODM1LTRiODMtNDgzZC04NDFkLWNkNzg3ZjZmMTQ4Ni8iLCJpYXQiOjE3MDYxMTQ4NzMsIm5iZiI6MTcwNjExNDg3MywiZXhwIjoxNzA2MTE5MjQ1LCJhY3IiOiIxIiwiYWlvIjoiQVZRQXEvOFZBQUFBU1BEVWw3NjI1czZtOGxKYU1HWWhIelBFdTJGUlNEMUw5cER5TlFWQXZGQmRMZ2hXdXJpdExCVGVrZ0JhWXF4eTJhRkl1WnVsSkNWTlBkd3docldjVDBrbWxvZEtCMndMWHhpV0pXdnFmSEE9IiwiYW1yIjpbInB3ZCIsIm1mYSJdLCJhcHBpZCI6IjA0YjA3Nzk1LThkZGItNDYxYS1iYmVlLTAyZjllMWJmN2I0NiIsImFwcGlkYWNyIjoiMCIsImlwYWRkciI6IjIwOC4xMjcuNDcuMjIwIiwibmFtZSI6IkRhdmlkIFJpbWFyIiwib2lkIjoiOTJiNDcwZjMtZjk4MC00ZGRlLWJiODktZjE1MjBmMzQ0ZDljIiwicmgiOiIwLkFWNEFOY2lzT29OTFBVaUVIYzE0ZjI4VWhscTJ5Y1lXdUdCTm9aN1lnVkpHTXJJUkFhdy4iLCJyb2xlcyI6WyJBUElNIl0sInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6ImVzdkRwM1NhNWRuX282ZXVVNFFiZFZuSHdsVlhyNFhjMTI3Sm5Wa2ZFV00iLCJ0aWQiOiIzYWFjYzgzNS00YjgzLTQ4M2QtODQxZC1jZDc4N2Y2ZjE0ODYiLCJ1bmlxdWVfbmFtZSI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IlVjLTZjcy1VM1V1YWZxVF9fTnZvQUEiLCJ2ZXIiOiIxLjAifQ.0MwzDL6KHPkhxVDWIN_4AYUOKnuA4uGotZZvdxYe3bpZ4Ru-7sdzcsgKp4YlNhAsvEK5sVlJfwEz3O1dATiqVyvdESpI-QAlb3trD8ylKNFkr_7eHnsW39lfFU0Dph-04h2DAfnBc-V1-qRDH1VK8faxtIaDHkOcrCLNPmjFOCPgavXQJYWH7tqcO2iBhYpICZ6PnOgNrB-TpkvYlDu_CqqG9lXnfcMo5ChXc-FFrKXsRXGuL91u7pqJgNK_5BGUaG-941GbavnI9dKmwFizg9tiRefMoz2n8VnWeg7lPpda_Dz1mqhQubMPB-MUWu5Rf8KuB95-ZdY1StvmprM8xA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1.0",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/student-triage-data/{{studentSurveyGuid}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"student-triage-data",
+										"{{studentSurveyGuid}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Other Student Triage Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Student Triage Data Response', () => {\r",
+											"    if(pm.response.code === 201) {\r",
+											"        console.log(\"Student Triage Data Response 201\")\r",
+											"    }\r",
+											"\r",
+											"    if(pm.response.code != 201) {\r",
+											"         pm.expect.fail(\"Something has gone wrong!\")\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSIsImtpZCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSJ9.eyJhdWQiOiJodHRwczovL2Zjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbS9kYXMtcHAtYXBpbWVuZHAtZXJseWNvbmFwaS1hcy1hciIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzNhYWNjODM1LTRiODMtNDgzZC04NDFkLWNkNzg3ZjZmMTQ4Ni8iLCJpYXQiOjE3MDYxMTQ4NzMsIm5iZiI6MTcwNjExNDg3MywiZXhwIjoxNzA2MTE5MjQ1LCJhY3IiOiIxIiwiYWlvIjoiQVZRQXEvOFZBQUFBU1BEVWw3NjI1czZtOGxKYU1HWWhIelBFdTJGUlNEMUw5cER5TlFWQXZGQmRMZ2hXdXJpdExCVGVrZ0JhWXF4eTJhRkl1WnVsSkNWTlBkd3docldjVDBrbWxvZEtCMndMWHhpV0pXdnFmSEE9IiwiYW1yIjpbInB3ZCIsIm1mYSJdLCJhcHBpZCI6IjA0YjA3Nzk1LThkZGItNDYxYS1iYmVlLTAyZjllMWJmN2I0NiIsImFwcGlkYWNyIjoiMCIsImlwYWRkciI6IjIwOC4xMjcuNDcuMjIwIiwibmFtZSI6IkRhdmlkIFJpbWFyIiwib2lkIjoiOTJiNDcwZjMtZjk4MC00ZGRlLWJiODktZjE1MjBmMzQ0ZDljIiwicmgiOiIwLkFWNEFOY2lzT29OTFBVaUVIYzE0ZjI4VWhscTJ5Y1lXdUdCTm9aN1lnVkpHTXJJUkFhdy4iLCJyb2xlcyI6WyJBUElNIl0sInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6ImVzdkRwM1NhNWRuX282ZXVVNFFiZFZuSHdsVlhyNFhjMTI3Sm5Wa2ZFV00iLCJ0aWQiOiIzYWFjYzgzNS00YjgzLTQ4M2QtODQxZC1jZDc4N2Y2ZjE0ODYiLCJ1bmlxdWVfbmFtZSI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IlVjLTZjcy1VM1V1YWZxVF9fTnZvQUEiLCJ2ZXIiOiIxLjAifQ.0MwzDL6KHPkhxVDWIN_4AYUOKnuA4uGotZZvdxYe3bpZ4Ru-7sdzcsgKp4YlNhAsvEK5sVlJfwEz3O1dATiqVyvdESpI-QAlb3trD8ylKNFkr_7eHnsW39lfFU0Dph-04h2DAfnBc-V1-qRDH1VK8faxtIaDHkOcrCLNPmjFOCPgavXQJYWH7tqcO2iBhYpICZ6PnOgNrB-TpkvYlDu_CqqG9lXnfcMo5ChXc-FFrKXsRXGuL91u7pqJgNK_5BGUaG-941GbavnI9dKmwFizg9tiRefMoz2n8VnWeg7lPpda_Dz1mqhQubMPB-MUWu5Rf8KuB95-ZdY1StvmprM8xA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"david.test@example.com\",\r\n  \"lepsCode\": \"E2412359\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/student-triage-data/survey-create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"student-triage-data",
+										"survey-create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST Student Triage Data",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Student Triage Data Response', () => {\r",
+											"    if(pm.response.code === 201) {\r",
+											"        console.log(\"Student Triage Data Response 201\")\r",
+											"    }\r",
+											"\r",
+											"    if(pm.response.code != 201) {\r",
+											"         pm.expect.fail(\"Something has gone wrong!\")\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSIsImtpZCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSJ9.eyJhdWQiOiJodHRwczovL2Zjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbS9kYXMtcHAtYXBpbWVuZHAtZXJseWNvbmFwaS1hcy1hciIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzNhYWNjODM1LTRiODMtNDgzZC04NDFkLWNkNzg3ZjZmMTQ4Ni8iLCJpYXQiOjE3MDYxMTQ4NzMsIm5iZiI6MTcwNjExNDg3MywiZXhwIjoxNzA2MTE5MjQ1LCJhY3IiOiIxIiwiYWlvIjoiQVZRQXEvOFZBQUFBU1BEVWw3NjI1czZtOGxKYU1HWWhIelBFdTJGUlNEMUw5cER5TlFWQXZGQmRMZ2hXdXJpdExCVGVrZ0JhWXF4eTJhRkl1WnVsSkNWTlBkd3docldjVDBrbWxvZEtCMndMWHhpV0pXdnFmSEE9IiwiYW1yIjpbInB3ZCIsIm1mYSJdLCJhcHBpZCI6IjA0YjA3Nzk1LThkZGItNDYxYS1iYmVlLTAyZjllMWJmN2I0NiIsImFwcGlkYWNyIjoiMCIsImlwYWRkciI6IjIwOC4xMjcuNDcuMjIwIiwibmFtZSI6IkRhdmlkIFJpbWFyIiwib2lkIjoiOTJiNDcwZjMtZjk4MC00ZGRlLWJiODktZjE1MjBmMzQ0ZDljIiwicmgiOiIwLkFWNEFOY2lzT29OTFBVaUVIYzE0ZjI4VWhscTJ5Y1lXdUdCTm9aN1lnVkpHTXJJUkFhdy4iLCJyb2xlcyI6WyJBUElNIl0sInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6ImVzdkRwM1NhNWRuX282ZXVVNFFiZFZuSHdsVlhyNFhjMTI3Sm5Wa2ZFV00iLCJ0aWQiOiIzYWFjYzgzNS00YjgzLTQ4M2QtODQxZC1jZDc4N2Y2ZjE0ODYiLCJ1bmlxdWVfbmFtZSI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IlVjLTZjcy1VM1V1YWZxVF9fTnZvQUEiLCJ2ZXIiOiIxLjAifQ.0MwzDL6KHPkhxVDWIN_4AYUOKnuA4uGotZZvdxYe3bpZ4Ru-7sdzcsgKp4YlNhAsvEK5sVlJfwEz3O1dATiqVyvdESpI-QAlb3trD8ylKNFkr_7eHnsW39lfFU0Dph-04h2DAfnBc-V1-qRDH1VK8faxtIaDHkOcrCLNPmjFOCPgavXQJYWH7tqcO2iBhYpICZ6PnOgNrB-TpkvYlDu_CqqG9lXnfcMo5ChXc-FFrKXsRXGuL91u7pqJgNK_5BGUaG-941GbavnI9dKmwFizg9tiRefMoz2n8VnWeg7lPpda_Dz1mqhQubMPB-MUWu5Rf8KuB95-ZdY1StvmprM8xA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": {{studentId}},\r\n  \"lepsId\": {{triageLepsId}},\r\n  \"logId\": {{triageLogId}},\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"dateOfBirth\": {{dateOfBirth}},\r\n  \"email\": \"{{email}}\",\r\n  \"postCode\": \"{{postcode}}\",\r\n  \"telephone\": \"{{telephone}}\",\r\n  \"dataSource\": \"{{dataSource}}\",\r\n  \"schoolName\": \"{{schoolName}}\",\r\n  \"industry\": \"{{industry}}\",\r\n  \"studentSurvey\": {\r\n    \"id\": \"{{studentSurveyGuid}}\",\r\n    \"studentId\": {{studentId}},\r\n    \"surveyId\": {{surveyId}},\r\n    \"dateCompleted\": \"2023-11-30T00:00:00\",\r\n    \"responseAnswers\": [\r\n      {\r\n        \"questionId\": 1,\r\n        \"answerId\": 1,\r\n        \"response\": \"Red\"\r\n      },\r\n      {\r\n        \"questionId\": 2,\r\n        \"answerId\": 4,\r\n        \"response\": \"Average\"\r\n      }\r\n    ]\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/student-triage-data/{{studentSurveyGuid}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"student-triage-data",
+										"{{studentSurveyGuid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
@@ -626,6 +836,81 @@
 		{
 			"key": "lepsCode",
 			"value": "E37000025",
+			"type": "string"
+		},
+		{
+			"key": "studentSurveyGuid",
+			"value": "9927296D-55DD-483B-6856-08DC2254F7AA",
+			"type": "string"
+		},
+		{
+			"key": "studentId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "triageLogId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "triageLepsId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "firstName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "lastName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "dateOfBirth",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "schoolName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "postcode",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "telephone",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "industry",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "dateInterest",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "dataSource",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "surveyId",
+			"value": "1",
 			"type": "string"
 		}
 	]
