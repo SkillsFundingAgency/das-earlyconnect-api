@@ -21,6 +21,12 @@ namespace SFA.DAS.EarlyConnect.Data
         public DbSet<LEPSUser> LEPSUser { get; set; }
         public DbSet<MetricsFlag> MetricsFlag { get; set; }
         public DbSet<ApprenticeMetricsData> MetricsData { get; set; }
+        public DbSet<StudentSurvey> StudentSurveys { get; set; }
+        public DbSet<Survey> Surveys { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<QuestionType> QuestionTypes { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<StudentAnswer> StudentAnswers { get; set; }
 
         public EarlyConnectDataContext()
         {
@@ -71,9 +77,51 @@ namespace SFA.DAS.EarlyConnect.Data
 
             modelBuilder.Entity<LEPSData>().ToTable("LEPSData");
             modelBuilder.Entity<LEPSData>().HasKey(d => d.Id);
-            modelBuilder.Entity<LEPSData>().HasMany(d=> d.LEPSUsers)
+            modelBuilder.Entity<LEPSData>().HasMany(d => d.LEPSUsers)
                 .WithOne(user => user.LepsData)
                 .HasForeignKey(d => d.LepsId);
+            modelBuilder.Entity<LEPSData>().HasMany(d => d.LEPSCoverages)
+                .WithOne(coverage => coverage.LepsData)
+                .HasForeignKey(d => d.LEPSId);
+                
+            modelBuilder.Entity<StudentSurvey>().ToTable("StudentSurvey");
+            modelBuilder.Entity<StudentSurvey>().HasKey(studentSurvey => studentSurvey.Id);
+            modelBuilder.Entity<StudentSurvey>().HasMany(studentSurvey => studentSurvey.StudentAnswers)
+                .WithOne(studentAnswer => studentAnswer.StudentSurvey)
+                .HasForeignKey(studentAnswer => studentAnswer.StudentSurveyId);
+
+            modelBuilder.Entity<StudentAnswer>().ToTable("StudentAnswer");
+            modelBuilder.Entity<StudentAnswer>().HasKey(studentAnswer => studentAnswer.Id);
+
+            modelBuilder.Entity<Answer>().ToTable("Answer");
+            modelBuilder.Entity<Answer>().HasKey(answer => answer.Id);
+            modelBuilder.Entity<Answer>().HasMany(answer => answer.StudentAnswers)
+                .WithOne(studentAnswer => studentAnswer.Answer)
+                .HasForeignKey(studentAnswer => studentAnswer.AnswerId);
+
+            modelBuilder.Entity<Question>().ToTable("Question");
+            modelBuilder.Entity<Question>().HasKey(question => question.Id);
+            modelBuilder.Entity<Question>().HasMany(question => question.Answers)
+                .WithOne(answer => answer.Question)
+                .HasForeignKey(answer => answer.QuestionId);
+            modelBuilder.Entity<Question>().HasMany(question => question.StudentAnswers)
+                .WithOne(studentAnswer => studentAnswer.Question)
+                .HasForeignKey(studentAnswer => studentAnswer.QuestionId);
+
+            modelBuilder.Entity<QuestionType>().ToTable("QuestionType");
+            modelBuilder.Entity<QuestionType>().HasKey(questionType => questionType.Id);
+            modelBuilder.Entity<QuestionType>().HasMany(questionType => questionType.Questions)
+                .WithOne(question => question.QuestionType)
+                .HasForeignKey(question => question.QuestionTypeId);
+
+            modelBuilder.Entity<Survey>().ToTable("Survey");
+            modelBuilder.Entity<Survey>().HasKey(survey => survey.Id);
+            modelBuilder.Entity<Survey>().HasMany(survey => survey.StudentSurveys)
+                .WithOne(studentSurvey => studentSurvey.Survey)
+                .HasForeignKey(studentSurvey => studentSurvey.SurveyId);
+            modelBuilder.Entity<Survey>().HasMany(survey => survey.Questions)
+                .WithOne(question => question.Survey)
+                .HasForeignKey(question => question.SurveyId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

@@ -12,3 +12,7 @@ Post-Deployment Script Template
 :r .\SeedData\LEPSData.sql
 :r .\SeedData\LEPSUser.sql
 :r .\SeedData\MetricsFlag.sql
+:r .\SeedData\Survey.sql
+:r .\SeedData\QuestionType.sql
+:r .\SeedData\Question.sql
+:r .\SeedData\Answer.sql

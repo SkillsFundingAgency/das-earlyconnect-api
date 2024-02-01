@@ -4,6 +4,8 @@ using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using System.Net;
+using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
+using SFA.DAS.EarlyConnect.Application.Responses;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
 {
@@ -27,12 +29,22 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         {
             var command = request.MapFromStudentDataPostRequest();
 
-            await _mediator.Send(new CreateStudentDataCommand
+            var response = await _mediator.Send(new CreateStudentDataCommand
             {
                 StudentDataList = command
             });
 
-            return CreatedAtAction(nameof(StudentData), null);
+            if (response.ResultCode.Equals(ResponseCode.InvalidRequest))
+            {
+                return BadRequest(new { Errors = response.ValidationErrors });
+            }
+
+            var model = new CreateStudentDataResponse()
+            {
+                Message = response.Message
+            };
+
+            return CreatedAtAction(nameof(StudentData), model);
         }
     }
 }
