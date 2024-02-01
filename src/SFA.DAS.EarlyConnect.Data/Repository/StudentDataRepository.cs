@@ -53,11 +53,11 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             student.LastName = studentData.LastName;    
             student.DateOfBirth = studentData.DateOfBirth;
             student.Email = studentData.Email;
-            student.SchoolName = studentData.SchoolName;
-            student.Postcode = studentData.Postcode;
-            student.Telephone = studentData.Telephone;
+            student.SchoolName = (studentData.SchoolName != null) ? studentData.SchoolName : "";
+            student.Postcode = (studentData.Postcode != null) ? studentData.Postcode : "";
+            student.Telephone = (studentData.Telephone != null) ? studentData.Telephone : "";
             student.DateInterestShown = studentData.DateInterestShown;
-            student.Industry = studentData.Industry;
+            student.Industry = (studentData.Industry != null) ? studentData.Industry : "";
 
             await _dbContext.SaveChangesAsync();
         }
