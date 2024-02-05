@@ -57,7 +57,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
             try
             {
                 await _studentSurveyRepository.UpdateStudentSurveyAsync(new StudentSurvey
-                { 
+                {
                     Id = command.StudentSurvey.Id,
                     LastUpdated = command.StudentSurvey.LastUpdated,
                     DateCompleted = command.StudentSurvey.DateCompleted
@@ -69,26 +69,14 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                 return result;
             }
 
-            var answersToCreate = command.StudentSurvey.Answers.Where(x => x.Id == null).ToList().MapFromAnswersDtoToCreate(command.StudentSurveyGuid);
-            var answersToUpdate = command.StudentSurvey.Answers.Where(x => x.Id != null).ToList().MapFromAnswersDtoToUpdate(command.StudentSurveyGuid);
+            var answersToCreateAndRemove = command.StudentSurvey.Answers.Where(x => x.QuestionId > 0 && x.AnswerId > 0).ToList().MapFromAnswersDtoToCreate(command.StudentSurveyGuid);
 
-            // 2. Add StudentAnswers
-            if (answersToCreate.Any())
+            // 2. AddAndRemove StudentAnswers
+            if (answersToCreateAndRemove.Any())
             {
-                _logger.LogInformation($"Creating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
+                _logger.LogInformation($"Creating and Removing Student Answers for StudentSurvey {command.StudentSurvey.Id}");
 
-                await _studentAnswerRepository.AddManyAsync(answersToCreate);
-            }
-
-            // 3. Update StudentAnswers
-            if (answersToUpdate.Any())
-            {
-                _logger.LogInformation($"Updating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
-
-                foreach (var answer in answersToUpdate)
-                {
-                    await _studentAnswerRepository.UpdateAsync(answer);
-                }
+                await _studentAnswerRepository.AddAndRemoveAnswersAsync(command.StudentSurveyGuid, answersToCreateAndRemove);
             }
             result.Message = "Success";
 
