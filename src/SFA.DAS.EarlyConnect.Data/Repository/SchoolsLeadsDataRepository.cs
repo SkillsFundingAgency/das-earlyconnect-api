@@ -14,16 +14,26 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             _dbContext = dbContext;
         }
 
-        public async Task UpdateLepsDateSent(IList<int> ids)
+        public async Task<List<int>> UpdateLepsDateSent(IList<int> ids)
         {
             DateTime now = DateTime.Now;
+            var invalidIds = new List<int>();
 
-            var students = await _dbContext.SchoolsLeadsData.Where(lead => ids.Contains(lead.Id)).ToListAsync();
-
-            students.ForEach(lead => { lead.LepDateSent = now; });
+            foreach (var leadId in ids)
+            {
+                var lead = await _dbContext.SchoolsLeadsData.Where(lead => lead.Id == leadId).FirstOrDefaultAsync();
+                if (lead != null)
+                {
+                    lead.LepDateSent = now;
+                }
+                else
+                {
+                    invalidIds.Add(leadId);
+                }
+            }
 
             await _dbContext.SaveChangesAsync();
+            return invalidIds;
         }
-
     }
 }

@@ -1,10 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
 using SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate;
-using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
+using SFA.DAS.EarlyConnect.Application.Responses;
 using System.Net;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
@@ -26,14 +24,19 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Update([FromBody] DeliveryUpdateRequest request)
         {
-            await _mediator.Send(new DeliveryUpdateCommand
+            var response = await _mediator.Send(new DeliveryUpdateCommand
             {
+                LogId = request.LogId,
                 Source = request.Source,
                 Ids = request.Ids
             });
 
-            return Ok();
+            if (response.ResultCode.Equals(ResponseCode.InvalidRequest))
+            {
+                return BadRequest(new { Errors = response.ValidationErrors });
+            }
 
+            return Ok(response);
         }
     }
 }

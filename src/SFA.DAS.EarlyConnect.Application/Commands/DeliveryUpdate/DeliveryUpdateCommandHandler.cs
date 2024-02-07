@@ -1,15 +1,13 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
-using SFA.DAS.EarlyConnect.Data.Repository;
-using SFA.DAS.EarlyConnect.Domain.Entities;
+using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
+using SFA.DAS.EarlyConnect.Application.Responses;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
 {
-    public class DeliveryUpdateCommandHandler : IRequestHandler<DeliveryUpdateCommand, int>
+    public class DeliveryUpdateCommandHandler : IRequestHandler<DeliveryUpdateCommand, DeliveryUpdateResult>
     {
-        private readonly ILogDataRepository _logDataRepository;
         private readonly IStudentDataRepository _studentDataRepository;
         private readonly IMetricsDataRepository _apprenticeMetricsDataRepository;
         private readonly ISchoolsLeadsDataRepository _schoolsLeadsDataRepository;
@@ -18,7 +16,6 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
         private readonly IMediator _mediator;
 
         public DeliveryUpdateCommandHandler(
-            ILogDataRepository metricsDataRepository,
             IStudentDataRepository studentDataRepository,
             IMetricsDataRepository apprenticeMetricsDataRepository,
             ISchoolsLeadsDataRepository schoolsLeadsDataRepository,
@@ -26,7 +23,6 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
             ILogger<DeliveryUpdateCommandHandler> logger,
             IMediator mediator)
         {
-            _logDataRepository = metricsDataRepository;
             _studentDataRepository = studentDataRepository;
             _apprenticeMetricsDataRepository = apprenticeMetricsDataRepository;
             _schoolsLeadsDataRepository = schoolsLeadsDataRepository;
@@ -35,27 +31,58 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
             _mediator = mediator;
         }
 
-        public async Task<int> Handle(DeliveryUpdateCommand command, CancellationToken cancellationToken)
+        public async Task<DeliveryUpdateResult> Handle(DeliveryUpdateCommand command, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"Updating LEPS Date Sent");
+
+            var invalidIds = new List<int>();
 
             switch (command.Source)
             {
                 case "StudentData":
-                    await _studentDataRepository.UpdateLepsDateSent(command.Ids);
+                    invalidIds = await _studentDataRepository.UpdateLepsDateSent(command.Ids);
                     break;
                 case "ApprenticeMetricsData":
-                    await _apprenticeMetricsDataRepository.UpdateLepsDateSent(command.Ids);
+                    invalidIds = await _apprenticeMetricsDataRepository.UpdateLepsDateSent(command.Ids);
                     break;
                 case "SchoolsLeadsData":
-                    await _schoolsLeadsDataRepository.UpdateLepsDateSent(command.Ids);
+                    invalidIds = await _schoolsLeadsDataRepository.UpdateLepsDateSent(command.Ids);
                     break;
                 case "SubjectPreferenceData":
-                    await _subjectPreferenceDataRepository.UpdateLepsDateSent(command.Ids);
+                    invalidIds = await _subjectPreferenceDataRepository.UpdateLepsDateSent(command.Ids);
                     break;
             }
-            
-            return 0;
+
+            var logStatus = invalidIds.Any() ? "Error" : "Completed";
+            var errorMessage = invalidIds.Any() ? "" : string.Empty;
+
+            await _mediator.Send(new UpdateLogCommand
+            {
+                LogId = command.LogId,
+                Status = logStatus,
+                Error = errorMessage
+            });
+
+            DeliveryUpdateResult commandResult = new DeliveryUpdateResult();
+
+            if(invalidIds.Any())
+            {
+                commandResult.ResultCode = ResponseCode.InvalidRequest;
+                commandResult.ValidationErrors = new List<DetailedValidationError>
+                { 
+                    new DetailedValidationError
+                    {
+                        Field = "Ids", Message = "Invalid Ids in File " + string.Join(",", invalidIds)
+                    }
+                }.Cast<object>().ToList();
+            }
+            else
+            {
+                commandResult.ResultCode = ResponseCode.Success;
+            }
+
+            return commandResult;
+
         }
     }
 }

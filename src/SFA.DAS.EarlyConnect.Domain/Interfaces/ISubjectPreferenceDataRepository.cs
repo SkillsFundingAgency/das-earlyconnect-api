@@ -4,6 +4,6 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
 {
     public interface ISubjectPreferenceDataRepository
     {
-        Task UpdateLepsDateSent(IList<int> ids);
+        Task<List<int>> UpdateLepsDateSent(IList<int> ids);
     }
 }
