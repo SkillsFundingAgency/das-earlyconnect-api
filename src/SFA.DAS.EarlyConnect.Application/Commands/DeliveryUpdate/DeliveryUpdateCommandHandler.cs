@@ -54,7 +54,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
             }
 
             var logStatus = invalidIds.Any() ? "Error" : "Completed";
-            var errorMessage = invalidIds.Any() ? "" : string.Empty;
+            var errorMessage = invalidIds.Any() ? "Invalid Ids in File " + string.Join(",", invalidIds) : string.Empty;
 
             await _mediator.Send(new UpdateLogCommand
             {
@@ -72,7 +72,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
                 { 
                     new DetailedValidationError
                     {
-                        Field = "Ids", Message = "Invalid Ids in File " + string.Join(",", invalidIds)
+                        Field = "Ids", Message = errorMessage
                     }
                 }.Cast<object>().ToList();
             }
