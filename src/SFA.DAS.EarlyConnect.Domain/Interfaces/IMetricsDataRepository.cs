@@ -6,5 +6,6 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
     {
         Task AddManyAndDelete(IEnumerable<ApprenticeMetricsData> metricsData);
         Task<ICollection<ApprenticeMetricsData>> GetByLepsIdAsync(int lepsId);
+        Task UpdateLepsDateSent(IList<int> ids);
     }
 }
