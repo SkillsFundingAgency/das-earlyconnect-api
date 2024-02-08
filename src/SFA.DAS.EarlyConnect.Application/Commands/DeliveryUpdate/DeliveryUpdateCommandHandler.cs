@@ -53,15 +53,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
                     break;
             }
 
-            var logStatus = invalidIds.Any() ? "Error" : "Completed";
             var errorMessage = invalidIds.Any() ? "Invalid Ids in File " + string.Join(",", invalidIds) : string.Empty;
-
-            await _mediator.Send(new UpdateLogCommand
-            {
-                LogId = command.LogId,
-                Status = logStatus,
-                Error = errorMessage
-            });
 
             DeliveryUpdateResult commandResult = new DeliveryUpdateResult();
 

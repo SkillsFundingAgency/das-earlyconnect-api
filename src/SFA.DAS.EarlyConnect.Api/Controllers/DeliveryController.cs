@@ -26,7 +26,6 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         {
             var response = await _mediator.Send(new DeliveryUpdateCommand
             {
-                LogId = request.LogId,
                 Source = request.Source,
                 Ids = request.Ids
             });
