@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
-using System;
-
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
     public class StudentDataRepository : IStudentDataRepository
@@ -40,17 +38,24 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             return await _dbContext.StudentData.Where(student => student.Email == email && student.DataSource == source && student.LepsId == lepsId).SingleOrDefaultAsync();
         }
 
+        public async Task<List<StudentData>> GetByEmailAsync(string email, string source)
+        {
+            return await _dbContext.StudentData
+                .Where(student => student.Email == email && student.DataSource == source)
+                .ToListAsync();
+        }
+
         public async Task UpdateAsync(StudentData studentData)
         {
             var student = await _dbContext.StudentData.Where(student => studentData.Id == student.Id).SingleOrDefaultAsync();
 
-            if (student == null) 
+            if (student == null)
             {
                 throw new ArgumentNullException(nameof(student), "No Student ID Found!");
             }
 
             student.FirstName = studentData.FirstName;
-            student.LastName = studentData.LastName;    
+            student.LastName = studentData.LastName;
             student.DateOfBirth = studentData.DateOfBirth;
             student.Email = studentData.Email;
             student.SchoolName = (studentData.SchoolName != null) ? studentData.SchoolName : "";
