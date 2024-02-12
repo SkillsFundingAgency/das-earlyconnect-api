@@ -57,43 +57,54 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentOnboardData
                 {
                     foreach (var student in students)
                     {
-                        var existingSurvey =
+                        if (student.LepsId.HasValue && student.LepsId > 0)
+                        {
+                            var existingSurvey =
                             await _studentSurveyRepository.GetStudentSurveyByStudentIdAsync(student.Id, survey.Id);
 
-                        if (existingSurvey == null || existingSurvey.DateEmailSent == null)
-                        {
-                            if (existingSurvey == null)
+                            if (existingSurvey == null || existingSurvey.DateEmailSent == null)
                             {
-                                var studentSurveyId = await _studentSurveyRepository.AddStudentSurveyAsync(
-                                    new StudentSurvey
-                                    {
-                                        StudentId = student.Id,
-                                        SurveyId = survey.Id
-                                    });
+                                if (existingSurvey == null)
+                                {
+                                    var studentSurveyId = await _studentSurveyRepository.AddStudentSurveyAsync(
+                                        new StudentSurvey
+                                        {
+                                            StudentId = student.Id,
+                                            SurveyId = survey.Id
+                                        });
+                                }
+
+                                existingSurvey =
+                                    await _studentSurveyRepository.GetStudentSurveyByStudentIdAsync(student.Id,
+                                        survey.Id);
+
+                                _logger.LogInformation(
+                                    $"Student Survey created for student with student survey id {existingSurvey.Id}");
+
+                                var encryptedCode =
+                                    _dataProtectorService.EncodedData(
+                                        $"{existingSurvey.Id} | {DateTime.Now}".ToString());
+
+                                var tokens = new Dictionary<string, string>
+                                {
+                                    { "Contact", $"{student.FirstName} {student.LastName}" },
+                                    { "OnboardURL", $"{_earlyConnectApiConfiguration.BaseUrl}ref?{encryptedCode}" },
+                                };
+
+                                _logger.LogInformation($"Sending Email to Student to onboard");
+
+                                await _messageSession.Send(new SendEmailCommand(TemplateId, email, tokens));
+
+                                existingSurvey.DateEmailSent = DateTime.Now;
+
+                                await _studentSurveyRepository.UpdateStudentSurveyAsync(existingSurvey);
                             }
-
-                            existingSurvey =
-                                await _studentSurveyRepository.GetStudentSurveyByStudentIdAsync(student.Id, survey.Id);
-
-                            _logger.LogInformation(
-                                $"Student Survey created for student with student survey id {existingSurvey.Id}");
-
-                            var encryptedCode =
-                                _dataProtectorService.EncodedData($"{existingSurvey.Id} | {DateTime.Now}".ToString());
-
-                            var tokens = new Dictionary<string, string>
+                            else
                             {
-                                { "Contact", $"{student.FirstName} {student.LastName}" },
-                                { "OnboardURL", $"{_earlyConnectApiConfiguration.BaseUrl}ref?{encryptedCode}" },
-                            };
-
-                            _logger.LogInformation($"Sending Email to Student to onboard");
-
-                            await _messageSession.Send(new SendEmailCommand(TemplateId, email, tokens));
-
-                            existingSurvey.DateEmailSent = DateTime.Now;
-
-                            await _studentSurveyRepository.UpdateStudentSurveyAsync(existingSurvey);
+                                createStudentOnboardDataCommandResponse.Message = createStudentOnboardDataCommandResponse.Message?.Length > 0
+                                    ? $"{createStudentOnboardDataCommandResponse.Message}, {email}"
+                                    : $"Matching LEPS code could not be found to send an onboard email{email}";
+                            }
                         }
                     }
                 }
