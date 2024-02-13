@@ -1,6 +1,6 @@
 ﻿using SFA.DAS.EarlyConnect.Application.Responses;
 
-namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedbackCommand
+namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedback
 {
     public class CreateStudentFeedbackResult : BaseResponse
     {

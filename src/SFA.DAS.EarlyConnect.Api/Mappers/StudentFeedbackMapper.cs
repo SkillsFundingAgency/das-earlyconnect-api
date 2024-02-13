@@ -18,7 +18,6 @@ namespace SFA.DAS.EarlyConnect.Api.Mappers
                     StatusUpdate = dto.StatusUpdate,
                     Notes = dto.Notes,
                     UpdatedBy = dto.UpdatedBy,
-                    StudentId = dto.StudentId,
                     LogId = dto.LogId
                 };
 

@@ -8,9 +8,6 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
         public Guid SurveyId { get; set; }
 
         [Required]
-        public int StudentId { get; set; }
-
-        [Required]
         public int LogId { get; set; }
 
         [Required]

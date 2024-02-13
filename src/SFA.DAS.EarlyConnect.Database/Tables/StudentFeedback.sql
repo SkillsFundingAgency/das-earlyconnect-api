@@ -1,7 +1,14 @@
-﻿CREATE TABLE [dbo].[StudentFeedback](
+﻿SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[StudentFeedback](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[StudentId] [int] NOT NULL,
 	[StudentSurveyId] [uniqueidentifier] NOT NULL,
+	[LogId] [int] NOT NULL,
 	[StatusUpdate] [nvarchar](100) NOT NULL,
 	[Notes] [nvarchar](max) NOT NULL,
 	[UpdatedBy] [nvarchar](100) NOT NULL,
@@ -25,6 +32,13 @@ GO
 ALTER TABLE [dbo].[StudentFeedback] ADD  CONSTRAINT [DF_StudentFeedback_DateAdded]  DEFAULT (getdate()) FOR [DateAdded]
 GO
 
+ALTER TABLE [dbo].[StudentFeedback]  WITH CHECK ADD  CONSTRAINT [FK_StudentFeedback_ECAPILog] FOREIGN KEY([LogId])
+REFERENCES [dbo].[ECAPILog] ([Id])
+GO
+
+ALTER TABLE [dbo].[StudentFeedback] CHECK CONSTRAINT [FK_StudentFeedback_ECAPILog]
+GO
+
 ALTER TABLE [dbo].[StudentFeedback]  WITH CHECK ADD  CONSTRAINT [FK_StudentFeedback_StudentData] FOREIGN KEY([StudentId])
 REFERENCES [dbo].[StudentData] ([Id])
 GO
@@ -38,3 +52,5 @@ GO
 
 ALTER TABLE [dbo].[StudentFeedback] CHECK CONSTRAINT [FK_StudentFeedback_StudentSurvey]
 GO
+
+
