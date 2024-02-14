@@ -46,7 +46,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedback
                 validationErrors.Add(new DetailedValidationError()
                 {
                     Field = "StatusUpdate",
-                    Message = "Invalid Status Update"
+                    Message = "Invalid Status Update, choose from - (CommunicationSent/ReplyAwaiting/ReplyReceived/ActivelyWorking/HelpNoLongerRequired/OfferMade/ContactLost)"
                 });
             }
 

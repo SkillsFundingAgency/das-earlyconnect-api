@@ -11,7 +11,7 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
         public int LogId { get; set; }
 
         [Required]
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Status Update, choose from - (CommunicationSent/ReplyAwaiting/ReplyReceived/ActivelyWorking/HelpNoLongerRequired/OfferMade/ContactLost)")]
+        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Status Update")]
         public string StatusUpdate { get; set; }
 
         [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Notes")]
