@@ -44,7 +44,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
                 });
             }
 
-            if (command.StudentDataList.Any(s => s.DateInterestShown >= DateTime.Now.Date)) 
+            if (command.StudentDataList.Any(s => s.DateInterestShown > DateTime.Now.Date)) 
             {
                 _logger.LogInformation($"Invalid Date Interest Shown found!");
 
