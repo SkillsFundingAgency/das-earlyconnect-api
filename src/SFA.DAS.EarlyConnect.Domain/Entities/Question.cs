@@ -11,6 +11,8 @@ namespace SFA.DAS.EarlyConnect.Domain.Entities
         public string ShortDescription { get; set; }
         public string SummaryLabel { get; set; }
         public string ValidationMessage { get; set; }
+        public string GroupLabel { get; set; }
+        public int GroupNumber { get; set; }
         public int? DefaultToggleAnswerId { get; set; }
         public int SortOrder { get; set; }
         public bool IsActive { get; set; }

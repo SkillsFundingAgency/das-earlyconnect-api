@@ -30,7 +30,7 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
         public string Postcode { get; set; }
 
         [Required]
-        [RegularExpression(@"^[\w\s|]+$", ErrorMessage = "Invalid Industry")]
+        [RegularExpression(@"^[\w\s|,()]+$", ErrorMessage = "Invalid Industry")]
         public string Industry { get; set; }
 
         public DateTime? DateOfInterest { get; set; }
