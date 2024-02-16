@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
+using NServiceBus;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
@@ -20,6 +21,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentTriageDat
         public Mock<IStudentSurveyRepository> _mockStudentSurveyRepository;
         public Mock<ILogger<CreateStudentTriageDataCommandHandler>> _logger;
         private CreateStudentTriageDataCommandHandler _handler;
+        public Mock<IMessageSession> _messageSession;
 
         [SetUp]
         public void Setup()
@@ -29,11 +31,13 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentTriageDat
             _mockStudentDataRepository = new Mock<IStudentDataRepository>();
             _mockStudentSurveyRepository = new Mock<IStudentSurveyRepository>();
             _logger = new Mock<ILogger<CreateStudentTriageDataCommandHandler>>();
+            _messageSession = new Mock<IMessageSession>();
 
             _handler = new CreateStudentTriageDataCommandHandler(_mockStudentAnswerRepository.Object, 
                 _mockStudentDataRepository.Object, 
                 _mockStudentSurveyRepository.Object, 
-                _logger.Object);
+                _logger.Object,
+                _messageSession.Object);
 
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
                 .ForEach(b => _fixture.Behaviors.Remove(b));
