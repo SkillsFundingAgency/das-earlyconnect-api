@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "94c70449-f309-4da6-b4c3-695f78d5e15d",
+		"_postman_id": "959524ea-b835-4537-a1bd-4635229b87d1",
 		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31157588"
+		"_exporter_id": "21174429"
 	},
 	"item": [
 		{
@@ -773,6 +773,71 @@
 										"api",
 										"student-triage-data",
 										"{{studentSurveyGuid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "student-onboard-data",
+					"item": [
+						{
+							"name": "Create Student OnboardData",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Student Data Response', () => {\r",
+											"    if(pm.response.code === 200) {\r",
+											"        console.log(\"Student Data Response 200\")\r",
+											"        pm.collectionVariables.set(\"status\", \"Completed\");\r",
+											"    }\r",
+											"\r",
+											"    if(pm.response.code != 200) {\r",
+											"        pm.collectionVariables.set(\"status\", \"Error\");\r",
+											"        pm.collectionVariables.set(\"error\", \"Something has gone wrong!\");\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) ",
+										"key": "X-Version",
+										"value": "1.0"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"emails\": [\n    \"david.hellenberger@example.com\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/student-data/onboard",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"student-data",
+										"onboard"
 									]
 								}
 							},
