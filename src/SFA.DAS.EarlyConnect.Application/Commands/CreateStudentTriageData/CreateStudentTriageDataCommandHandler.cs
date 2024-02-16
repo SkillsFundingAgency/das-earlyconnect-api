@@ -85,7 +85,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                 await _studentAnswerRepository.AddAndRemoveAnswersAsync(command.StudentSurveyGuid, answersToCreateAndRemove);
             }
 
-            if (command.StudentSurvey.DateCompleted == null)
+            if (command.StudentSurvey.DateCompleted != null)
             {
                 var tokens = new Dictionary<string, string> { { "Contact", $"{command.StudentData.FirstName} {command.StudentData.LastName}" } };
 
