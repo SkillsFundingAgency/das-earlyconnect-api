@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8b80591b-32ec-4694-b86a-ea6f638f8b65",
+		"_postman_id": "96081d41-b310-4050-8edf-9bafaff186da",
 		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9674460"
@@ -824,7 +824,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"source\": {{deliveryUpdateSource}},\n  \"ids\": {{deliveryUpdateIds}}\n}",
+									"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\": [\n    146,\n    147\n  ]\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -861,7 +861,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"source\": {{deliveryUpdateSource}},\n  \"ids\": {{deliveryUpdateIds}}\n}",
+											"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\":[\n    146,\n    147\n  ]\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -904,7 +904,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"source\": {{deliveryUpdateSource}},\n  \"ids\": [1000,2000]\n}",
+											"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\": [\n    1000,\n    2000\n  ]\n}",
 											"options": {
 												"raw": {
 													"headerFamily": "json",
@@ -1065,16 +1065,6 @@
 		{
 			"key": "surveyId",
 			"value": "1",
-			"type": "string"
-		},
-		{
-			"key": "deliveryUpdateSource",
-			"value": "\"StudentData\"",
-			"type": "string"
-		},
-		{
-			"key": "deliveryUpdateIds",
-			"value": "[146,147,148]",
 			"type": "string"
 		}
 	]
