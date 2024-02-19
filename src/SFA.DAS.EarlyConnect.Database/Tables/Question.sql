@@ -11,6 +11,8 @@
 	SortOrder				INT NOT NULL DEFAULT(0),
 	IsActive				BIT NOT NULL DEFAULT (0),
 	DateAdded				DATETIME NOT NULL DEFAULT GETDATE(),
+	GroupNumber			    INT NOT NULL DEFAULT(0),
+	GroupLabel				NVARCHAR(100) NOT NULL DEFAULT(''),
 	CONSTRAINT FK_Question_Survey
         FOREIGN KEY(SurveyId)
         REFERENCES dbo.Survey(Id),
