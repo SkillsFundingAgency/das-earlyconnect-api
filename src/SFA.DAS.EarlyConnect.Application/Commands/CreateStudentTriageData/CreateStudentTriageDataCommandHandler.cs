@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
 using SFA.DAS.EarlyConnect.Application.Extensions;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
+using SFA.DAS.Notifications.Messages.Commands;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
 {
@@ -12,17 +14,21 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
         private readonly IStudentDataRepository _studentDataRepository;
         private readonly IStudentSurveyRepository _studentSurveyRepository;
         private readonly ILogger<CreateStudentTriageDataCommandHandler> _logger;
+        private readonly IMessageSession _messageSession;
+        public const string TemplateId = "EarlyConnectTriageConfirmationEmail";
 
         public CreateStudentTriageDataCommandHandler(
             IStudentAnswerRepository studentAnswerRepository,
             IStudentDataRepository studentDataRepository,
             IStudentSurveyRepository studentSurveyRepository,
-            ILogger<CreateStudentTriageDataCommandHandler> logger)
+            ILogger<CreateStudentTriageDataCommandHandler> logger,
+            IMessageSession messageSession)
         {
             _studentAnswerRepository = studentAnswerRepository;
             _studentDataRepository = studentDataRepository;
             _studentSurveyRepository = studentSurveyRepository;
             _logger = logger;
+            _messageSession = messageSession;
         }
 
         public async Task<CreateStudentTriageDataResult> Handle(CreateStudentTriageDataCommand command, CancellationToken cancellationToken)
@@ -78,6 +84,16 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
 
                 await _studentAnswerRepository.AddAndRemoveAnswersAsync(command.StudentSurveyGuid, answersToCreateAndRemove);
             }
+
+            if (command.StudentSurvey.DateCompleted != null)
+            {
+                var tokens = new Dictionary<string, string> { { "Contact", $"{command.StudentData.FirstName} {command.StudentData.LastName}" } };
+
+                _logger.LogInformation($"Sending confirmation email to student");
+
+                await _messageSession.Send(new SendEmailCommand(TemplateId, command.StudentData.Email, tokens));
+            }
+
             result.Message = "Success";
 
             return result;
