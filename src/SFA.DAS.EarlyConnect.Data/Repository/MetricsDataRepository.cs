@@ -86,7 +86,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             foreach (var metricId in ids)
             {
-                var metric = await _dbContext.MetricsData.Where(student => student.Id == metricId).FirstOrDefaultAsync();
+                var metric = await _dbContext.MetricsData.Where(m => m.Id == metricId).FirstOrDefaultAsync();
                 if (metric != null)
                 {
                     metric.LepDateSent = now;
