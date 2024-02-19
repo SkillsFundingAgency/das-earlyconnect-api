@@ -779,6 +779,124 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "delivery-update",
+					"item": [
+						{
+							"name": "Update Delivery",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Delivery Update Response', () => {\r",
+											"    if(pm.response.code === 200) {\r",
+											"        console.log(\"Delivery Update Response 200\")\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) ",
+										"key": "X-Version",
+										"value": "1.0"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"source\": {{deliveryUpdateSource}},\n  \"ids\": {{deliveryUpdateIds}}\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/api/delivery-update/update"
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": ""
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"source\": {{deliveryUpdateSource}},\n  \"ids\": {{deliveryUpdateIds}}\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/delivery-update"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": ""
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"source\": {{deliveryUpdateSource}},\n  \"ids\": [1000,2000]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/api/delivery-update"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -911,6 +1029,16 @@
 		{
 			"key": "surveyId",
 			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "deliveryUpdateSource",
+			"value": "StudentData",
+			"type": "string"
+		},
+		{
+			"key": "deliveryUpdateIds",
+			"value": "[146,147,148]",
 			"type": "string"
 		}
 	]
