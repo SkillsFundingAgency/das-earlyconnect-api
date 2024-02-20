@@ -1,0 +1,9 @@
+﻿using SFA.DAS.EarlyConnect.Domain.Entities;
+
+namespace SFA.DAS.EarlyConnect.Domain.Interfaces
+{
+    public interface ISubjectPreferenceDataRepository
+    {
+        Task<List<int>> UpdateLepsDateSent(IList<int> ids);
+    }
+}
