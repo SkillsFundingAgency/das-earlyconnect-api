@@ -22,6 +22,8 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             _fixture = new Fixture();
             _mediator = new Mock<IMediator>();
             _logDataController = new LogController(_mediator.Object);
+            _fixture.Customize<LogCreateRequest>(composer =>
+                composer.Without(request => request.RequestIP));
         }
 
         [Test]
