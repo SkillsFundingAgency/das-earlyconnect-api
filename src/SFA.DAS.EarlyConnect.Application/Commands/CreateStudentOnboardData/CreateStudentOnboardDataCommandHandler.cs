@@ -103,14 +103,14 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentOnboardData
                             {
                                 createStudentOnboardDataCommandResponse.Message = createStudentOnboardDataCommandResponse.Message?.Length > 0
                                     ? $"{createStudentOnboardDataCommandResponse.Message}, {email}"
-                                    : $"The email has already been sent{email}";
+                                    : $"The email has already been sent {email}";
                             }
                         }
                         else
                         {
                             createStudentOnboardDataCommandResponse.Message = createStudentOnboardDataCommandResponse.Message?.Length > 0
                                 ? $"{createStudentOnboardDataCommandResponse.Message}, {email}"
-                                : $"Matching LEPS code could not be found to send an onboard email{email}";
+                                : $"Matching LEPS code could not be found to send an onboard {email}";
                         }
                     }
                 }

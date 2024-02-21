@@ -1022,7 +1022,7 @@
 									}
 								},
 								"url": {
-									"raw": "https://localhost:7104/api/leps-data/student-feedback",
+									"raw": "{{baseUrl}}/api/leps-data/student-feedback",
 									"protocol": "https",
 									"host": [
 										"localhost"
