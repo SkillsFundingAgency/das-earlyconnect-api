@@ -36,6 +36,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
             _logger.LogInformation($"Updating LEPS Date Sent");
 
             var invalidIds = new List<int>();
+            var invalidSource = false ;
 
             switch (command.Source)
             {
@@ -51,20 +52,24 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate
                 case "SubjectPreferenceData":
                     invalidIds = await _subjectPreferenceDataRepository.UpdateLepsDateSent(command.Ids);
                     break;
+                default:
+                    invalidSource = true;
+                    break;
             }
 
             var errorMessage = invalidIds.Any() ? "Invalid Ids in File " + string.Join(",", invalidIds) : string.Empty;
 
             DeliveryUpdateResult commandResult = new DeliveryUpdateResult();
 
-            if(invalidIds.Any())
+            if(invalidSource || invalidIds.Any())
             {
                 commandResult.ResultCode = ResponseCode.InvalidRequest;
                 commandResult.ValidationErrors = new List<DetailedValidationError>
                 { 
                     new DetailedValidationError
                     {
-                        Field = "Ids", Message = errorMessage
+                        Field = invalidSource ? "Source": "Ids", 
+                        Message = invalidSource? $"Invalid Source in File - {command.Source}" :  errorMessage
                     }
                 }.Cast<object>().ToList();
             }
