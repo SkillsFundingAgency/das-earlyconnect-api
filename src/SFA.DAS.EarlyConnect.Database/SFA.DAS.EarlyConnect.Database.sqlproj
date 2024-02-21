@@ -82,6 +82,7 @@
     <None Include="Scripts\Post-Deployment\SeedData\Question.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\QuestionType.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
+    <Build Include="Tables\StudentFeedback.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
@@ -92,8 +93,5 @@
     <None Include="Scripts\Post-Deployment\SeedData\QuestionType.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Question.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Tables\StudentFeedback.sql" />
   </ItemGroup>
 </Project>
