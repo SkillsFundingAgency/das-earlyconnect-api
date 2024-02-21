@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "94c70449-f309-4da6-b4c3-695f78d5e15d",
-		"name": "EarlyConnectApi",
+		"_postman_id": "6fcc03ac-eee1-49f0-a3a6-51c21692ad48",
+		"name": "EarlyConnect-InnerApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31157588"
+		"_exporter_id": "809985"
 	},
 	"item": [
 		{
@@ -517,7 +517,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"David\",\n      \"lastName\": \"Hellenberger\",\n      \"dateOfBirth\": \"2000-11-11T00:00:00\",\n      \"email\": \"david.hellenberger@example.com\",\n      \"postcode\": \"G512S\",\n      \"industry\": \"Gaming\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": {{logId}}\n    },\n    {\n      \"firstName\": \"Mira\",\n      \"lastName\": \"Falkirt\",\n      \"dateOfBirth\": \"1998-06-11T00:00:00\",\n      \"email\": \"mira.falkirt@example.com\",\n      \"postcode\": \"LH111G\",\n      \"industry\": \"Hospitality\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": {{logId}}\n    }\n  ]\n}",
+									"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"Ram\",\n      \"lastName\": \"Natarajan\",\n      \"dateOfBirth\": \"1984-02-13\",\n      \"email\": \"user@example.com\",\n      \"telephone\": \"07798938867\",\n      \"schoolName\": \"Christchurch\",\n      \"postcode\": \"CA67BQ\",\n      \"industry\": \"string\",\n      \"dateOfInterest\": \"2024-01-11\",\n      \"logId\": 36131\n    }\n  ]\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -526,10 +526,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/student-data",
+									"raw": "https://localhost:7104/api/student-data",
+									"protocol": "https",
 									"host": [
-										"{{baseUrl}}"
+										"localhost"
 									],
+									"port": "7104",
 									"path": [
 										"api",
 										"student-data"
@@ -773,6 +775,47 @@
 										"api",
 										"student-triage-data",
 										"{{studentSurveyGuid}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "student-feedback",
+					"item": [
+						{
+							"name": "Create Student Feedback",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1.0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"listOfStudentFeedback\": [\r\n    {\r\n      \"surveyId\": \"5BB5EBEF-EE41-48F7-D333-08DC2BBE3235\",\r\n      \"LogId\": 36131,\r\n      \"statusUpdate\": \"ReplyAwaiting\",\r\n      \"Notes\": \"all is well\",\r\n      \"UpdatedBy\": \"Ram Natarajan\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7104/api/leps-data/student-feedback",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7104",
+									"path": [
+										"api",
+										"leps-data",
+										"student-feedback"
 									]
 								}
 							},
