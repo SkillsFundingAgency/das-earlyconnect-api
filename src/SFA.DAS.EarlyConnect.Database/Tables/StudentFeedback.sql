@@ -1,10 +1,4 @@
-﻿SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[StudentFeedback](
+﻿CREATE TABLE [dbo].[StudentFeedback](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[StudentId] [int] NOT NULL,
 	[StudentSurveyId] [uniqueidentifier] NOT NULL,
@@ -52,5 +46,3 @@ GO
 
 ALTER TABLE [dbo].[StudentFeedback] CHECK CONSTRAINT [FK_StudentFeedback_StudentSurvey]
 GO
-
-
