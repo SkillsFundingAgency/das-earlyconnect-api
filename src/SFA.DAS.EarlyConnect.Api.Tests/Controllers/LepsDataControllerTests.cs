@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
+using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
+using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
+using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentFeedback;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedback;
 using SFA.DAS.EarlyConnect.Application.Models;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
 
@@ -44,6 +48,65 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             // Assert
             Assert.IsNotNull(okObjectResult);
             Assert.That(okObjectResult.StatusCode.Equals(200));
+        }
+
+        [Test]
+        public async Task POST_Create_Returns201()
+        {
+            var studentFeedbackResponse = new CreateStudentFeedbackResult { Message = "Success" };
+            var studentFeedbackData = CreateTestStudentFeedback(5);
+            var request = _fixture.Build<StudentFeedbackPostRequest>()
+                .With(x => x.ListOfStudentFeedback, studentFeedbackData)
+                .Create();
+
+            _mediator.Setup(x => x.Send(It.Is<CreateStudentFeedbackCommand>(command =>
+                    command.StudentFeedbackList.First().StatusUpdate.Equals(request.ListOfStudentFeedback.First().StatusUpdate)
+                    && command.StudentFeedbackList.First().UpdatedBy.Equals(request.ListOfStudentFeedback.First().UpdatedBy)
+                    && command.StudentFeedbackList.First().Notes.Equals(request.ListOfStudentFeedback.First().Notes)
+                    ), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(studentFeedbackResponse);
+
+            var actionResult = await _lepsDataController.StudentFeedback(request);
+
+            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+
+            var createdResult = (CreatedAtActionResult)actionResult;
+            Assert.AreEqual(201, createdResult.StatusCode);
+
+            var model = createdResult.Value as CreateStudentFeedbackResponse;
+            Assert.IsNotNull(model);
+            Assert.AreEqual("Success", model.Message);
+
+            _mediator.Verify(x => x.Send(It.Is<CreateStudentFeedbackCommand>(command =>
+                    command.StudentFeedbackList.First().StatusUpdate.Equals(request.ListOfStudentFeedback.First().StatusUpdate)
+                    && command.StudentFeedbackList.First().UpdatedBy.Equals(request.ListOfStudentFeedback.First().UpdatedBy)
+                    && command.StudentFeedbackList.First().Notes.Equals(request.ListOfStudentFeedback.First().Notes)), It.IsAny<CancellationToken>()),
+                Times.Once);
+        }
+
+        private IEnumerable<StudentFeedbackRequestModel> CreateTestStudentFeedback(int numberOfStudentFeedbacks)
+        {
+            List<StudentFeedbackRequestModel> studentFeedbackList = new List<StudentFeedbackRequestModel>();
+
+            for (int i = 0; i < numberOfStudentFeedbacks; i++)
+            {
+                var feedback = new StudentFeedbackRequestModel()
+                {
+                    Notes = GetRandomString(),
+                    StatusUpdate = GetRandomString(),
+                    UpdatedBy = GetRandomString()
+                };
+
+                studentFeedbackList.Add(feedback);
+            }
+
+            return studentFeedbackList;
+        }
+
+        public string GetRandomString()
+        {
+            var rand = new Random();
+            return new String(Enumerable.Range(0, 20).Select(n => (Char)(rand.Next(32, 127))).ToArray());
         }
     }
 }

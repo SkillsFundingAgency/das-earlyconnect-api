@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "959524ea-b835-4537-a1bd-4635229b87d1",
+		"_postman_id": "eed001a2-8454-4f3a-97bd-b29e06401b9e",
 		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "21174429"
+		"_exporter_id": "809985"
 	},
 	"item": [
 		{
@@ -995,6 +995,47 @@
 									"body": ""
 								}
 							]
+						}
+					]
+				},
+				{
+					"name": "student-feedback",
+					"item": [
+						{
+							"name": "Create Student Feedback",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1.0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"listOfStudentFeedback\": [\r\n    {\r\n      \"surveyId\": \"5BB5EBEF-EE41-48F7-D333-08DC2BBE3235\",\r\n      \"LogId\": 36131,\r\n      \"statusUpdate\": \"ReplyAwaiting\",\r\n      \"Notes\": \"all is well\",\r\n      \"UpdatedBy\": \"Ram Natarajan\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://localhost:7104/api/leps-data/student-feedback",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "7104",
+									"path": [
+										"api",
+										"leps-data",
+										"student-feedback"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
