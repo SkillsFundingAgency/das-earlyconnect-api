@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6fcc03ac-eee1-49f0-a3a6-51c21692ad48",
-		"name": "EarlyConnect-InnerApi",
+		"_postman_id": "96081d41-b310-4050-8edf-9bafaff186da",
+		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "809985"
+		"_exporter_id": "9674460"
 	},
 	"item": [
 		{
@@ -105,10 +105,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrl}}/api/log/add",
+													"raw": "https://localhost:7104/api/log/add",
+													"protocol": "https",
 													"host": [
-														"{{baseUrl}}"
+														"localhost"
 													],
+													"port": "7104",
 													"path": [
 														"api",
 														"log",
@@ -262,10 +264,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrl}}/api/log/update",
+													"raw": "https://localhost:7104/api/log/update",
+													"protocol": "https",
 													"host": [
-														"{{baseUrl}}"
+														"localhost"
 													],
+													"port": "7104",
 													"path": [
 														"api",
 														"log",
@@ -378,10 +382,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/api/metrics-data",
+											"raw": "https://localhost:7104/api/metrics-data",
+											"protocol": "https",
 											"host": [
-												"{{baseUrl}}"
+												"localhost"
 											],
+											"port": "7104",
 											"path": [
 												"api",
 												"metrics-data"
@@ -517,7 +523,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"Ram\",\n      \"lastName\": \"Natarajan\",\n      \"dateOfBirth\": \"1984-02-13\",\n      \"email\": \"user@example.com\",\n      \"telephone\": \"07798938867\",\n      \"schoolName\": \"Christchurch\",\n      \"postcode\": \"CA67BQ\",\n      \"industry\": \"string\",\n      \"dateOfInterest\": \"2024-01-11\",\n      \"logId\": 36131\n    }\n  ]\n}",
+									"raw": "{\n  \"listOfStudentData\": [\n    {\n      \"firstName\": \"David\",\n      \"lastName\": \"Hellenberger\",\n      \"dateOfBirth\": \"2000-11-11T00:00:00\",\n      \"email\": \"david.hellenberger@example.com\",\n      \"postcode\": \"G512S\",\n      \"industry\": \"Gaming\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": {{logId}}\n    },\n    {\n      \"firstName\": \"Mira\",\n      \"lastName\": \"Falkirt\",\n      \"dateOfBirth\": \"1998-06-11T00:00:00\",\n      \"email\": \"mira.falkirt@example.com\",\n      \"postcode\": \"LH111G\",\n      \"industry\": \"Hospitality\",\n      \"dateOfInterest\": \"2023-11-11T00:00:00\",\n      \"logId\": {{logId}}\n    }\n  ]\n}",
 									"options": {
 										"raw": {
 											"headerFamily": "json",
@@ -526,12 +532,10 @@
 									}
 								},
 								"url": {
-									"raw": "https://localhost:7104/api/student-data",
-									"protocol": "https",
+									"raw": "{{baseUrl}}/api/student-data",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "7104",
 									"path": [
 										"api",
 										"student-data"
@@ -783,43 +787,150 @@
 					]
 				},
 				{
-					"name": "student-feedback",
+					"name": "delivery-update",
 					"item": [
 						{
-							"name": "Create Student Feedback",
+							"name": "Update Delivery",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Delivery Update Response', () => {\r",
+											"    if(pm.response.code === 200) {\r",
+											"        console.log(\"Delivery Update Response 200\")\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
 							"request": {
+								"auth": {
+									"type": "bearer"
+								},
 								"method": "POST",
 								"header": [
 									{
+										"description": "(Required) ",
 										"key": "X-Version",
-										"value": "1.0",
-										"type": "text"
+										"value": "1.0"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"listOfStudentFeedback\": [\r\n    {\r\n      \"surveyId\": \"5BB5EBEF-EE41-48F7-D333-08DC2BBE3235\",\r\n      \"LogId\": 36131,\r\n      \"statusUpdate\": \"ReplyAwaiting\",\r\n      \"Notes\": \"all is well\",\r\n      \"UpdatedBy\": \"Ram Natarajan\"\r\n    }\r\n  ]\r\n}",
+									"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\": [\n    146,\n    147\n  ]\n}",
 									"options": {
 										"raw": {
+											"headerFamily": "json",
 											"language": "json"
 										}
 									}
 								},
 								"url": {
-									"raw": "https://localhost:7104/api/leps-data/student-feedback",
-									"protocol": "https",
+									"raw": "{{baseUrl}}/api/delivery-update",
 									"host": [
-										"localhost"
+										"{{baseUrl}}"
 									],
-									"port": "7104",
 									"path": [
 										"api",
-										"leps-data",
-										"student-feedback"
+										"delivery-update"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": "1.0"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\":[\n    146,\n    147\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/delivery-update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"delivery-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": "1.0"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\": [\n    1000,\n    2000\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/delivery-update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"delivery-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
 						}
 					]
 				}
@@ -863,7 +974,7 @@
 		},
 		{
 			"key": "logId",
-			"value": "",
+			"value": "375",
 			"type": "string"
 		},
 		{
