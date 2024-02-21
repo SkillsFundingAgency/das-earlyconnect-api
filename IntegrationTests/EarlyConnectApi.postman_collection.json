@@ -105,10 +105,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrl}}/api/log/add",
+													"raw": "https://localhost:7104/api/log/add",
+													"protocol": "https",
 													"host": [
-														"{{baseUrl}}"
+														"localhost"
 													],
+													"port": "7104",
 													"path": [
 														"api",
 														"log",
@@ -262,10 +264,12 @@
 													}
 												},
 												"url": {
-													"raw": "{{baseUrl}}/api/log/update",
+													"raw": "https://localhost:7104/api/log/update",
+													"protocol": "https",
 													"host": [
-														"{{baseUrl}}"
+														"localhost"
 													],
+													"port": "7104",
 													"path": [
 														"api",
 														"log",
@@ -378,10 +382,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/api/metrics-data",
+											"raw": "https://localhost:7104/api/metrics-data",
+											"protocol": "https",
 											"host": [
-												"{{baseUrl}}"
+												"localhost"
 											],
+											"port": "7104",
 											"path": [
 												"api",
 												"metrics-data"
@@ -779,8 +785,7 @@
 							"response": []
 						}
 					]
-				},
-				{
+				},				{
 					"name": "student-onboard-data",
 					"item": [
 						{
@@ -844,6 +849,154 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "delivery-update",
+					"item": [
+						{
+							"name": "Update Delivery",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Check Delivery Update Response', () => {\r",
+											"    if(pm.response.code === 200) {\r",
+											"        console.log(\"Delivery Update Response 200\")\r",
+											"    }\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"description": "(Required) ",
+										"key": "X-Version",
+										"value": "1.0"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\": [\n    146,\n    147\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/delivery-update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"delivery-update"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": "1.0"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\":[\n    146,\n    147\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/delivery-update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"delivery-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"description": "(Required) ",
+												"key": "X-Version",
+												"value": "1.0"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"source\": \"StudentData\",\n  \"ids\": [\n    1000,\n    2000\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/delivery-update",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"delivery-update"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -885,7 +1038,7 @@
 		},
 		{
 			"key": "logId",
-			"value": "",
+			"value": "375",
 			"type": "string"
 		},
 		{

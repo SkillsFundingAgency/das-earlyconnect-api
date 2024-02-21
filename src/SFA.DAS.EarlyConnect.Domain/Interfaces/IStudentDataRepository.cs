@@ -10,5 +10,6 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
         Task<StudentData?> GetByEmailAsync(string email, string source, int lepsId);
         Task<List<StudentData>> GetByEmailAsync(string email, string source);
         Task UpdateAsync(StudentData studentData);
+        Task<List<int>> UpdateLepsDateSent(IList<int> ids);
     }
 }
