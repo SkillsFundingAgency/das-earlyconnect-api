@@ -14,7 +14,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentIdBySurveyId
 
         public async Task<int> Handle(GetStudentIdBySurveyIdQuery request, CancellationToken cancellationToken)
         {
-            var studentSurvey = await _studentSurveyRepository.GetByIdAsync(request.StudentSurveyId);
+            var studentSurvey = await _studentSurveyRepository.GetStudentSurveyBySurveyIdAsync(request.StudentSurveyId);
 
             return studentSurvey?.StudentId ?? 0;
         }

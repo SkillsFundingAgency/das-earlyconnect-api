@@ -64,6 +64,12 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedback
                     createStudentFeedbackResult.Message = string.IsNullOrEmpty(createStudentFeedbackResult.Message)
                         ? $"Invalid Survey ID: {studentFeedback.StudentSurveyId}"
                         : $"{createStudentFeedbackResult.Message} , {studentFeedback.StudentSurveyId}";
+                    createStudentFeedbackResult.ResultCode = ResponseCode.InvalidRequest;
+                    validationErrors.Add(new DetailedValidationError()
+                    {
+                        Field = "Survey ID",
+                        Message = createStudentFeedbackResult.Message
+                    });
                 }
                 else
                 {
