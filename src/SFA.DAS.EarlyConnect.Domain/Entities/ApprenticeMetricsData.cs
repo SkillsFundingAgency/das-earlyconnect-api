@@ -13,6 +13,7 @@
         public int NoOfStudents { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime DateAdded { get; set; }
+        public DateTime? LepDateSent { get; set; }
         public virtual ICollection<ApprenticeMetricsFlagData>? MetricsFlagLookups { get; set; } // 1-to-Many with MetricsFlagLookup
     }
 }

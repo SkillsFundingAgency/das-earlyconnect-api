@@ -7,7 +7,9 @@ using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models;
 using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
+using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentOnboardData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentOnboardData;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
@@ -65,6 +67,34 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                     && command.StudentDataList.First().Email.Equals(request.ListOfStudentData.First().Email)
                     && command.StudentDataList.First().Industry.Equals(request.ListOfStudentData.First().Industry)
                     && command.StudentDataList.First().DateInterestShown.Equals(request.ListOfStudentData.First().DateOfInterest)), It.IsAny<CancellationToken>()),
+                Times.Once);
+        }
+
+        [Test]
+        public async Task POST_StudentOnboardData_Returns201()
+        {
+            var onboardResponse = new CreateStudentOnboardDataCommandResponse { Message = "Success" };
+            var request = _fixture.Create<StudentOnboardDataPostRequest>();
+
+            _mediator.Setup(x => x.Send(It.Is<CreateStudentOnboardDataCommand>(command =>
+                    command.Emails == request.Emails
+                ), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(onboardResponse);
+
+            var actionResult = await _studentDataController.StudentOnboardData(request);
+
+            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+
+            var createdResult = (CreatedAtActionResult)actionResult;
+            Assert.AreEqual(201, createdResult.StatusCode);
+
+            var model = createdResult.Value as CreateStudentOnboardDataResponse;
+            Assert.IsNotNull(model);
+            Assert.AreEqual("Success", model.Message);
+
+            _mediator.Verify(x => x.Send(It.Is<CreateStudentOnboardDataCommand>(command =>
+                    command.Emails == request.Emails
+                ), It.IsAny<CancellationToken>()),
                 Times.Once);
         }
 

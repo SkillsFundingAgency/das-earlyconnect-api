@@ -2,9 +2,11 @@
 using Azure.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
 using SFA.DAS.EarlyConnect.Domain.Configuration;
 using SFA.DAS.EarlyConnect.Domain.Entities;
+using System.Data;
 
 namespace SFA.DAS.EarlyConnect.Data
 {
@@ -27,6 +29,9 @@ namespace SFA.DAS.EarlyConnect.Data
         public DbSet<QuestionType> QuestionTypes { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<StudentAnswer> StudentAnswers { get; set; }
+        public DbSet<StudentFeedback> StudentFeedbacks { get; set; }
+        public DbSet<SchoolsLeadsData> SchoolsLeadsData { get; set; }
+        public DbSet<SubjectPreferenceData> SubjectPreferenceData { get; set; }
 
         public EarlyConnectDataContext()
         {
@@ -122,6 +127,31 @@ namespace SFA.DAS.EarlyConnect.Data
             modelBuilder.Entity<Survey>().HasMany(survey => survey.Questions)
                 .WithOne(question => question.Survey)
                 .HasForeignKey(question => question.SurveyId);
+
+            modelBuilder.Entity<StudentFeedback>().ToTable("StudentFeedback");
+            modelBuilder.Entity<StudentFeedback>().HasKey(feedback => feedback.Id);
+            modelBuilder.Entity<StudentFeedback>().Property(e => e.DateAdded)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
+            modelBuilder.Entity<StudentFeedback>().Property(e => e.Notes)
+                    .IsRequired()
+                    .HasDefaultValueSql("('')");
+
+            modelBuilder.Entity<StudentFeedback>().Property(e => e.StatusUpdate)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("('')");
+
+            modelBuilder.Entity<StudentFeedback>().Property(e => e.UpdatedBy)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("('')");
+
+            modelBuilder.Entity<SchoolsLeadsData>().ToTable("SchoolsLeadsData");
+            modelBuilder.Entity<SchoolsLeadsData>().HasKey(schoolsLeads => schoolsLeads.Id);
+
+            modelBuilder.Entity<SubjectPreferenceData>().ToTable("SubjectPreferenceData");
+            modelBuilder.Entity<SubjectPreferenceData>().HasKey(subject => subject.Id);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

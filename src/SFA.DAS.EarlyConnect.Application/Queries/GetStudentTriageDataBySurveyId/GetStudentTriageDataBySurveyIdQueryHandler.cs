@@ -86,6 +86,8 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
                     ShortDescription = question.ShortDescription,
                     SummaryLabel = question.SummaryLabel,
                     ValidationMessage = question.ValidationMessage,
+                    GroupLabel = question.GroupLabel,
+                    GroupNumber = question.GroupNumber,
                     DefaultToggleAnswerId = question.DefaultToggleAnswerId,
                     SortOrder = question.SortOrder,
                     Answers = _answerRepository.GetAnswerByQuestionIdAsync(question.Id)

@@ -7,10 +7,10 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests
     {
         public int Id { get; set; }
 
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid First Name")]
+        [RegularExpression(@"^[\w\s'-]+$", ErrorMessage = "Invalid First Name")]
         public string FirstName { get; set; }
 
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Last Name")]
+        [RegularExpression(@"^[\w\s'-]+$", ErrorMessage = "Invalid Last Name")]
         public string LastName { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
@@ -23,16 +23,16 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests
         public string Postcode { get; set; }
 
 
-        [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Telephone")]
+        [RegularExpression(@"^[\w\s+]+$", ErrorMessage = "Invalid Telephone")]
         public string Telephone { get; set; }
 
         [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Data Source")]
         public string DataSource { get; set; }
 
-        [RegularExpression(@"^[\w\s&-]+$", ErrorMessage = "Invalid SchoolName")]
+        [RegularExpression(@"^[\w\s&-']+$", ErrorMessage = "Invalid SchoolName")]
         public string SchoolName { get; set; }
 
-        [RegularExpression(@"^[\w\s|]+$", ErrorMessage = "Invalid Industry")]
+        [RegularExpression(@"^[\w\s|,()]+$", ErrorMessage = "Invalid Industry")]
         public string Industry { get; set; }
 
         public StudentSurveyRequestModel StudentSurvey { get; set; }

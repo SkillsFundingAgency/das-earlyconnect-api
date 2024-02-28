@@ -78,5 +78,27 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                     .Include(m => m.MetricsFlagLookups)
                     .ToListAsync();
         }
+
+        public async Task<List<int>> UpdateLepsDateSent(IList<int> ids)
+        {
+            DateTime now = DateTime.Now;
+            var invalidIds = new List<int>();
+
+            foreach (var metricId in ids)
+            {
+                var metric = await _dbContext.MetricsData.Where(m => m.Id == metricId).FirstOrDefaultAsync();
+                if (metric != null)
+                {
+                    metric.LepDateSent = now;
+                }
+                else
+                {
+                    invalidIds.Add(metricId);
+                }
+            }
+
+            await _dbContext.SaveChangesAsync();
+            return invalidIds;
+        }
     }
 }

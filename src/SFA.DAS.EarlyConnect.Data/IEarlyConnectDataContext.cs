@@ -22,5 +22,6 @@ namespace SFA.DAS.EarlyConnect.Data
         DbSet<QuestionType> QuestionTypes { get; set; }
         DbSet<Answer> Answers { get; set; }
         DbSet<StudentAnswer> StudentAnswers { get; set; }
+        DbSet<StudentFeedback> StudentFeedbacks { get; set; }
     }
 }

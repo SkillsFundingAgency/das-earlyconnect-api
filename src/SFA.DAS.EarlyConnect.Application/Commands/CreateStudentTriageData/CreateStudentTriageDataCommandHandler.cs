@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using NServiceBus;
 using SFA.DAS.EarlyConnect.Application.Extensions;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
+using SFA.DAS.Notifications.Messages.Commands;
 
 namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
 {
@@ -12,17 +14,21 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
         private readonly IStudentDataRepository _studentDataRepository;
         private readonly IStudentSurveyRepository _studentSurveyRepository;
         private readonly ILogger<CreateStudentTriageDataCommandHandler> _logger;
+        private readonly IMessageSession _messageSession;
+        public const string TemplateId = "EarlyConnectTriageConfirmationEmail";
 
         public CreateStudentTriageDataCommandHandler(
             IStudentAnswerRepository studentAnswerRepository,
             IStudentDataRepository studentDataRepository,
             IStudentSurveyRepository studentSurveyRepository,
-            ILogger<CreateStudentTriageDataCommandHandler> logger)
+            ILogger<CreateStudentTriageDataCommandHandler> logger,
+            IMessageSession messageSession)
         {
             _studentAnswerRepository = studentAnswerRepository;
             _studentDataRepository = studentDataRepository;
             _studentSurveyRepository = studentSurveyRepository;
             _logger = logger;
+            _messageSession = messageSession;
         }
 
         public async Task<CreateStudentTriageDataResult> Handle(CreateStudentTriageDataCommand command, CancellationToken cancellationToken)
@@ -57,7 +63,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
             try
             {
                 await _studentSurveyRepository.UpdateStudentSurveyAsync(new StudentSurvey
-                { 
+                {
                     Id = command.StudentSurvey.Id,
                     LastUpdated = command.StudentSurvey.LastUpdated,
                     DateCompleted = command.StudentSurvey.DateCompleted
@@ -69,27 +75,25 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                 return result;
             }
 
-            var answersToCreate = command.StudentSurvey.Answers.Where(x => x.Id == null).ToList().MapFromAnswersDtoToCreate(command.StudentSurveyGuid);
-            var answersToUpdate = command.StudentSurvey.Answers.Where(x => x.Id != null).ToList().MapFromAnswersDtoToUpdate(command.StudentSurveyGuid);
+            var answersToCreateAndRemove = command.StudentSurvey.Answers.Where(x => x.QuestionId > 0 && x.AnswerId > 0).ToList().MapFromAnswersDtoToCreate(command.StudentSurveyGuid);
 
-            // 2. Add StudentAnswers
-            if (answersToCreate.Any())
+            // 2. AddAndRemove StudentAnswers
+            if (answersToCreateAndRemove.Any())
             {
-                _logger.LogInformation($"Creating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
+                _logger.LogInformation($"Creating and Removing Student Answers for StudentSurvey {command.StudentSurvey.Id}");
 
-                await _studentAnswerRepository.AddManyAsync(answersToCreate);
+                await _studentAnswerRepository.AddAndRemoveAnswersAsync(command.StudentSurveyGuid, answersToCreateAndRemove);
             }
 
-            // 3. Update StudentAnswers
-            if (answersToUpdate.Any())
+            if (command.StudentSurvey.DateCompleted != null)
             {
-                _logger.LogInformation($"Updating Student Answers for StudentSurvey {command.StudentSurvey.Id}");
+                var tokens = new Dictionary<string, string> { { "Contact", $"{command.StudentData.FirstName} {command.StudentData.LastName}" } };
 
-                foreach (var answer in answersToUpdate)
-                {
-                    await _studentAnswerRepository.UpdateAsync(answer);
-                }
+                _logger.LogInformation($"Sending confirmation email to student");
+
+                await _messageSession.Send(new SendEmailCommand(TemplateId, command.StudentData.Email, tokens));
             }
+
             result.Message = "Success";
 
             return result;
