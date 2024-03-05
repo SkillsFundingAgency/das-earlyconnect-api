@@ -7,6 +7,7 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
         Task<int> GetLepsIdByRegionAsync(string region);
         Task<int> GetLepsIdByPostCodeAsync(string postCode);
         Task<int> GetLepsIdByLepsCodeAsync(string lepsCode);
+        Task<string> GetLepsCodeByLepsIdAsync(int lepsId);
         Task<string> GetLepsRegionByLepsCodeAsync(string lepsCode);
         Task<ICollection<LEPSData>> GetAllLepsDataAsync();
     }
