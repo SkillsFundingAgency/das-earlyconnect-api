@@ -74,7 +74,11 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         public async Task POST_StudentOnboardData_Returns201()
         {
             var onboardResponse = new CreateStudentOnboardDataCommandResponse { Message = "Success" };
-            var request = _fixture.Create<StudentOnboardDataPostRequest>();
+
+            var request = _fixture.Build<StudentOnboardDataPostRequest>()
+                .With(x => x.Emails, _fixture.CreateMany<string>().ToList())
+                .Create();
+
 
             _mediator.Setup(x => x.Send(It.Is<CreateStudentOnboardDataCommand>(command =>
                     command.Emails == request.Emails
