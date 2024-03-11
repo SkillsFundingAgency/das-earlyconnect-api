@@ -3,8 +3,8 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedback;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentIdBySurveyId;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentFeedback
@@ -44,6 +44,9 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentFeedback
 
             _mockStudentFeedbackRepository.Setup(repository => repository.AddManyAsync(command.StudentFeedbackList))
                 .Returns(Task.CompletedTask);
+
+            _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<GetStudentIdBySurveyIdQuery>(), CancellationToken.None))
+                .ReturnsAsync(123);
 
             await _handler.Handle(command, CancellationToken.None);
 

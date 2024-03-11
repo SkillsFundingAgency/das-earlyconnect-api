@@ -61,7 +61,6 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             student.SchoolName = (studentData.SchoolName != null) ? studentData.SchoolName : "";
             student.Postcode = (studentData.Postcode != null) ? studentData.Postcode : "";
             student.Telephone = (studentData.Telephone != null) ? studentData.Telephone : "";
-            student.DateInterestShown = studentData.DateInterestShown;
             student.Industry = (studentData.Industry != null) ? studentData.Industry : "";
 
             await _dbContext.SaveChangesAsync();

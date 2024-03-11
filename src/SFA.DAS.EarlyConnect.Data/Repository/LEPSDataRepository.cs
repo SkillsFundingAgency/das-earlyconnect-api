@@ -30,6 +30,14 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .SingleOrDefaultAsync();
         }
 
+        public async Task<string> GetLepsCodeByLepsIdAsync(int lepsId)
+        {
+            return await _dbContext.LEPSData
+                .Where(a => a.Id == lepsId)
+                .Select(l => l.LepCode)
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<int> GetLepsIdByPostCodeAsync(string postCode)
         {
             postCode = postCode.Trim().Replace(" ", "").ToLower();

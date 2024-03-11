@@ -10,6 +10,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
         private readonly IQuestionRepository _questionRepository;
         private readonly IStudentSurveyRepository _studentSurveyRepository;
         private readonly IStudentAnswerRepository _studentAnswerRepository;
+        private readonly ILEPSDataRepository _lEPSDataRepository;
         private readonly IAnswerRepository _answerRepository;
         private readonly ILogger<GetStudentTriageDataBySurveyIdQueryHandler> _logger;
 
@@ -18,6 +19,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
             IQuestionRepository questionRepository,
             IStudentSurveyRepository studentSurveyRepository,
             IStudentAnswerRepository studentAnswerRepository,
+            ILEPSDataRepository lEPSDataRepository,
             IAnswerRepository answerRepository,
             ILogger<GetStudentTriageDataBySurveyIdQueryHandler> logger)
         {
@@ -25,12 +27,15 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
             _questionRepository = questionRepository;
             _studentSurveyRepository = studentSurveyRepository;
             _studentAnswerRepository = studentAnswerRepository;
+            _lEPSDataRepository = lEPSDataRepository;
             _answerRepository = answerRepository;
             _logger = logger;
         }
 
         public async Task<GetStudentTriageDataBySurveyIdResult> Handle(GetStudentTriageDataBySurveyIdQuery request, CancellationToken cancellationToken)
         {
+            string lepsCode=String.Empty;
+
             var studentSurvey = await _studentSurveyRepository.GetStudentSurveyBySurveyIdAsync(request.StudentSurveyId);
             if (studentSurvey == null) _logger.LogInformation($"No StudentSurveyId found for the SurveyId  {request.StudentSurveyId}");
 
@@ -39,6 +44,16 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
             var student = await _studentDataRepository.GetByStudentIdAsync(studentSurvey.StudentId);
             if (student == null) _logger.LogInformation($"No student found for the StudentId  {studentSurvey.StudentId}");
 
+            if (student.LepsId.HasValue)
+            {
+                lepsCode = await _lEPSDataRepository.GetLepsCodeByLepsIdAsync(student.LepsId.Value);
+                if (string.IsNullOrEmpty(lepsCode)) _logger.LogInformation($"No leps Code found for the Leps Id {student.LepsId.Value}");
+            }
+            else
+            {
+                _logger.LogInformation("LepsId is null for the student");
+            }
+            
             var questions = await _questionRepository.GetQuestionBySurveyIdAsync(studentSurvey.SurveyId);
             if (questions == null || !questions.Any()) _logger.LogInformation($"No questions found for the SurveyId  {studentSurvey.SurveyId}");
 
@@ -47,11 +62,12 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
             {
                 Id = student.Id,
                 LepsId = student.LepsId,
+                LepCode = lepsCode,
                 LogId = student.LogId,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
                 DateOfBirth = student.DateOfBirth,
-                SchoolName= student.SchoolName,
+                SchoolName = student.SchoolName,
                 Email = student.Email,
                 Telephone = student.Telephone,
                 Postcode = student.Postcode,

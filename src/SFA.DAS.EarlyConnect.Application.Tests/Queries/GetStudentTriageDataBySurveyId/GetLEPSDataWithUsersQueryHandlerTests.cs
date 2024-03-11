@@ -17,6 +17,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetStudentTriageDataByS
         public Mock<IQuestionRepository> _questionRepository;
         public Mock<IStudentSurveyRepository> _studentSurveyRepository;
         public Mock<IStudentAnswerRepository> _studentAnswerRepository;
+        public Mock<ILEPSDataRepository> _lEPSDataRepository;
         public Mock<IAnswerRepository> _answerRepository;
         public Mock<IMediator> _mediator;
         public Mock<ILogger<GetStudentTriageDataBySurveyIdQueryHandler>> mockLogger;
@@ -27,6 +28,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetStudentTriageDataByS
         {
             _fixture = new Fixture();
             _studentDataRepository = new Mock<IStudentDataRepository>();
+            _lEPSDataRepository = new Mock<ILEPSDataRepository>();
             _questionRepository = new Mock<IQuestionRepository>();
             _studentSurveyRepository = new Mock<IStudentSurveyRepository>();
             _studentAnswerRepository = new Mock<IStudentAnswerRepository>();
@@ -38,6 +40,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetStudentTriageDataByS
                 _questionRepository.Object,
                 _studentSurveyRepository.Object,
                 _studentAnswerRepository.Object,
+                _lEPSDataRepository.Object,
                 _answerRepository.Object,
                 mockLogger.Object);
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
