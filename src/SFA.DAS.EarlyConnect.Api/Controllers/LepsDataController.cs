@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentFeedback;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedback;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
 using SFA.DAS.EarlyConnect.Application.Responses;
