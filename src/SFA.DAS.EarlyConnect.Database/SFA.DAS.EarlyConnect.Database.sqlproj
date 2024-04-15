@@ -94,4 +94,7 @@
     <None Include="Scripts\Post-Deployment\SeedData\Question.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\Post-Deployment\CreateIndexes.sql" />
+  </ItemGroup>
 </Project>

@@ -16,3 +16,4 @@ Post-Deployment Script Template
 :r .\SeedData\QuestionType.sql
 :r .\SeedData\Question.sql
 :r .\SeedData\Answer.sql
+:r .\CreateIndexes.sql
