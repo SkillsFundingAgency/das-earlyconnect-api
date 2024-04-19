@@ -1,0 +1,13 @@
+{
+  "NServiceBus.MessageId": "abf2ba5b-b813-4a44-bcf0-b10900bcfcad",
+  "NServiceBus.MessageIntent": "Send",
+  "NServiceBus.ConversationId": "db80fd4d-afd9-4670-a717-b10900bcfcad",
+  "NServiceBus.CorrelationId": "abf2ba5b-b813-4a44-bcf0-b10900bcfcad",
+  "NServiceBus.OriginatingMachine": "G02UKXN16936",
+  "NServiceBus.OriginatingEndpoint": "SFA.DAS.EarlyConnect.Api",
+  "$.diagnostics.originating.hostid": "444e927ed804c82182050f3fcbf97255",
+  "NServiceBus.ContentType": "application\/json",
+  "NServiceBus.EnclosedMessageTypes": "SFA.DAS.Notifications.Messages.Commands.SendEmailCommand, SFA.DAS.Notifications.Messages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=null",
+  "NServiceBus.Version": "7.0.1",
+  "NServiceBus.TimeSent": "2024-02-01 11:28:04:841689 Z"
+}

@@ -1,0 +1,1 @@
+﻿{"TemplateId":"EarlyConnectTriageConfirmationEmail","RecipientsAddress":"joe@joejoe.com","Tokens":{"$type":"System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib","Contact":"Peter soap"}}
