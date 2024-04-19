@@ -83,6 +83,9 @@
     <None Include="Scripts\Post-Deployment\SeedData\QuestionType.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
     <Build Include="Tables\StudentFeedback.sql" />
+    <Build Include="Scripts\Post-Deployment\SeedData\Postcode_LANCS.sql" />
+    <Build Include="Scripts\Post-Deployment\SeedData\Postcode_LONDON.sql" />
+    <Build Include="Scripts\Post-Deployment\SeedData\Postcode_NE.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
