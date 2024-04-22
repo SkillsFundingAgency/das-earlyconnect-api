@@ -100,7 +100,4 @@
     <None Include="Scripts\Post-Deployment\SeedData\Question.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <RefactorLog Include="SFA.DAS.EarlyConnect.Database.refactorlog" />
-  </ItemGroup>
 </Project>
