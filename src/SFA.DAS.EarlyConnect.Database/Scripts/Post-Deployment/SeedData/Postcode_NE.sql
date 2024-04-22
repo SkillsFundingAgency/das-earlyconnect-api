@@ -1,16 +1,24 @@
-CREATE PROC #InsertIntoLEPSCoverage
-@lepsIdParam INT,
-@postcodeParam varchar(15)
-AS BEGIN
-INSERT INTO LEPSCoverage(postcode, lepsid)
-SELECT @postcodeParam, @lepsIdParam
-WHERE NOT EXISTS(
-SELECT 1 FROM LEPSCoverage
-WHERE postcode = @postcodeParam AND lepsid = @lepsIdParam
-)
-END
+DECLARE @scriptName varchar(100)
+set @scriptName = 'Postcode_NE.sql'
 
-GO
+
+IF NOT EXISTS (SELECT 1 FROM DatabaseHistory WHERE ScriptName = @scriptName)
+BEGIN
+    EXEC('CREATE PROCEDURE #InsertIntoLEPSCoverage
+    @lepsIdParam INT,
+    @postcodeParam varchar(15)
+    AS 
+    BEGIN
+        IF NOT EXISTS(
+            SELECT 1 FROM LEPSCoverage
+            WHERE postcode = @postcodeParam AND lepsid = @lepsIdParam
+        )
+        BEGIN
+            INSERT INTO LEPSCoverage(postcode, lepsid)
+            VALUES (@postcodeParam, @lepsIdParam)
+        END
+    END')
+
 
 DECLARE @lepsId INT;
 Select @lepsId = id from LepsData where LepCode = 'E37000025';
@@ -1394,3 +1402,7 @@ EXEC #InsertIntoLEPSCoverage @lepsIdParam = @lepsId, @postcodeParam = 'TD159SW'
 EXEC #InsertIntoLEPSCoverage @lepsIdParam = @lepsId, @postcodeParam = 'TD58AR'
 
 DROP PROC #InsertIntoLEPSCoverage
+
+INSERT INTO DatabaseHistory (ScriptName) values (@scriptName)
+
+END

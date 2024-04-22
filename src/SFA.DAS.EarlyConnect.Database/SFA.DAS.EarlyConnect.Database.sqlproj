@@ -60,6 +60,7 @@
     <Folder Include="Scripts" />
     <Folder Include="Scripts\Post-Deployment" />
     <Folder Include="Scripts\Post-Deployment\SeedData" />
+    <Folder Include="Scripts\Post-Deployment\Schema" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\ApprenticeMetricsData.sql" />
@@ -86,6 +87,8 @@
     <None Include="Scripts\Post-Deployment\SeedData\Postcode_LANCS.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Postcode_LONDON.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Postcode_NE.sql" />
+    <None Include="Scripts\Post-Deployment\Schema\LEPSCoverageIndexes.sql" />
+    <Build Include="Tables\DatabaseHistory.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
@@ -98,6 +101,6 @@
     <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\Post-Deployment\CreateIndexes.sql" />
+    <RefactorLog Include="SFA.DAS.EarlyConnect.Database.refactorlog" />
   </ItemGroup>
 </Project>
