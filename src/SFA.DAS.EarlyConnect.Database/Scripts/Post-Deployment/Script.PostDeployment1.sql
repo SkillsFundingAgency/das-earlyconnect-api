@@ -17,6 +17,4 @@ Post-Deployment Script Template
 :r .\SeedData\Question.sql
 :r .\SeedData\Answer.sql
 :r .\Schema\LEPSCoverageIndexes.sql
-:r .\SeedData\Postcode_NE.sql
-:r .\SeedData\Postcode_LONDON.sql
-:r .\SeedData\Postcode_LANCS.sql
+:r .\SeedData\Postcode.sql

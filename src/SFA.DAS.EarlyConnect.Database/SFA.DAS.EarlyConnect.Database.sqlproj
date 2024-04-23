@@ -84,11 +84,9 @@
     <None Include="Scripts\Post-Deployment\SeedData\QuestionType.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Answer.sql" />
     <Build Include="Tables\StudentFeedback.sql" />
-    <None Include="Scripts\Post-Deployment\SeedData\Postcode_LANCS.sql" />
-    <None Include="Scripts\Post-Deployment\SeedData\Postcode_LONDON.sql" />
-    <None Include="Scripts\Post-Deployment\SeedData\Postcode_NE.sql" />
     <None Include="Scripts\Post-Deployment\Schema\LEPSCoverageIndexes.sql" />
     <Build Include="Tables\DatabaseHistory.sql" />
+    <None Include="Scripts\Post-Deployment\SeedData\Postcode.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
