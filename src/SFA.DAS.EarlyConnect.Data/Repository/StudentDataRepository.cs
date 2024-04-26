@@ -47,19 +47,25 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
         public async Task<List<StudentData>> GetEmailByLepcodeAsync(string lepcode, string datasource)
         {
-            lepcode = lepcode.Trim().Replace(" ", "").ToLower();
+            lepcode = lepcode?.Trim().Replace(" ", "").ToLower();
             datasource = datasource.Trim().Replace(" ", "").ToLower();
 
-            return await _dbContext.StudentData
-                 .AsNoTracking()
-                 .Include(a => a.LEPSData)
-                 .Include(a => a.StudentSurveys)
-                .Where(a => a.LEPSData.LepCode == lepcode
-                         && a.DataSource == datasource
+            var query = _dbContext.StudentData
+                .AsNoTracking()
+                .Include(a => a.LEPSData)
+                .Include(a => a.StudentSurveys)
+                .Where(a => a.DataSource == datasource
                          && a.StudentSurveys != null
-                         && a.StudentSurveys.Any(s => s.DateEmailReminderSent == null && s.DateCompleted == null && s.DateAdded < DateTime.Now.Date.AddDays(-2)))
-                .ToListAsync();
+                         && a.StudentSurveys.Any(s => s.DateEmailReminderSent == null && s.DateCompleted == null && s.DateAdded < DateTime.Now.Date.AddDays(-2)));
+
+            if (!string.IsNullOrEmpty(lepcode))
+            {
+                query = query.Where(a => a.LEPSData.LepCode == lepcode);
+            }
+
+            return await query.ToListAsync();
         }
+
 
         public async Task UpdateAsync(StudentData studentData)
         {

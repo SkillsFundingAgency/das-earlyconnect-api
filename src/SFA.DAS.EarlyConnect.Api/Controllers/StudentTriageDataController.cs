@@ -64,7 +64,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 Message = response.Message
             };
 
-            return CreatedAtAction(nameof(StudentSurveyEmailReminder), response);
+            return CreatedAtAction(nameof(StudentSurveyEmailReminder), model);
         }
 
         [HttpPost]

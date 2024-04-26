@@ -52,7 +52,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
             var response = await _handler.Handle(command, CancellationToken.None);
 
             Assert.That(response, Is.Not.Null);
-            Assert.That(response.Message, Is.EqualTo($"Sending remainder emails for {studentData.Count} students completed"));
+            Assert.That(response.Message, Is.EqualTo($"Reminder email sent to {studentData.Count} students"));
         }
     }
 }

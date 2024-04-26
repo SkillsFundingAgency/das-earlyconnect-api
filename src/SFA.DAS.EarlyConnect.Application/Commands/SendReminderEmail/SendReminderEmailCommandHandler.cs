@@ -49,7 +49,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
                 await _studentSurveyRepository.UpdateStudentSurveyReminderEmailDateAsync(studentData.StudentSurveys.FirstOrDefault()?.Id);
             }
 
-            return new SendReminderEmailResult { Message = $"Sending remainder emails for {students.Count} students completed" };
+            return new SendReminderEmailResult { Message = $"Reminder email sent to {students.Count} students" };
         }
     }
 }
