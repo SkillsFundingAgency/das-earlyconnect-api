@@ -46,7 +46,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        [Route("Reminder")]
+        [Route("reminder")]
         public async Task<IActionResult> StudentSurveyEmailReminder([FromBody] SendReminderEmailRequest request)
         {
             var response = await _mediator.Send(new SendReminderEmailCommand
