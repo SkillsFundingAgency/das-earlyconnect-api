@@ -14,7 +14,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
         private readonly IMessageSession _messageSession;
         private readonly IStudentSurveyRepository _studentSurveyRepository;
         private readonly EarlyConnectApiConfiguration _earlyConnectApiConfiguration;
-        public const string TemplateId = "EarlyConnectSurveyRemainderEmail";
+        public const string TemplateId = "EarlyConnectSurveyReminderEmail";
 
         public SendReminderEmailCommandHandler(
             IStudentDataRepository studentDataRepository,
