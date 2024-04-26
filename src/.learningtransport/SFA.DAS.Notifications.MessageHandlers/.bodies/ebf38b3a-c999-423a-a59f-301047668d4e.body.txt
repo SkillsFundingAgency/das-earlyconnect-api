@@ -1,0 +1,1 @@
+﻿{"TemplateId":"EarlyConnectSurveyRemainderEmail","RecipientsAddress":"ratheesheettwwss@gmail.com","Tokens":{"$type":"System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib","Contact":"Ratheesh","RemainderURL":"https://localhost:7067/E37000025"}}

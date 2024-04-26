@@ -6,6 +6,7 @@
 	LastUpdated		DATETIME NULL,
 	DateCompleted	DATETIME NULL,
 	DateEmailSent	DATETIME NULL,
+	DateEmailReminderSent	DATETIME NULL,
 	DateAdded		DATETIME NOT NULL DEFAULT GETDATE(),
 	CONSTRAINT FK_StudentSurvey_StudentData
         FOREIGN KEY(StudentId)

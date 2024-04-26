@@ -19,5 +19,6 @@
         public int? LogId { get; set; }
         public virtual ECAPILog Log { get; set; }
         public virtual ICollection<StudentSurvey>? StudentSurveys { get; set; }
+        public virtual LEPSData LEPSData { get; set; }
     }
 }

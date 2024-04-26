@@ -45,6 +45,22 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<StudentData>> GetEmailByLepcodeAsync(string lepcode, string datasource)
+        {
+            lepcode = lepcode.Trim().Replace(" ", "").ToLower();
+            datasource = datasource.Trim().Replace(" ", "").ToLower();
+
+            return await _dbContext.StudentData
+                 .AsNoTracking()
+                 .Include(a => a.LEPSData)
+                 .Include(a => a.StudentSurveys)
+                .Where(a => a.LEPSData.LepCode == lepcode
+                         && a.DataSource == datasource
+                         && a.StudentSurveys != null
+                         && a.StudentSurveys.Any(s => s.DateEmailReminderSent == null && s.DateCompleted == null && s.DateAdded < DateTime.Now.Date.AddDays(-2)))
+                .ToListAsync();
+        }
+
         public async Task UpdateAsync(StudentData studentData)
         {
             var student = await _dbContext.StudentData.Where(student => studentData.Id == student.Id).SingleOrDefaultAsync();
@@ -84,7 +100,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                     student.LepDateSent = now;
                 }
                 else
-                { 
+                {
                     invalidIds.Add(studentId);
                 }
             }

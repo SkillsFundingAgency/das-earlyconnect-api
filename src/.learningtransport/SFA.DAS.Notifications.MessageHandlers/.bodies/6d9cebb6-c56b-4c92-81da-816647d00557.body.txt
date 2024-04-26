@@ -1,0 +1,1 @@
+﻿{"TemplateId":"EarlyConnectSurveyRemainderEmail","RecipientsAddress":"abc1234@gmail.com","Tokens":{"$type":"System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib","lepscode":"E37000025"}}

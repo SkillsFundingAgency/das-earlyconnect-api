@@ -65,5 +65,18 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             await _dbContext.SaveChangesAsync();
         }
+        public async Task UpdateStudentSurveyReminderEmailDateAsync(Guid? surveyId)
+        {
+            var studentSurvey = await _dbContext.StudentSurveys.Where(survey => survey.Id == surveyId).SingleOrDefaultAsync();
+
+            if (studentSurvey == null)
+            {
+                throw new ArgumentNullException(nameof(studentSurvey), "No Student Survey Found for the supplied ID!");
+            }
+
+            studentSurvey.DateEmailReminderSent = DateTime.Now;
+
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
