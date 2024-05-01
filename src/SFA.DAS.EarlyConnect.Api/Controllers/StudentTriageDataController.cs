@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
+using SFA.DAS.EarlyConnect.Api.Responses.SendReminderEmail;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Models;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
@@ -44,6 +46,29 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
+        [Route("reminder")]
+        public async Task<IActionResult> StudentSurveyEmailReminder([FromBody] SendReminderEmailRequest request)
+        {
+            var response = await _mediator.Send(new SendReminderEmailCommand
+            {
+                LepsCode = request.LepsCode
+            });
+
+            if (response.ResultCode.Equals(ResponseCode.InvalidRequest))
+            {
+                return BadRequest(new { Errors = response.ValidationErrors });
+            }
+
+            var model = new SendReminderEmailResponse()
+            {
+                Message = response.Message
+            };
+
+            return CreatedAtAction(nameof(StudentSurveyEmailReminder), model);
+        }
+
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Route("{studentSurveyGuid}")]
         public async Task<IActionResult> StudentTriageData([FromBody] StudentTriageDataPostRequest request, [FromRoute] Guid studentSurveyGuid)
@@ -53,8 +78,8 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             var result = await _mediator.Send(new CreateStudentTriageDataCommand
             {
                 StudentSurveyGuid = studentSurveyGuid,
-                StudentData = new StudentDataDto 
-                { 
+                StudentData = new StudentDataDto
+                {
                     Id = request.Id,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
@@ -74,7 +99,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 Message = result.Message
             };
 
-            if (response.Message != "Success") 
+            if (response.Message != "Success")
             {
                 return BadRequest(response);
             }

@@ -11,6 +11,7 @@
         public DateTime? DateCompleted { get; set; }
         public DateTime? DateEmailSent { get; set; }
         public DateTime DateAdded { get; set; }
+        public DateTime? DateEmailReminderSent { get; set; }
         public virtual ICollection<StudentAnswer>? StudentAnswers { get; set; }
     }
 }

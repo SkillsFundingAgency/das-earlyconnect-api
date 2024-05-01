@@ -7,6 +7,7 @@ using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 
@@ -29,13 +30,30 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         }
 
         [Test]
+        public async Task POST_StudentSurveyEmailReminder_ReturnsOk()
+        {
+            var request = _fixture.Create<SendReminderEmailRequest>();
+
+            var expectedResult = new SendReminderEmailResult { Message = "Success" };
+
+            _mediator.Setup(x => x.Send(It.Is<SendReminderEmailCommand>(command => command.LepsCode == request.LepsCode), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(expectedResult);
+
+            var actionResult = await _studentTriageDataController.StudentSurveyEmailReminder(request);
+            var createdAtActionResult = actionResult as CreatedAtActionResult;
+
+            Assert.IsNotNull(createdAtActionResult);
+            Assert.That(createdAtActionResult.StatusCode.Equals(201));
+        }
+
+        [Test]
         public async Task POST_StudentTriageDataOther_ReturnsOk()
         {
             // Arrange
             var request = _fixture.Create<StudentTriageDataOtherPostRequest>();
             var expectedResult = _fixture.Create<CreateOtherStudentTriageDataCommandResponse>();
 
-            _mediator.Setup(x => x.Send(It.Is<CreateOtherStudentTriageDataCommand>(command => command.Email == request.Email 
+            _mediator.Setup(x => x.Send(It.Is<CreateOtherStudentTriageDataCommand>(command => command.Email == request.Email
             && command.LepsCode == request.LepsCode), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(expectedResult);
 
