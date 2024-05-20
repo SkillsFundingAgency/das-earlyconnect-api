@@ -54,9 +54,9 @@ namespace SFA.DAS.EarlyConnect.Data
         {
             modelBuilder.Entity<StudentData>().ToTable("StudentData");
             modelBuilder.Entity<StudentData>().HasKey(student => student.Id);
-            modelBuilder.Entity<StudentData>().HasOne(student => student.LEPSData)
-                       .WithMany(lEPSData => lEPSData.StudentData)
-            .HasForeignKey(student => student.LepsId);
+            //modelBuilder.Entity<StudentData>().HasOne(student => student.LEPSData)
+            //           .WithMany(lEPSData => lEPSData.StudentData)
+            //.HasForeignKey(student => student.LepsId);
 
             modelBuilder.Entity<ECAPILog>().ToTable("ECAPILog");
             modelBuilder.Entity<ECAPILog>().HasKey(log => log.Id);

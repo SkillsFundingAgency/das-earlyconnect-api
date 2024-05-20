@@ -7,12 +7,10 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
     public class StudentDataRepository : IStudentDataRepository
     {
         private readonly EarlyConnectDataContext _dbContext;
-        private readonly ILEPSDataRepository _lepsDataRepository;
 
-        public StudentDataRepository(EarlyConnectDataContext dbContext, ILEPSDataRepository lepsDataRepository)
+        public StudentDataRepository(EarlyConnectDataContext dbContext)
         {
             _dbContext = dbContext;
-            _lepsDataRepository = lepsDataRepository;
         }
 
         public async Task AddManyAsync(IEnumerable<StudentData> studentDataList)
@@ -48,16 +46,14 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .ToListAsync();
         }
 
-        public async Task<List<StudentData>> GetEmailByLepcodeAsync(string lepcode, string datasource)
+        public async Task<List<StudentData>> GetBySourceAsync(string datasource)
         {
-            var lepsId = await _lepsDataRepository.GetLepsIdByLepsCodeAsync(lepcode);
             datasource = datasource.Trim().Replace(" ", "").ToLower();
 
             var query = _dbContext.StudentData
                 .AsNoTracking()
                 .Include(a => a.StudentSurveys)
                 .Where(a => a.DataSource == datasource
-                         && a.LepsId == lepsId
                          && a.StudentSurveys != null
                          && a.StudentSurveys.Any(s => s.DateEmailReminderSent == null && s.DateCompleted == null && s.DateAdded < DateTime.Now.Date.AddDays(-2)));
 
