@@ -35,6 +35,8 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
 
         public async Task<SendReminderEmailResult> Handle(SendReminderEmailCommand command, CancellationToken cancellationToken)
         {
+            int counter = 0;
+
             var students = await _studentDataRepository.GetBySourceAsync("Other");
 
             if (!students.Any())
@@ -45,18 +47,24 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
                 if (studentData.LepsId != null)
                 {
                     var lepsCode = _lepsDataRepository.GetLepsCodeByLepsIdAsync(studentData.LepsId.Value);
-                    var tokens = new Dictionary<string, string>
-                                {
-                                    { "Contact", $"{studentData.FirstName}" },
-                                    { "RemainderURL", $"{_earlyConnectApiConfiguration.BaseUrl}{lepsCode}" },
-                                };
 
-                    await _messageSession.Send(new SendEmailCommand(TemplateId, studentData.Email, tokens));
-                    await _studentSurveyRepository.UpdateStudentSurveyReminderEmailDateAsync(studentData.StudentSurveys.FirstOrDefault()?.Id);
+                    if (string.IsNullOrEmpty(command.LepsCode) || command.LepsCode.Trim() == lepsCode.Result.Trim())
+                    {
+                        var tokens = new Dictionary<string, string>
+                        {
+                            { "Contact", $"{studentData.FirstName}" },
+                            { "RemainderURL", $"{_earlyConnectApiConfiguration.BaseUrl}{lepsCode.Result}" },
+                        };
+
+                        await _messageSession.Send(new SendEmailCommand(TemplateId, studentData.Email, tokens));
+                        await _studentSurveyRepository.UpdateStudentSurveyReminderEmailDateAsync(studentData.StudentSurveys.FirstOrDefault()?.Id);
+
+                        counter++;
+                    }
                 }
             }
 
-            return new SendReminderEmailResult { Message = $"Reminder email sent to {students.Count} students" };
+            return new SendReminderEmailResult { Message = $"Reminder email sent to {counter} students" };
         }
     }
 }

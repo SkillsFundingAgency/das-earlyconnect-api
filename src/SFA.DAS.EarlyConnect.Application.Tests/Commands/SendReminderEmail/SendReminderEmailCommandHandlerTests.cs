@@ -48,9 +48,12 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
         public async Task SendReminderEmail_ReturnsSuccessResponse()
         {
             var command = _fixture.Create<SendReminderEmailCommand>();
+            command.LepsCode = "1234";
             var studentData = _fixture.Create<List<StudentData>>();
 
             _mockStudentDataRepository.Setup(repo => repo.GetBySourceAsync(It.IsAny<string>())).ReturnsAsync(studentData);
+
+            _lepsDataRepository.Setup(repo => repo.GetLepsCodeByLepsIdAsync(It.IsAny<int>())).ReturnsAsync("1234");
 
             var response = await _handler.Handle(command, CancellationToken.None);
 
