@@ -46,14 +46,14 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
             {
                 if (studentData.LepsId != null)
                 {
-                    var lepsCode = _lepsDataRepository.GetLepsCodeByLepsIdAsync(studentData.LepsId.Value);
+                    var lepsCode = await _lepsDataRepository.GetLepsCodeByLepsIdAsync(studentData.LepsId.Value);
 
-                    if (string.IsNullOrEmpty(command.LepsCode) || command.LepsCode.Trim() == lepsCode.Result.Trim())
+                    if (string.IsNullOrEmpty(command.LepsCode) || command.LepsCode.Trim() == lepsCode.Trim())
                     {
                         var tokens = new Dictionary<string, string>
                         {
                             { "Contact", $"{studentData.FirstName}" },
-                            { "RemainderURL", $"{_earlyConnectApiConfiguration.BaseUrl}{lepsCode.Result}" },
+                            { "RemainderURL", $"{_earlyConnectApiConfiguration.BaseUrl}{lepsCode}" },
                         };
 
                         await _messageSession.Send(new SendEmailCommand(TemplateId, studentData.Email, tokens));
