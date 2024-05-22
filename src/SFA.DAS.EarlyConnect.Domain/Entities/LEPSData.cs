@@ -20,6 +20,5 @@
         public DateTime DateAdded { get; set; }
         public virtual ICollection<LEPSUser>? LEPSUsers { get; set; } // 1-to-Many with LEPSUsers
         public virtual ICollection<LEPSCoverage>? LEPSCoverages { get; set; } // 1-to-Many with LEPSUsers
-        public virtual ICollection<StudentData>? StudentData { get; set; }
     }
 }

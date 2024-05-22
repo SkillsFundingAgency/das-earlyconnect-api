@@ -15,6 +15,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
         private Fixture _fixture;
         public Mock<IStudentDataRepository> _mockStudentDataRepository;
         public Mock<IStudentSurveyRepository> _studentSurveyRepository;
+        public Mock<ILEPSDataRepository> _lepsDataRepository;
         public Mock<IMessageSession> _messageSession;
         public Mock<ILogger<SendReminderEmailCommandHandler>> _logger;
         private SendReminderEmailCommandHandler _handler;
@@ -26,6 +27,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
             _fixture = new Fixture();
             _mockStudentDataRepository = new Mock<IStudentDataRepository>();
             _studentSurveyRepository = new Mock<IStudentSurveyRepository>();
+            _lepsDataRepository = new Mock<ILEPSDataRepository>();
             _messageSession = new Mock<IMessageSession>();
             _logger = new Mock<ILogger<SendReminderEmailCommandHandler>>();
             _earlyConnectApiConfiguration = new Mock<EarlyConnectApiConfiguration>();
@@ -34,6 +36,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
                 _logger.Object,
                 _messageSession.Object,
                 _studentSurveyRepository.Object,
+                _lepsDataRepository.Object,
                 _earlyConnectApiConfiguration.Object);
 
             _fixture.Behaviors.OfType<ThrowingRecursionBehavior>().ToList()
@@ -45,9 +48,12 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateOtherStudentTria
         public async Task SendReminderEmail_ReturnsSuccessResponse()
         {
             var command = _fixture.Create<SendReminderEmailCommand>();
+            command.LepsCode = "1234";
             var studentData = _fixture.Create<List<StudentData>>();
 
-            _mockStudentDataRepository.Setup(repo => repo.GetEmailByLepcodeAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(studentData);
+            _mockStudentDataRepository.Setup(repo => repo.GetBySourceAsync(It.IsAny<string>())).ReturnsAsync(studentData);
+
+            _lepsDataRepository.Setup(repo => repo.GetLepsCodeByLepsIdAsync(It.IsAny<int>())).ReturnsAsync("1234");
 
             var response = await _handler.Handle(command, CancellationToken.None);
 
