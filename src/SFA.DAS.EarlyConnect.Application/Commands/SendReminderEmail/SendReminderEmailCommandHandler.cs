@@ -53,7 +53,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData
                         var tokens = new Dictionary<string, string>
                         {
                             { "Contact", $"{studentData.FirstName}" },
-                            { "RemainderURL", $"{_earlyConnectApiConfiguration.BaseUrl}{lepsCode}" },
+                            { "RemainderURL", $"{_earlyConnectApiConfiguration.BaseUrl}{lepsCode.Trim()}" },
                         };
 
                         await _messageSession.Send(new SendEmailCommand(TemplateId, studentData.Email, tokens));
