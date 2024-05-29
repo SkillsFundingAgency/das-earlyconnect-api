@@ -88,7 +88,7 @@ namespace SFA.DAS.EarlyConnect.Data
             modelBuilder.Entity<LEPSData>().HasMany(d => d.LEPSCoverages)
                 .WithOne(coverage => coverage.LepsData)
                 .HasForeignKey(d => d.LEPSId);
-                
+
             modelBuilder.Entity<StudentSurvey>().ToTable("StudentSurvey");
             modelBuilder.Entity<StudentSurvey>().HasKey(studentSurvey => studentSurvey.Id);
             modelBuilder.Entity<StudentSurvey>().HasMany(studentSurvey => studentSurvey.StudentAnswers)

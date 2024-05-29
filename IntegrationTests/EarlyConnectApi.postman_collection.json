@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "eed001a2-8454-4f3a-97bd-b29e06401b9e",
+		"_postman_id": "55bdd5d7-6c02-4fc8-bf8b-c6f143a2f097",
 		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "809985"
+		"_exporter_id": "21174429"
 	},
 	"item": [
 		{
@@ -785,7 +785,8 @@
 							"response": []
 						}
 					]
-				},				{
+				},
+				{
 					"name": "student-onboard-data",
 					"item": [
 						{
@@ -1022,7 +1023,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/api/leps-data/student-feedback",
+									"raw": "https://localhost:7104/api/leps-data/student-feedback",
 									"protocol": "https",
 									"host": [
 										"localhost"
@@ -1032,6 +1033,55 @@
 										"api",
 										"leps-data",
 										"student-feedback"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Student-survey-email-reminder",
+					"item": [
+						{
+							"name": "Reminder",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1.0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"lepsCode\": null\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/student-triage-data/reminder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"student-triage-data",
+										"reminder"
 									]
 								}
 							},

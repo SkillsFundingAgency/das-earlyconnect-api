@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.EntityFrameworkCore;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 namespace SFA.DAS.EarlyConnect.Data.Repository
@@ -45,6 +46,21 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .ToListAsync();
         }
 
+        public async Task<List<StudentData>> GetBySourceAsync(string datasource)
+        {
+            datasource = datasource.Trim().Replace(" ", "").ToLower();
+
+            var query = _dbContext.StudentData
+                .AsNoTracking()
+                .Include(a => a.StudentSurveys)
+                .Where(a => a.DataSource == datasource
+                         && a.StudentSurveys != null
+                         && a.StudentSurveys.Any(s => s.DateEmailReminderSent == null && s.DateCompleted == null && s.DateAdded < DateTime.Now.Date.AddDays(-2)));
+
+            return await query.ToListAsync();
+        }
+
+
         public async Task UpdateAsync(StudentData studentData)
         {
             var student = await _dbContext.StudentData.Where(student => studentData.Id == student.Id).SingleOrDefaultAsync();
@@ -84,7 +100,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                     student.LepDateSent = now;
                 }
                 else
-                { 
+                {
                     invalidIds.Add(studentId);
                 }
             }
