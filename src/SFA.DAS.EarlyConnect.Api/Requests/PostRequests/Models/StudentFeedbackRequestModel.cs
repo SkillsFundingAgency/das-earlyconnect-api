@@ -14,7 +14,7 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests.Models
         [RegularExpression(@"^[\w\s]+$", ErrorMessage = "Invalid Status Update")]
         public string StatusUpdate { get; set; }
 
-        [RegularExpression(@"^[\w\s\/\(\)\[\]-]+$", ErrorMessage = "Invalid Notes")]
+        [RegularExpression(@"^[\w\s\@\.\/\(\)\[\]-]+$", ErrorMessage = "Invalid Notes")]
         public string Notes { get; set; }
 
         [Required]
