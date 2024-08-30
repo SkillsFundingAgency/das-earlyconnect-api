@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSUserByLepsId;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
@@ -42,7 +43,8 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetLEPSDataWithUsers
 
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            Assert.IsInstanceOf<GetLEPDataWithUsersResult>(result);
+            Assert.That(result, Is.InstanceOf<GetLEPDataWithUsersResult>());
+
             _lepsDataRepository.Verify(x => x.GetAllLepsDataAsync(), Times.Once);
             _mediator.Verify(x => x.Send(It.IsAny<GetLEPSUserByLepsIdQuery>(), It.IsAny<CancellationToken>()), Times.Exactly(lepsDataList.Count()));
             Assert.That(lepsDataList.Count().Equals(result.LEPSData.Count()));

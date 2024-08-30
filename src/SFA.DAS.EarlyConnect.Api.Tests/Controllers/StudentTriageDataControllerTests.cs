@@ -42,7 +42,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var actionResult = await _studentTriageDataController.StudentSurveyEmailReminder(request);
             var createdAtActionResult = actionResult as CreatedAtActionResult;
 
-            Assert.IsNotNull(createdAtActionResult);
+            Assert.That(createdAtActionResult, Is.Not.Null);
             Assert.That(createdAtActionResult.StatusCode.Equals(201));
         }
 
@@ -62,7 +62,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var createdAtActionResult = actionResult as CreatedAtActionResult;
 
             // Assert
-            Assert.IsNotNull(createdAtActionResult);
+            Assert.That(createdAtActionResult, Is.Not.Null);
             Assert.That(createdAtActionResult.StatusCode.Equals(201));
         }
 
@@ -84,7 +84,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var createdAtActionResult = actionResult as CreatedAtActionResult;
 
             // Assert
-            Assert.IsNotNull(createdAtActionResult);
+            Assert.That(createdAtActionResult, Is.Not.Null);
             Assert.That(createdAtActionResult.StatusCode.Equals(201));
         }
 
@@ -106,7 +106,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var badRequestObjectResult = actionResult as BadRequestObjectResult;
 
             // Assert
-            Assert.IsNotNull(badRequestObjectResult);
+            Assert.That(badRequestObjectResult, Is.Not.Null);
             Assert.That(badRequestObjectResult.StatusCode.Equals(400));
         }
 
@@ -128,7 +128,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var badRequestObjectResult = actionResult as BadRequestObjectResult;
 
             // Assert
-            Assert.IsNotNull(badRequestObjectResult);
+            Assert.That(badRequestObjectResult, Is.Not.Null);
             Assert.That(badRequestObjectResult.StatusCode.Equals(400));
         }
 
@@ -147,7 +147,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var actionResult = await _studentTriageDataController.StudentTriageData(surveyGuid);
             var okObjectResult = actionResult as OkObjectResult;
 
-            Assert.IsNotNull(okObjectResult);
+            Assert.That(okObjectResult, Is.Not.Null);
             Assert.That(okObjectResult.StatusCode.Equals(200));
         }
     }

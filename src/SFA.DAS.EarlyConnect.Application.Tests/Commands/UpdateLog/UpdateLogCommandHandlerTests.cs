@@ -44,7 +44,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.UpdateLog
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            Assert.IsTrue(result);
+            Assert.That(result, Is.EqualTo(true));
             _mockLogDataRepository.Verify(x => x.UpdateStatusAndErrorAsync(command.LogId, command.Status, command.Error), Times.Once);
         }
     }

@@ -10,6 +10,7 @@ using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentFeedback;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentFeedback;
 using SFA.DAS.EarlyConnect.Application.Models;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
@@ -46,7 +47,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var okObjectResult = actionResult as OkObjectResult;
 
             // Assert
-            Assert.IsNotNull(okObjectResult);
+            Assert.That(okObjectResult, Is.Not.Null);
             Assert.That(okObjectResult.StatusCode.Equals(200));
         }
 
@@ -68,14 +69,16 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             var actionResult = await _lepsDataController.StudentFeedback(request);
 
-            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+            Assert.That(actionResult, Is.InstanceOf<CreatedAtActionResult>());
+
 
             var createdResult = (CreatedAtActionResult)actionResult;
-            Assert.AreEqual(201, createdResult.StatusCode);
+            Assert.That(201, Is.EqualTo(createdResult.StatusCode));
 
             var model = createdResult.Value as CreateStudentFeedbackResponse;
-            Assert.IsNotNull(model);
-            Assert.AreEqual("Success", model.Message);
+
+            Assert.That(model, Is.Not.Null);
+            Assert.That("Success", Is.EqualTo(model.Message));
 
             _mediator.Verify(x => x.Send(It.Is<CreateStudentFeedbackCommand>(command =>
                     command.StudentFeedbackList.First().StatusUpdate.Equals(request.ListOfStudentFeedback.First().StatusUpdate)

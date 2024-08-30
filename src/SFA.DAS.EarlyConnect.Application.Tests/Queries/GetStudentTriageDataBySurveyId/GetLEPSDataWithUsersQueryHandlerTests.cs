@@ -79,15 +79,16 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetStudentTriageDataByS
 
             var result = await _handler.Handle(query, CancellationToken.None);
 
-            Assert.IsInstanceOf<GetStudentTriageDataBySurveyIdResult>(result);
+            Assert.That(result, Is.InstanceOf<GetStudentTriageDataBySurveyIdResult>());
+
             _studentDataRepository.Verify(x => x.GetByStudentIdAsync(It.IsAny<int>()), Times.Once);
             _questionRepository.Verify(x => x.GetQuestionBySurveyIdAsync(It.IsAny<int>()), Times.Once);
             _studentSurveyRepository.Verify(x => x.GetStudentSurveyBySurveyIdAsync(It.IsAny<Guid>()), Times.Once);
             _studentAnswerRepository.Verify(x => x.GetStudentAnswerBySurveyIdAsync(It.IsAny<Guid>()), Times.Once);
             _answerRepository.Verify(x => x.GetAnswerByQuestionIdAsync(It.IsAny<int>()), Times.AtLeastOnce);
 
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result.StudentTriageData);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.StudentTriageData, Is.Not.Null);
         }
     }
 }

@@ -38,15 +38,15 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                    && command.MetricsData.First().WillingnessToRelocate.Equals(request.MetricsData.First().WillingnessToRelocate)
                    && command.MetricsData.First().NoOfGCSCs.Equals(request.MetricsData.First().NoOfGCSCs)
                    ), It.IsAny<CancellationToken>()))
-               .ReturnsAsync(new CreateMetricsDataResponse { ResultCode = Application.Responses.ResponseCode.Success});
+               .ReturnsAsync(new CreateMetricsDataResponse { ResultCode = Application.Responses.ResponseCode.Success });
 
             // Act
             var actionResult = await _metricsDataController.MetricsData(request);
 
-            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
-
+            Assert.That(actionResult, Is.InstanceOf<CreatedAtActionResult>());
             var createdResult = (CreatedAtActionResult)actionResult;
-            Assert.AreEqual(201, createdResult.StatusCode);
+            Assert.That(201, Is.EqualTo(createdResult.StatusCode));
+
 
             _mediator.Verify(x => x.Send(It.Is<CreateMetricsDataCommand>(command =>
                    command.MetricsData.First().Region.Equals(request.MetricsData.First().Region)
@@ -71,10 +71,10 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                    && command.MetricsData.First().WillingnessToRelocate.Equals(request.MetricsData.First().WillingnessToRelocate)
                    && command.MetricsData.First().NoOfGCSCs.Equals(request.MetricsData.First().NoOfGCSCs)
                    ), It.IsAny<CancellationToken>()))
-               .ReturnsAsync(new CreateMetricsDataResponse 
-                    { 
-                        ResultCode = ResponseCode.InvalidRequest,
-                        ValidationErrors = new List<DetailedValidationError>
+               .ReturnsAsync(new CreateMetricsDataResponse
+               {
+                   ResultCode = ResponseCode.InvalidRequest,
+                   ValidationErrors = new List<DetailedValidationError>
                                 {
                                     new DetailedValidationError
                                     {
@@ -88,8 +88,8 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var badRequestResult = actionResult as BadRequestObjectResult;
 
             // Assert
-            Assert.IsNotNull(actionResult);
-            Assert.IsNotNull(badRequestResult);
+            Assert.That(actionResult, Is.Not.Null);
+            Assert.That(badRequestResult, Is.Not.Null);
             Assert.That(badRequestResult.StatusCode.Equals(400));
         }
     }

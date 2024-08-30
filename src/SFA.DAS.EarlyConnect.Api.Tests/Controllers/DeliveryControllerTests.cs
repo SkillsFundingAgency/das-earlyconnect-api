@@ -1,5 +1,6 @@
 ﻿using AutoFixture;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -44,7 +45,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var okResult = actionResult as OkObjectResult;
 
             // Assert
-            Assert.IsNotNull(okResult);
+            Assert.That(okResult, Is.Not.Null);
             Assert.That(okResult.StatusCode.Equals(200));
             _mediator.Verify(x => x.Send(It.Is<DeliveryUpdateCommand>(command => command.Source == request.Source
                 && command.Ids == request.Ids),
@@ -78,8 +79,8 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var badRequestResult = actionResult as BadRequestObjectResult;
 
             // Assert
-            Assert.IsNotNull(actionResult);
-            Assert.IsNotNull(badRequestResult);
+            Assert.That(actionResult, Is.Not.Null);
+            Assert.That(badRequestResult, Is.Not.Null);
             Assert.That(badRequestResult.StatusCode.Equals(400));
         }
 

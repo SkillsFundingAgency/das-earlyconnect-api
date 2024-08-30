@@ -55,7 +55,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentTriageDat
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Message.Contains(expectedMessage));
         }
 
@@ -72,7 +72,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentTriageDat
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Message.Contains(expectedMessage));
         }
 
@@ -100,7 +100,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateStudentTriageDat
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Message.Contains(expectedMessage));
         }
     }
