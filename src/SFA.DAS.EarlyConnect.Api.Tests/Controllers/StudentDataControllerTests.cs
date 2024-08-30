@@ -1,7 +1,5 @@
 ﻿using AutoFixture;
 using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -12,7 +10,6 @@ using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentOnboardData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentOnboardData;
-using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {

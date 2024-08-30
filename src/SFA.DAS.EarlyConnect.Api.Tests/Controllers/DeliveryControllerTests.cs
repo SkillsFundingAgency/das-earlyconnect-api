@@ -1,15 +1,11 @@
 ﻿using AutoFixture;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateMetricsData;
-using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.DeliveryUpdate;
-using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
 using SFA.DAS.EarlyConnect.Application.Responses;
 
 

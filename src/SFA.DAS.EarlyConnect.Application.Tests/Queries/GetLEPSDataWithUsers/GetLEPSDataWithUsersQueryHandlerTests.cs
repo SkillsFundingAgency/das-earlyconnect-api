@@ -4,7 +4,6 @@ using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
 using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSUserByLepsId;
-using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 

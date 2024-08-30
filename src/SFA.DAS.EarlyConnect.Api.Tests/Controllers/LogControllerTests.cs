@@ -7,7 +7,6 @@ using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateLog;
 using SFA.DAS.EarlyConnect.Application.Commands.UpdateLog;
-using SFA.DAS.EarlyConnect.Application.Queries.GetLEPSDataWithUsers;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
