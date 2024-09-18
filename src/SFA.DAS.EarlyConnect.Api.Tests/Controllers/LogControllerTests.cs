@@ -43,10 +43,9 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             // Act
             var actionResult = await _logDataController.Create(request);
 
-            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
-
+            Assert.That(actionResult, Is.InstanceOf<CreatedAtActionResult>());
             var createdResult = (CreatedAtActionResult)actionResult;
-            Assert.AreEqual(201, createdResult.StatusCode);
+            Assert.That(201, Is.EqualTo(createdResult.StatusCode));
 
             _mediator.Verify(x => x.Send(It.Is<CreateLogCommand>(command => command.Log.RequestSource == request.RequestSource
                 && command.Log.RequestIP == request.RequestIP
@@ -74,7 +73,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             var okResult = actionResult as OkResult;
 
             // Assert
-            Assert.IsNotNull(okResult);
+            Assert.That(okResult, Is.Not.Null);
             Assert.That(okResult.StatusCode.Equals(200));
             _mediator.Verify(x => x.Send(It.Is<UpdateLogCommand>(command => command.LogId == request.LogId
                 && command.Status == request.Status

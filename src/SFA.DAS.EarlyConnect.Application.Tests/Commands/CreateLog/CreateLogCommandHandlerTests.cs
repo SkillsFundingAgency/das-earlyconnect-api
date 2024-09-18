@@ -41,7 +41,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Commands.CreateLog
 
             var result = await _handler.Handle(command, CancellationToken.None);
 
-            Assert.AreEqual(1, result);
+            Assert.That(1, Is.EqualTo(result));
             _mockLogDataRepository.Verify(x => x.CreateAsync(It.IsAny<ECAPILog>()), Times.Once);
         }
     }

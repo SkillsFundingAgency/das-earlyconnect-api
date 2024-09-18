@@ -6,7 +6,6 @@ using SFA.DAS.Notifications.Messages.Commands;
 using SFA.DAS.NServiceBus.Configuration;
 using SFA.DAS.NServiceBus.Configuration.AzureServiceBus;
 using SFA.DAS.NServiceBus.Configuration.NewtonsoftJsonSerializer;
-using SFA.DAS.NServiceBus.Configuration.NLog;
 using SFA.DAS.NServiceBus.Hosting;
 
 namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
@@ -27,8 +26,7 @@ namespace SFA.DAS.EarlyConnect.Application.RegistrationExtensions
                        .UseErrorQueue($"{EndpointName}-errors")
                        .UseLicense(configuration.NServiceBusLicense)
                        .UseMessageConventions()
-                       .UseNewtonsoftJsonSerializer()
-                       .UseNLogFactory();
+                       .UseNewtonsoftJsonSerializer();
 
                    endpointConfiguration.SendOnly();
 

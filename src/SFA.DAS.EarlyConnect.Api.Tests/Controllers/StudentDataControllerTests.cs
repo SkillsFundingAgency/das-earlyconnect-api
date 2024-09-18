@@ -51,14 +51,15 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             var actionResult = await _studentDataController.StudentData(request);
 
-            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+            Assert.That(actionResult, Is.InstanceOf<CreatedAtActionResult>());
+
 
             var createdResult = (CreatedAtActionResult)actionResult;
-            Assert.AreEqual(201, createdResult.StatusCode);
+            Assert.That(201, Is.EqualTo(createdResult.StatusCode));
 
             var model = createdResult.Value as CreateStudentDataResponse;
-            Assert.IsNotNull(model);
-            Assert.AreEqual("Success", model.Message);
+            Assert.That(model, Is.Not.Null);
+            Assert.That("Success", Is.EqualTo(model.Message));
 
             _mediator.Verify(x => x.Send(It.Is<CreateStudentDataCommand>(command =>
                     command.StudentDataList.First().FirstName.Equals(request.ListOfStudentData.First().FirstName)
@@ -87,14 +88,15 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 
             var actionResult = await _studentDataController.StudentOnboardData(request);
 
-            Assert.IsInstanceOf<CreatedAtActionResult>(actionResult);
+            Assert.That(actionResult, Is.InstanceOf<CreatedAtActionResult>());
+
 
             var createdResult = (CreatedAtActionResult)actionResult;
-            Assert.AreEqual(201, createdResult.StatusCode);
+            Assert.That(201, Is.EqualTo(createdResult.StatusCode));
 
             var model = createdResult.Value as CreateStudentOnboardDataResponse;
-            Assert.IsNotNull(model);
-            Assert.AreEqual("Success", model.Message);
+            Assert.That(model, Is.Not.Null);
+            Assert.That("Success", Is.EqualTo(model.Message));
 
             _mediator.Verify(x => x.Send(It.Is<CreateStudentOnboardDataCommand>(command =>
                     command.Emails == request.Emails
