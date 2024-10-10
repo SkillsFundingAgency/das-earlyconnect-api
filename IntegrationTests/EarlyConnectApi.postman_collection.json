@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "55bdd5d7-6c02-4fc8-bf8b-c6f143a2f097",
+		"_postman_id": "bcb7c3d0-9e86-46ce-adda-b239d93e0e3c",
 		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21174429"
@@ -43,9 +43,9 @@
 										"method": "POST",
 										"header": [
 											{
-												"description": "(Required) ",
 												"key": "X-Version",
-												"value": "1.0"
+												"value": "1.0",
+												"description": "(Required) "
 											},
 											{
 												"key": "Content-Type",
@@ -85,9 +85,9 @@
 												"method": "POST",
 												"header": [
 													{
-														"description": "(Required) ",
 														"key": "X-Version",
-														"value": ""
+														"value": "",
+														"description": "(Required) "
 													},
 													{
 														"key": "Content-Type",
@@ -131,9 +131,9 @@
 												"method": "POST",
 												"header": [
 													{
-														"description": "(Required) ",
 														"key": "X-Version",
-														"value": ""
+														"value": "",
+														"description": "(Required) "
 													},
 													{
 														"key": "Content-Type",
@@ -206,9 +206,9 @@
 										"method": "POST",
 										"header": [
 											{
-												"description": "(Required) ",
 												"key": "X-Version",
-												"value": "1.0"
+												"value": "1.0",
+												"description": "(Required) "
 											},
 											{
 												"key": "Content-Type",
@@ -244,9 +244,9 @@
 												"method": "POST",
 												"header": [
 													{
-														"description": "(Required) ",
 														"key": "X-Version",
-														"value": ""
+														"value": "",
+														"description": "(Required) "
 													},
 													{
 														"key": "Content-Type",
@@ -321,9 +321,9 @@
 								"method": "POST",
 								"header": [
 									{
-										"description": "(Required) ",
 										"key": "X-Version",
-										"value": "1.0"
+										"value": "1.0",
+										"description": "(Required) "
 									},
 									{
 										"key": "Content-Type",
@@ -362,9 +362,9 @@
 										"method": "POST",
 										"header": [
 											{
-												"description": "(Required) ",
 												"key": "X-Version",
-												"value": ""
+												"value": "",
+												"description": "(Required) "
 											},
 											{
 												"key": "Content-Type",
@@ -407,9 +407,9 @@
 										"method": "POST",
 										"header": [
 											{
-												"description": "(Required) ",
 												"key": "X-Version",
-												"value": ""
+												"value": "",
+												"description": "(Required) "
 											},
 											{
 												"key": "Content-Type",
@@ -483,6 +483,55 @@
 					]
 				},
 				{
+					"name": "GetEducationalOrganisations",
+					"item": [
+						{
+							"name": "GetGetEducationalOrganisations",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Version",
+										"value": "1.0",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/educational-organisations-data?LepCode=E37000025&SearchTerm=NU",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"educational-organisations-data"
+									],
+									"query": [
+										{
+											"key": "LepCode",
+											"value": "E37000025"
+										},
+										{
+											"key": "SearchTerm",
+											"value": "NU"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "student-data",
 					"item": [
 						{
@@ -512,9 +561,9 @@
 								"method": "POST",
 								"header": [
 									{
-										"description": "(Required) ",
 										"key": "X-Version",
-										"value": "1.0"
+										"value": "1.0",
+										"description": "(Required) "
 									},
 									{
 										"key": "Content-Type",
@@ -816,9 +865,9 @@
 								"method": "POST",
 								"header": [
 									{
-										"description": "(Required) ",
 										"key": "X-Version",
-										"value": "1.0"
+										"value": "1.0",
+										"description": "(Required) "
 									},
 									{
 										"key": "Content-Type",
@@ -878,9 +927,9 @@
 								"method": "POST",
 								"header": [
 									{
-										"description": "(Required) ",
 										"key": "X-Version",
-										"value": "1.0"
+										"value": "1.0",
+										"description": "(Required) "
 									},
 									{
 										"key": "Content-Type",
@@ -915,9 +964,9 @@
 										"method": "POST",
 										"header": [
 											{
-												"description": "(Required) ",
 												"key": "X-Version",
-												"value": "1.0"
+												"value": "1.0",
+												"description": "(Required) "
 											},
 											{
 												"key": "Content-Type",
@@ -958,9 +1007,9 @@
 										"method": "POST",
 										"header": [
 											{
-												"description": "(Required) ",
 												"key": "X-Version",
-												"value": "1.0"
+												"value": "1.0",
+												"description": "(Required) "
 											},
 											{
 												"key": "Content-Type",

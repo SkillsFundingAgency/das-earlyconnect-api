@@ -32,6 +32,7 @@ namespace SFA.DAS.EarlyConnect.Data
         public DbSet<StudentFeedback> StudentFeedbacks { get; set; }
         public DbSet<SchoolsLeadsData> SchoolsLeadsData { get; set; }
         public DbSet<SubjectPreferenceData> SubjectPreferenceData { get; set; }
+        public DbSet<EducationalOrganisation> EducationalOrganisation { get; set; }
 
         public EarlyConnectDataContext()
         {
@@ -152,6 +153,9 @@ namespace SFA.DAS.EarlyConnect.Data
 
             modelBuilder.Entity<SubjectPreferenceData>().ToTable("SubjectPreferenceData");
             modelBuilder.Entity<SubjectPreferenceData>().HasKey(subject => subject.Id);
+
+            modelBuilder.Entity<EducationalOrganisation>().ToTable("EducationalOrganisation");
+            modelBuilder.Entity<EducationalOrganisation>().HasKey(subject => subject.Id);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

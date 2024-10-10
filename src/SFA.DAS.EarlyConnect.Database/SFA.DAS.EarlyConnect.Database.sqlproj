@@ -87,6 +87,7 @@
     <None Include="Scripts\Post-Deployment\Schema\LEPSCoverageIndexes.sql" />
     <Build Include="Tables\DatabaseHistory.sql" />
     <None Include="Scripts\Post-Deployment\SeedData\Postcode.sql" />
+    <Build Include="Tables\EducationalOrganisation.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment1.sql" />
