@@ -5,6 +5,6 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsBy
     public class GetEducationalOrganisationsByLepCodeQuery : IRequest<GetEducationalOrganisationsByLepCodeResult>
     {
         public string LepCode { get; set; }
-        public string EducationalOrganisationName { get; set; }
+        public string? SearchTerm { get; set; }
     }
 }

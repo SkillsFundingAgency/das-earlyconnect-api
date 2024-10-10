@@ -6,6 +6,7 @@ using SFA.DAS.EarlyConnect.Api.Controllers;
 using SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsByLepCode;
 using SFA.DAS.EarlyConnect.Application.Models;
 using System.Net;
+using SFA.DAS.EarlyConnect.Api.Requests.GetRequests;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
@@ -25,8 +26,11 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
         [Test]
         public async Task EducationalOrganisationData_ReturnsOkResult_WhenMediatorReturnsData()
         {
-            var lepCode = "123";
-            var educationalOrganisationName = "Test School";
+            var request = new EducationalOrganisationsGetRequest
+            {
+                LepCode = "123",
+                SearchTerm = "Test School"
+            };
 
             var expectedResponse = new GetEducationalOrganisationsByLepCodeResult
             {
@@ -44,26 +48,27 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             };
 
             _mediatorMock
-                .Setup(m => m.Send(It.IsAny<GetEducationalOrganisationsByLepCodeQuery>(),
-                    It.IsAny<CancellationToken>()))
+                .Setup(m => m.Send(It.IsAny<GetEducationalOrganisationsByLepCodeQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(expectedResponse);
 
-            var result = await _controller.EducationalOrganisationData(lepCode, educationalOrganisationName);
+            var result = await _controller.EducationalOrganisationsData(request);
 
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
             var returnedData = okResult.Value as List<EducationalOrganisationsDto>;
-            Assert.That(returnedData.Count, Is.EqualTo(expectedResponse.EducationalOrganisations.Count));
+            Assert.That(returnedData, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
             Assert.That(returnedData[0].Name, Is.EqualTo("Test School"));
         }
 
-
         [Test]
-        public async Task EducationalOrganisationData_ReturnsOkResult_WhenEducationalOrganisationNameIsEmpty()
+        public async Task EducationalOrganisationData_ReturnsOkResult_WhenSearchTermIsEmpty()
         {
-            var lepCode = "123";
-            var educationalOrganisationName = string.Empty;
+            var request = new EducationalOrganisationsGetRequest
+            {
+                LepCode = "123",
+                SearchTerm = string.Empty
+            };
 
             var expectedResponse = new GetEducationalOrganisationsByLepCodeResult
             {
@@ -71,17 +76,16 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             };
 
             _mediatorMock
-                .Setup(m => m.Send(It.IsAny<GetEducationalOrganisationsByLepCodeQuery>(),
-                    It.IsAny<CancellationToken>()))
+                .Setup(m => m.Send(It.IsAny<GetEducationalOrganisationsByLepCodeQuery>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(expectedResponse);
 
-            var result = await _controller.EducationalOrganisationData(lepCode, educationalOrganisationName);
+            var result = await _controller.EducationalOrganisationsData(request);
 
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
             var returnedData = okResult.Value as List<EducationalOrganisationsDto>;
-            Assert.That(returnedData.Count, Is.EqualTo(expectedResponse.EducationalOrganisations.Count));
+            Assert.That(returnedData, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
         }
     }
 }

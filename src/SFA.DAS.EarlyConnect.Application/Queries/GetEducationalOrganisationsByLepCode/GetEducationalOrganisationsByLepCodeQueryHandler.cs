@@ -16,7 +16,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsBy
 
         public async Task<GetEducationalOrganisationsByLepCodeResult> Handle(GetEducationalOrganisationsByLepCodeQuery request, CancellationToken cancellationToken)
         {
-            var educationalOrganisations = await _educationalOrganisationRepository.GetNameByLepCodeAsync(request.LepCode, request.EducationalOrganisationName);
+            var educationalOrganisations = await _educationalOrganisationRepository.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm);
 
             return new GetEducationalOrganisationsByLepCodeResult
             {

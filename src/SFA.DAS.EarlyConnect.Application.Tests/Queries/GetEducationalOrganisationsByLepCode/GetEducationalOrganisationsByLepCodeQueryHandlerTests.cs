@@ -23,7 +23,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
         public async Task Handle_ShouldReturnMappedEducationalOrganisations_WhenDataExists()
         {
             var request = new GetEducationalOrganisationsByLepCodeQuery
-            { LepCode = "LEP001", EducationalOrganisationName = "School" };
+            { LepCode = "LEP001", SearchTerm = "School" };
             var educationalOrganisations = new List<EducationalOrganisation>
             {
                 new EducationalOrganisation
@@ -34,7 +34,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
             };
 
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.EducationalOrganisationName))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
                 .ReturnsAsync(educationalOrganisations);
 
             var result = await _sut.Handle(request, CancellationToken.None);
@@ -53,9 +53,9 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
         public async Task Handle_ShouldReturnEmptyList_WhenNoEducationalOrganisationsExist()
         {
             var request = new GetEducationalOrganisationsByLepCodeQuery
-            { LepCode = "LEP002", EducationalOrganisationName = "NonExistingSchool" };
+            { LepCode = "LEP002", SearchTerm = "NonExistingSchool" };
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.EducationalOrganisationName))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
                 .ReturnsAsync(new List<EducationalOrganisation>());
 
             var result = await _sut.Handle(request, CancellationToken.None);
@@ -67,9 +67,9 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
         public void Handle_ShouldThrowException_WhenRepositoryThrowsException()
         {
             var request = new GetEducationalOrganisationsByLepCodeQuery
-            { LepCode = "LEP003", EducationalOrganisationName = "School" };
+            { LepCode = "LEP003", SearchTerm = "School" };
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.EducationalOrganisationName))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
                 .ThrowsAsync(new Exception("Repository error"));
 
             Assert.That(async () => await _sut.Handle(request, CancellationToken.None),
@@ -80,7 +80,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
         public async Task Handle_ShouldReturnAllMatchingLepCodeData_WhenNameIsNullOrEmpty()
         {
             var request = new GetEducationalOrganisationsByLepCodeQuery
-            { LepCode = "LEP001", EducationalOrganisationName = null };
+            { LepCode = "LEP001", SearchTerm = null };
             var educationalOrganisations = new List<EducationalOrganisation>
             {
                 new EducationalOrganisation
@@ -91,7 +91,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
             };
 
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.EducationalOrganisationName))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
                 .ReturnsAsync(educationalOrganisations);
 
             var result = await _sut.Handle(request, CancellationToken.None);

@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsByLepCode;
+using SFA.DAS.EarlyConnect.Api.Requests.GetRequests;
 
 namespace SFA.DAS.EarlyConnect.Api.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
-    [Route("/api/educational-organisation-data/")]
+    [Route("/api/educational-organisations-data/")]
     public class EducationalOrganisationDataController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -16,18 +17,18 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
         {
             _mediator = mediator;
         }
+
         [HttpGet]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [Route("{lepCode}")]
-        public async Task<IActionResult> EducationalOrganisationData([FromRoute] String lepCode, String educationalOrganisationName)
+        public async Task<IActionResult> EducationalOrganisationsData([FromQuery] EducationalOrganisationsGetRequest educationalOrganisationsGetRequest)
         {
-            var queryResult = await _mediator.Send(new GetEducationalOrganisationsByLepCodeQuery
+            var result = await _mediator.Send(new GetEducationalOrganisationsByLepCodeQuery
             {
-                LepCode = lepCode,
-                EducationalOrganisationName = educationalOrganisationName
+                LepCode = educationalOrganisationsGetRequest.LepCode,
+                SearchTerm = educationalOrganisationsGetRequest.SearchTerm
             });
 
-            return Ok(queryResult.EducationalOrganisations);
+            return Ok(result.EducationalOrganisations.Select(c => c).ToList());
         }
     }
 }
