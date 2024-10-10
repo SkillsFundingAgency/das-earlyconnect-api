@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.EarlyConnect.Api.Responses.GetEducationalOrganisationsByLepCode
 {
-    public class GetEducationalOrganisationsByLepCodeResponse
+    public class GetEducationalOrganisationsResponse
     {
         public string Name { get; set; }
         public string AddressLine1 { get; set; }
@@ -10,9 +10,9 @@ namespace SFA.DAS.EarlyConnect.Api.Responses.GetEducationalOrganisationsByLepCod
         public string County { get; set; }
         public string PostCode { get; set; }
 
-        public static implicit operator  GetEducationalOrganisationsByLepCodeResponse(EducationalOrganisationsDto educationalOrganisationsDto)
+        public static implicit operator GetEducationalOrganisationsResponse(EducationalOrganisationsDto educationalOrganisationsDto)
         {
-            return new GetEducationalOrganisationsByLepCodeResponse
+            return new GetEducationalOrganisationsResponse
             {
                 Name = educationalOrganisationsDto.Name,
                 AddressLine1 = educationalOrganisationsDto.AddressLine1,

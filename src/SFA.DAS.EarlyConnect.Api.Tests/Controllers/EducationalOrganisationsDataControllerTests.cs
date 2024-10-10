@@ -7,6 +7,7 @@ using SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsByLepC
 using SFA.DAS.EarlyConnect.Application.Models;
 using System.Net;
 using SFA.DAS.EarlyConnect.Api.Requests.GetRequests;
+using SFA.DAS.EarlyConnect.Api.Responses.GetEducationalOrganisationsByLepCode;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
 {
@@ -56,7 +57,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
-            var returnedData = okResult.Value as List<EducationalOrganisationsDto>;
+            var returnedData = okResult.Value as List<GetEducationalOrganisationsResponse>;
             Assert.That(returnedData, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
             Assert.That(returnedData[0].Name, Is.EqualTo("Test School"));
         }
@@ -84,7 +85,7 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
-            var returnedData = okResult.Value as List<EducationalOrganisationsDto>;
+            var returnedData = okResult.Value as List<GetEducationalOrganisationsResponse>;
             Assert.That(returnedData, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
         }
     }
