@@ -12,21 +12,29 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<List<EducationalOrganisation>> GetNameByLepCodeAsync(string lepCode, string? name)
+        public async Task<List<EducationalOrganisation>> GetNameByLepCodeAsync(string lepCode, string? name, int page, int pageSize)
         {
-            return await _dbContext.EducationalOrganisation
+            IQueryable<Domain.Entities.EducationalOrganisation> query = _dbContext.EducationalOrganisation
                 .Where(educationalOrganisation => educationalOrganisation.LepCode == lepCode
                                                   && (string.IsNullOrEmpty(name)
                                                       || (educationalOrganisation.Name != null
-                                                          && educationalOrganisation.Name.ToLower().Contains(name.ToLower())))) // Convert to lowercase for case-insensitive comparison
-                .Select(educationalOrganisation => new EducationalOrganisation
-                {
-                    Name = educationalOrganisation.Name,
-                    AddressLine1 = educationalOrganisation.AddressLine1,
-                    Town = educationalOrganisation.Town
-                })
-                .ToListAsync();
-        }
+                                                          && educationalOrganisation.Name.ToLower().Contains(name.ToLower()))))
+                .OrderBy(educationalOrganisation => educationalOrganisation.Name);
 
+            if (page > 0 && pageSize > 0)
+            {
+                query = query.Skip((page - 1) * pageSize)
+                    .Take(pageSize);
+            }
+
+            return await query.Select(educationalOrganisation => new EducationalOrganisation
+            {
+                Name = educationalOrganisation.Name,
+                AddressLine1 = educationalOrganisation.AddressLine1,
+                County = educationalOrganisation.County,
+                Town = educationalOrganisation.Town,
+                URN = educationalOrganisation.URN
+            }).ToListAsync();
+        }
     }
 }

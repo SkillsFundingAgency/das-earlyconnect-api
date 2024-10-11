@@ -34,7 +34,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
             };
 
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize))
                 .ReturnsAsync(educationalOrganisations);
 
             var result = await _sut.Handle(request, CancellationToken.None);
@@ -55,7 +55,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
             var request = new GetEducationalOrganisationsByLepCodeQuery
             { LepCode = "LEP002", SearchTerm = "NonExistingSchool" };
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize))
                 .ReturnsAsync(new List<EducationalOrganisation>());
 
             var result = await _sut.Handle(request, CancellationToken.None);
@@ -69,7 +69,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
             var request = new GetEducationalOrganisationsByLepCodeQuery
             { LepCode = "LEP003", SearchTerm = "School" };
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize))
                 .ThrowsAsync(new Exception("Repository error"));
 
             Assert.That(async () => await _sut.Handle(request, CancellationToken.None),
@@ -91,7 +91,7 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
             };
 
             _educationalOrganisationRepositoryMock
-                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm))
+                .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize))
                 .ReturnsAsync(educationalOrganisations);
 
             var result = await _sut.Handle(request, CancellationToken.None);

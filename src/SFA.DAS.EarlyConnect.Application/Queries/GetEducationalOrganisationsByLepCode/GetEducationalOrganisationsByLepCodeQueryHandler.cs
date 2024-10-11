@@ -16,7 +16,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsBy
 
         public async Task<GetEducationalOrganisationsByLepCodeResult> Handle(GetEducationalOrganisationsByLepCodeQuery request, CancellationToken cancellationToken)
         {
-            var educationalOrganisations = await _educationalOrganisationRepository.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm);
+            var educationalOrganisations = await _educationalOrganisationRepository.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize);
 
             return new GetEducationalOrganisationsByLepCodeResult
             {
@@ -36,7 +36,8 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsBy
                     AddressLine1 = organisations.AddressLine1,
                     Town = organisations.Town,
                     County = organisations.County,
-                    PostCode = organisations.PostCode
+                    PostCode = organisations.PostCode,
+                    URN = organisations.URN
                 };
 
                 organisationsDto.Add(organisationDto);
