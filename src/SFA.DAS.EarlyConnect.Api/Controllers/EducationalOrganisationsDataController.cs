@@ -32,11 +32,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 PageSize = educationalOrganisationsGetRequest.PageSize
             });
 
-            var response = result.EducationalOrganisations
-                .Select(org => (GetEducationalOrganisationsResponse)org)
-                .ToList();
-
-            return Ok(response);
+            return Ok((GetEducationalOrganisationsResponse)result);
         }
     }
 }

@@ -57,9 +57,10 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
-            var returnedData = okResult.Value as List<GetEducationalOrganisationsResponse>;
-            Assert.That(returnedData, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
-            Assert.That(returnedData[0].Name, Is.EqualTo("Test School"));
+            var returnedData = okResult.Value as GetEducationalOrganisationsResponse;
+            Assert.That(returnedData.EducationalOrganisations, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
+            var firstOrganisation = returnedData.EducationalOrganisations.ElementAt(0);
+            Assert.That(firstOrganisation.Name, Is.EqualTo("Test School"));
         }
 
         [Test]
@@ -85,8 +86,8 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             Assert.That(result, Is.InstanceOf<OkObjectResult>());
             var okResult = result as OkObjectResult;
             Assert.That(okResult.StatusCode, Is.EqualTo((int)HttpStatusCode.OK));
-            var returnedData = okResult.Value as List<GetEducationalOrganisationsResponse>;
-            Assert.That(returnedData, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
+            var returnedData = okResult.Value as GetEducationalOrganisationsResponse;
+            Assert.That(returnedData.EducationalOrganisations, Has.Count.EqualTo(expectedResponse.EducationalOrganisations.Count));
         }
     }
 }

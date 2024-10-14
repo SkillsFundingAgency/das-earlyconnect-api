@@ -33,9 +33,14 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
                 }
             };
 
+            var educationalOrganisationsData = new EducationalOrganisationsData
+            {
+                EducationalOrganisations = educationalOrganisations
+            };
+
             _educationalOrganisationRepositoryMock
                 .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize))
-                .ReturnsAsync(educationalOrganisations);
+                .ReturnsAsync(educationalOrganisationsData);
 
             var result = await _sut.Handle(request, CancellationToken.None);
 
@@ -54,9 +59,18 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
         {
             var request = new GetEducationalOrganisationsByLepCodeQuery
             { LepCode = "LEP002", SearchTerm = "NonExistingSchool" };
+
+            var educationalOrganisations = new List<EducationalOrganisation>();
+
+
+            var educationalOrganisationsData = new EducationalOrganisationsData
+            {
+                EducationalOrganisations = educationalOrganisations
+            };
+
             _educationalOrganisationRepositoryMock
                 .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize))
-                .ReturnsAsync(new List<EducationalOrganisation>());
+                .ReturnsAsync(educationalOrganisationsData);
 
             var result = await _sut.Handle(request, CancellationToken.None);
 
@@ -90,9 +104,15 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetEducationalOrganisat
                 }
             };
 
+
+            var educationalOrganisationsData = new EducationalOrganisationsData
+            {
+                EducationalOrganisations = educationalOrganisations
+            };
+
             _educationalOrganisationRepositoryMock
                 .Setup(repo => repo.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize))
-                .ReturnsAsync(educationalOrganisations);
+                .ReturnsAsync(educationalOrganisationsData);
 
             var result = await _sut.Handle(request, CancellationToken.None);
 

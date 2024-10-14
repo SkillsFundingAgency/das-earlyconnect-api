@@ -1,5 +1,10 @@
 ﻿namespace SFA.DAS.EarlyConnect.Domain.Dtos
 {
+    public class EducationalOrganisationsData
+    {
+        public int TotalCount { get; set; }
+        public ICollection<EducationalOrganisation> EducationalOrganisations { get; set; }
+    }
     public class EducationalOrganisation
     {
         public string? Name { get; set; }

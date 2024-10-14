@@ -16,19 +16,20 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetEducationalOrganisationsBy
 
         public async Task<GetEducationalOrganisationsByLepCodeResult> Handle(GetEducationalOrganisationsByLepCodeQuery request, CancellationToken cancellationToken)
         {
-            var educationalOrganisations = await _educationalOrganisationRepository.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize);
+            var educationalOrganisationsData = await _educationalOrganisationRepository.GetNameByLepCodeAsync(request.LepCode, request.SearchTerm, request.Page, request.PageSize);
 
             return new GetEducationalOrganisationsByLepCodeResult
             {
-                EducationalOrganisations = MapEducationalOrganisationsDto(educationalOrganisations)
+                EducationalOrganisations = MapEducationalOrganisationsDto(educationalOrganisationsData),
+                TotalCount = educationalOrganisationsData.TotalCount
             };
         }
 
-        private ICollection<EducationalOrganisationsDto> MapEducationalOrganisationsDto(ICollection<EducationalOrganisation> educationalOrganisations)
+        private ICollection<EducationalOrganisationsDto> MapEducationalOrganisationsDto(EducationalOrganisationsData educationalOrganisationsData)
         {
             var organisationsDto = new List<EducationalOrganisationsDto>();
 
-            foreach (EducationalOrganisation organisations in educationalOrganisations)
+            foreach (EducationalOrganisation organisations in educationalOrganisationsData.EducationalOrganisations)
             {
                 var organisationDto = new EducationalOrganisationsDto
                 {
