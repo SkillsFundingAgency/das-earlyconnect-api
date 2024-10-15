@@ -35,7 +35,8 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 AddressLine1 = educationalOrganisation.AddressLine1,
                 County = educationalOrganisation.County,
                 Town = educationalOrganisation.Town,
-                URN = educationalOrganisation.URN
+                URN = educationalOrganisation.URN,
+                PostCode = educationalOrganisation.PostCode
             }).ToListAsync();
 
             return new EducationalOrganisationsData
