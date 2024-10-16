@@ -32,6 +32,9 @@ namespace SFA.DAS.EarlyConnect.Api.Requests.PostRequests
         [RegularExpression(@"^[\w\s&'-]+$", ErrorMessage = "Invalid SchoolName")]
         public string SchoolName { get; set; }
 
+        [RegularExpression(@"^[\w\s&]+$", ErrorMessage = "Invalid URN")]
+        public string URN { get; set; } = string.Empty;
+
         [RegularExpression(@"^[\w\s|,()]+$", ErrorMessage = "Invalid Industry")]
         public string Industry { get; set; }
 

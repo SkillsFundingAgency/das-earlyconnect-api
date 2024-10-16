@@ -50,6 +50,7 @@ namespace SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData
                     Postcode = command.StudentData.Postcode,
                     Telephone = command.StudentData.Telephone,
                     SchoolName = command.StudentData.SchoolName,
+                    URN=command.StudentData.URN,
                     Industry = command.StudentData.Industry
                 });
             }
