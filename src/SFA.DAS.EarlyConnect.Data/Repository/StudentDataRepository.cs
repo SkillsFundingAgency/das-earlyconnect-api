@@ -78,6 +78,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             student.Postcode = (studentData.Postcode != null) ? studentData.Postcode : "";
             student.Telephone = (studentData.Telephone != null) ? studentData.Telephone : "";
             student.Industry = (studentData.Industry != null) ? studentData.Industry : "";
+            student.URN = (studentData.URN != null) ? studentData.URN : "";
 
             await _dbContext.SaveChangesAsync();
         }
