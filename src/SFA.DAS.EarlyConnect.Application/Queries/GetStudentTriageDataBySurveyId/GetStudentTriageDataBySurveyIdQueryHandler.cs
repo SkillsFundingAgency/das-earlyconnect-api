@@ -34,7 +34,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
 
         public async Task<GetStudentTriageDataBySurveyIdResult> Handle(GetStudentTriageDataBySurveyIdQuery request, CancellationToken cancellationToken)
         {
-            string lepsCode=String.Empty;
+            string lepsCode = String.Empty;
 
             var studentSurvey = await _studentSurveyRepository.GetStudentSurveyBySurveyIdAsync(request.StudentSurveyId);
             if (studentSurvey == null) _logger.LogInformation($"No StudentSurveyId found for the SurveyId  {request.StudentSurveyId}");
@@ -53,7 +53,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
             {
                 _logger.LogInformation("LepsId is null for the student");
             }
-            
+
             var questions = await _questionRepository.GetQuestionBySurveyIdAsync(studentSurvey.SurveyId);
             if (questions == null || !questions.Any()) _logger.LogInformation($"No questions found for the SurveyId  {studentSurvey.SurveyId}");
 
@@ -61,7 +61,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
             var studentTriageDataDto = new StudentTriageDataDto
             {
                 Id = student.Id,
-                LepDateSent= student.LepDateSent,
+                LepDateSent = student.LepDateSent,
                 LepsId = student.LepsId,
                 LepCode = lepsCode,
                 LogId = student.LogId,
@@ -69,6 +69,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyI
                 LastName = student.LastName,
                 DateOfBirth = student.DateOfBirth,
                 SchoolName = student.SchoolName,
+                URN = student.URN,
                 Email = student.Email,
                 Telephone = student.Telephone,
                 Postcode = student.Postcode,

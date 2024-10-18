@@ -89,6 +89,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                     Telephone = request.Telephone,
                     DataSource = (request.DataSource != null) ? request.DataSource : "UCAS",
                     SchoolName = request.SchoolName,
+                    URN = request.URN,
                     Industry = request.Industry
                 },
                 StudentSurvey = studentSurvey
