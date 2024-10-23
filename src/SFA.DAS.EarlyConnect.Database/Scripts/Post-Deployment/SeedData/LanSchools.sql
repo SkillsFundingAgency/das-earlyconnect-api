@@ -1,3 +1,4 @@
+ --IF NOT EXISTS (SELECT 1 FROM DatabaseHistory WHERE ScriptName = 'LanSchools.sql')
  BEGIN
     INSERT INTO EducationalOrganisation (
         Name, 
@@ -11,7 +12,7 @@
         URN,
 	    LepCode
     ) VALUES 
-    ('Accrington St Christophers Church of England High School', 'Academies', 'Queens Road West', '', '', 'Accrington', 'Lancashire', 'BB5 4AY', 137421,'E37000019'),
+    ('Accrington St Christophers Church of England High Schooltest', 'Academies', 'Queens Road West', '', '', 'Accrington', 'Lancashire', 'BB5 4AY', 137421,'E37000019'),
     ('Alder Grange School', 'Local authority maintained schools', 'Calder Road', 'Rawtenstall', '', 'Rossendale', 'Lancashire', 'BB4 8HW', 119722,'E37000019'),
     ('Bacup and Rawtenstall Grammar School', 'Academies', 'Glen Road', '', '', 'Rossendale', 'Lancashire', 'BB4 7BJ', 150261,'E37000019'),
     ('Blackburn College', 'Colleges', 'Blackburn College', 'Harrison Centre', 'Feilden Street', 'Blackburn', 'Lancashire', 'BB2 1LH', 130736,'E37000019'),
@@ -45,4 +46,7 @@
     ('Accrington Academy', 'Academy sponsor led', 'Queens Road West', '', '', 'Accrington', 'Lancashire', 'BB5 4FF', 135649,'E37000019'),
     ('Park Community Academy', 'Academy special converter', '158 Whitegate Drive', '', '', 'Blackpool', 'Lancashire', 'FY3 9HF', 140143,'E37000019'),
     ('Tor View School', 'Academy special converter', 'Clod Lane', 'Haslingden', '', 'Rossendale', 'Lancashire', 'BB4 6LR', 143879,'E37000019');
+
+--INSERT INTO DatabaseHistory (ScriptName) values ('Postcode.sql')
+
 END
