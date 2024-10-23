@@ -18,3 +18,4 @@ Post-Deployment Script Template
 :r .\SeedData\Answer.sql
 :r .\Schema\LEPSCoverageIndexes.sql
 :r .\SeedData\Postcode.sql
+:r .\SeedData\LanSchools.sql
