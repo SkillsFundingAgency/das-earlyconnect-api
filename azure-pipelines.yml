@@ -35,7 +35,7 @@ resources:
   - repository: das-platform-automation
     type: github
     name: SkillsFundingAgency/das-platform-automation
-    ref: refs/tags/5.1.8
+    ref: refs/heads/DASD-11964
     endpoint: SkillsFundingAgency
   pipelines:
   - pipeline: das-employer-config
@@ -54,7 +54,7 @@ stages:
     parameters:
       SolutionBaseName: $(SolutionBaseName)
       SqlProjectPath: src/$(SolutionBaseName).Database/$(SolutionBaseName).Database.sqlproj
-  
+
 - stage: Deploy_AT
   dependsOn: Build
   displayName: Deploy to AT
