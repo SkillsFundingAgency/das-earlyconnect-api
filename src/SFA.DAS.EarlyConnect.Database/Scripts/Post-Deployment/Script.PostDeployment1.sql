@@ -19,3 +19,5 @@ Post-Deployment Script Template
 :r .\Schema\LEPSCoverageIndexes.sql
 :r .\SeedData\Postcode.sql
 :r .\SeedData\LanSchools.sql
+:r .\SeedData\LondonSchools.sql
+:r .\SeedData\NorthEastSchools.sql
