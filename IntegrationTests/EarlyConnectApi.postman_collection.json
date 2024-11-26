@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bcb7c3d0-9e86-46ce-adda-b239d93e0e3c",
+		"_postman_id": "6a7684cd-0b7a-4078-a9b8-d6f354ce97f1",
 		"name": "EarlyConnectApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21174429"
@@ -652,6 +652,7 @@
 											"        pm.collectionVariables.set(\"industry\", response.industry);\r",
 											"        pm.collectionVariables.set(\"postcode\", response.postcode);\r",
 											"        pm.collectionVariables.set(\"schoolName\", response.schoolName);\r",
+											"        pm.collectionVariables.set(\"urn\", response.urn);\r",
 											"        pm.collectionVariables.set(\"dataSource\", response.dataSource);\r",
 											"        pm.collectionVariables.set(\"surveyId\", response.studentSurvey.surveyId);\r",
 											"    }\r",
@@ -661,7 +662,8 @@
 											"    }\r",
 											"})"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -671,7 +673,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSIsImtpZCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSJ9.eyJhdWQiOiJodHRwczovL2Zjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbS9kYXMtcHAtYXBpbWVuZHAtZXJseWNvbmFwaS1hcy1hciIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzNhYWNjODM1LTRiODMtNDgzZC04NDFkLWNkNzg3ZjZmMTQ4Ni8iLCJpYXQiOjE3MDYxMTQ4NzMsIm5iZiI6MTcwNjExNDg3MywiZXhwIjoxNzA2MTE5MjQ1LCJhY3IiOiIxIiwiYWlvIjoiQVZRQXEvOFZBQUFBU1BEVWw3NjI1czZtOGxKYU1HWWhIelBFdTJGUlNEMUw5cER5TlFWQXZGQmRMZ2hXdXJpdExCVGVrZ0JhWXF4eTJhRkl1WnVsSkNWTlBkd3docldjVDBrbWxvZEtCMndMWHhpV0pXdnFmSEE9IiwiYW1yIjpbInB3ZCIsIm1mYSJdLCJhcHBpZCI6IjA0YjA3Nzk1LThkZGItNDYxYS1iYmVlLTAyZjllMWJmN2I0NiIsImFwcGlkYWNyIjoiMCIsImlwYWRkciI6IjIwOC4xMjcuNDcuMjIwIiwibmFtZSI6IkRhdmlkIFJpbWFyIiwib2lkIjoiOTJiNDcwZjMtZjk4MC00ZGRlLWJiODktZjE1MjBmMzQ0ZDljIiwicmgiOiIwLkFWNEFOY2lzT29OTFBVaUVIYzE0ZjI4VWhscTJ5Y1lXdUdCTm9aN1lnVkpHTXJJUkFhdy4iLCJyb2xlcyI6WyJBUElNIl0sInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6ImVzdkRwM1NhNWRuX282ZXVVNFFiZFZuSHdsVlhyNFhjMTI3Sm5Wa2ZFV00iLCJ0aWQiOiIzYWFjYzgzNS00YjgzLTQ4M2QtODQxZC1jZDc4N2Y2ZjE0ODYiLCJ1bmlxdWVfbmFtZSI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IlVjLTZjcy1VM1V1YWZxVF9fTnZvQUEiLCJ2ZXIiOiIxLjAifQ.0MwzDL6KHPkhxVDWIN_4AYUOKnuA4uGotZZvdxYe3bpZ4Ru-7sdzcsgKp4YlNhAsvEK5sVlJfwEz3O1dATiqVyvdESpI-QAlb3trD8ylKNFkr_7eHnsW39lfFU0Dph-04h2DAfnBc-V1-qRDH1VK8faxtIaDHkOcrCLNPmjFOCPgavXQJYWH7tqcO2iBhYpICZ6PnOgNrB-TpkvYlDu_CqqG9lXnfcMo5ChXc-FFrKXsRXGuL91u7pqJgNK_5BGUaG-941GbavnI9dKmwFizg9tiRefMoz2n8VnWeg7lPpda_Dz1mqhQubMPB-MUWu5Rf8KuB95-ZdY1StvmprM8xA",
+											"value": "",
 											"type": "string"
 										}
 									]
@@ -778,7 +780,8 @@
 											"    }\r",
 											"})"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								},
 								{
@@ -787,7 +790,8 @@
 										"exec": [
 											""
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -797,7 +801,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSIsImtpZCI6IjVCM25SeHRRN2ppOGVORGMzRnkwNUtmOTdaRSJ9.eyJhdWQiOiJodHRwczovL2Zjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbS9kYXMtcHAtYXBpbWVuZHAtZXJseWNvbmFwaS1hcy1hciIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzNhYWNjODM1LTRiODMtNDgzZC04NDFkLWNkNzg3ZjZmMTQ4Ni8iLCJpYXQiOjE3MDYxMTQ4NzMsIm5iZiI6MTcwNjExNDg3MywiZXhwIjoxNzA2MTE5MjQ1LCJhY3IiOiIxIiwiYWlvIjoiQVZRQXEvOFZBQUFBU1BEVWw3NjI1czZtOGxKYU1HWWhIelBFdTJGUlNEMUw5cER5TlFWQXZGQmRMZ2hXdXJpdExCVGVrZ0JhWXF4eTJhRkl1WnVsSkNWTlBkd3docldjVDBrbWxvZEtCMndMWHhpV0pXdnFmSEE9IiwiYW1yIjpbInB3ZCIsIm1mYSJdLCJhcHBpZCI6IjA0YjA3Nzk1LThkZGItNDYxYS1iYmVlLTAyZjllMWJmN2I0NiIsImFwcGlkYWNyIjoiMCIsImlwYWRkciI6IjIwOC4xMjcuNDcuMjIwIiwibmFtZSI6IkRhdmlkIFJpbWFyIiwib2lkIjoiOTJiNDcwZjMtZjk4MC00ZGRlLWJiODktZjE1MjBmMzQ0ZDljIiwicmgiOiIwLkFWNEFOY2lzT29OTFBVaUVIYzE0ZjI4VWhscTJ5Y1lXdUdCTm9aN1lnVkpHTXJJUkFhdy4iLCJyb2xlcyI6WyJBUElNIl0sInNjcCI6InVzZXJfaW1wZXJzb25hdGlvbiIsInN1YiI6ImVzdkRwM1NhNWRuX282ZXVVNFFiZFZuSHdsVlhyNFhjMTI3Sm5Wa2ZFV00iLCJ0aWQiOiIzYWFjYzgzNS00YjgzLTQ4M2QtODQxZC1jZDc4N2Y2ZjE0ODYiLCJ1bmlxdWVfbmFtZSI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInVwbiI6ImRhdmlkLnJpbWFyQGZjc2F6dXJlc2ZhYmlzZ292Lm9ubWljcm9zb2Z0LmNvbSIsInV0aSI6IlVjLTZjcy1VM1V1YWZxVF9fTnZvQUEiLCJ2ZXIiOiIxLjAifQ.0MwzDL6KHPkhxVDWIN_4AYUOKnuA4uGotZZvdxYe3bpZ4Ru-7sdzcsgKp4YlNhAsvEK5sVlJfwEz3O1dATiqVyvdESpI-QAlb3trD8ylKNFkr_7eHnsW39lfFU0Dph-04h2DAfnBc-V1-qRDH1VK8faxtIaDHkOcrCLNPmjFOCPgavXQJYWH7tqcO2iBhYpICZ6PnOgNrB-TpkvYlDu_CqqG9lXnfcMo5ChXc-FFrKXsRXGuL91u7pqJgNK_5BGUaG-941GbavnI9dKmwFizg9tiRefMoz2n8VnWeg7lPpda_Dz1mqhQubMPB-MUWu5Rf8KuB95-ZdY1StvmprM8xA",
+											"value": "",
 											"type": "string"
 										}
 									]
@@ -812,7 +816,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"id\": {{studentId}},\r\n  \"lepsId\": {{triageLepsId}},\r\n  \"logId\": {{triageLogId}},\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"dateOfBirth\": {{dateOfBirth}},\r\n  \"email\": \"{{email}}\",\r\n  \"postCode\": \"{{postcode}}\",\r\n  \"telephone\": \"{{telephone}}\",\r\n  \"dataSource\": \"{{dataSource}}\",\r\n  \"schoolName\": \"{{schoolName}}\",\r\n  \"industry\": \"{{industry}}\",\r\n  \"studentSurvey\": {\r\n    \"id\": \"{{studentSurveyGuid}}\",\r\n    \"studentId\": {{studentId}},\r\n    \"surveyId\": {{surveyId}},\r\n    \"dateCompleted\": \"2023-11-30T00:00:00\",\r\n    \"responseAnswers\": [\r\n      {\r\n        \"questionId\": 1,\r\n        \"answerId\": 1,\r\n        \"response\": \"Red\"\r\n      },\r\n      {\r\n        \"questionId\": 2,\r\n        \"answerId\": 4,\r\n        \"response\": \"Average\"\r\n      }\r\n    ]\r\n  }\r\n}",
+									"raw": "{\r\n  \"id\": {{studentId}},\r\n  \"lepsId\": {{triageLepsId}},\r\n  \"logId\": {{triageLogId}},\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"dateOfBirth\": {{dateOfBirth}},\r\n  \"email\": \"{{email}}\",\r\n  \"postCode\": \"{{postcode}}\",\r\n  \"telephone\": \"{{telephone}}\",\r\n  \"dataSource\": \"{{dataSource}}\",\r\n  \"schoolName\": \"{{schoolName}}\",\r\n  \"urn\": \"{{urn}}\",\r\n  \"industry\": \"{{industry}}\",\r\n  \"studentSurvey\": {\r\n    \"id\": \"{{studentSurveyGuid}}\",\r\n    \"studentId\": {{studentId}},\r\n    \"surveyId\": {{surveyId}},\r\n    \"dateCompleted\": \"2023-11-30T00:00:00\",\r\n    \"responseAnswers\": [\r\n      {\r\n        \"questionId\": 1,\r\n        \"answerId\": 1,\r\n        \"response\": \"Red\"\r\n      },\r\n      {\r\n        \"questionId\": 2,\r\n        \"answerId\": 4,\r\n        \"response\": \"Average\"\r\n      }\r\n    ]\r\n  }\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1270,6 +1274,10 @@
 			"key": "surveyId",
 			"value": "1",
 			"type": "string"
+		},
+		{
+			"key": "urn",
+			"value": ""
 		}
 	]
 }
