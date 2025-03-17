@@ -40,10 +40,10 @@ A collection of functions, API’s and micro-site that supports a triage form wh
 
 This utility uses the standard Apprenticeship Service configuration. All configuration can be found in the [das-employer-config repository](https://github.com/SkillsFundingAgency/das-employer-config).
 
-*A connection string for the database
-*Add an appsettings.Development.json file
-*Add your SQL connection strings to the relevant sections of the file
-*Publish the EarlyConnect.Database project.
+* A connection string for the database
+* Add an appsettings.Development.json file
+* Add your SQL connection strings to the relevant sections of the file
+* Publish the EarlyConnect.Database project.
 
 AppSettings.Development.json file
 ```json
