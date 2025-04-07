@@ -90,6 +90,19 @@
         },
         "subnetDelegations": {
             "type": "array"
+        },
+        "EnableRouteTableAssociation": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Determines whether to enable route table association on subnet"
+            }
+        },
+        "SharedRouteTableName": {
+            "type": "string",
+            "metadata": {
+                "description": "Determines whether to enable route table association on subnet"
+            }
         }
     },
     "variables": {
@@ -99,7 +112,11 @@
         "databaseName": "[concat(variables('resourceNamePrefix'), '-db')]",
         "apiAppServiceName": "[concat(variables('resourceNamePrefix'), 'api-as')]",
         "keyVaultName": "[concat(variables('resourceNamePrefix'),'-kv')]",
-        "configNames": "SFA.DAS.EarlyConnect.Api"
+        "configNames": "SFA.DAS.EarlyConnect.Api",
+        "routeTableId": {
+            "id": "[resourceId(subscription().subscriptionId, parameters('sharedEnvResourceGroup'), 'Microsoft.Network/routeTables', parameters('SharedRouteTableName'))]"
+        },
+        "emptyObject": {}
     },
     "resources": [
         {
@@ -327,6 +344,9 @@
                     },
                     "delegations": {
                         "value": "[parameters('subnetDelegations')]"
+                    },
+                    "routeTable": {
+                        "value": "[if(parameters('enableRouteTableAssociation'), variables('routeTableId') , variables('emptyObject'))]"
                     }
                 }
             },
@@ -359,7 +379,9 @@
                         "Value": true
                     },
                     "subnetResourceIdList": {
-                        "value": [ "[reference(concat(parameters('subnetObject').name, '-', parameters('utcValue'))).outputs.SubnetResourceId.value]" ]
+                        "value": [
+                            "[reference(concat(parameters('subnetObject').name, '-', parameters('utcValue'))).outputs.SubnetResourceId.value]"
+                        ]
                     },
                     "allowTrustedMicrosoftServices": {
                         "value": false
