@@ -20,6 +20,9 @@
         "configurationStorageConnectionString": {
             "type": "securestring"
         },
+        "deployPrivateLinkedScopedResource": {
+            "type": "bool"
+        },
         "keyVaultCertificateName": {
             "type": "string"
         },
@@ -180,7 +183,7 @@
             ]
         },
         {
-            "condition": "[and(not(equals(parameters('resourceEnvironmentName'), 'prd')), not(equals(parameters('resourceEnvironmentName'), 'mo')))]",
+            "condition": "[parameters('deployPrivateLinkedScopedResource')]",
             "apiVersion": "2021-04-01",
             "name": "[concat(variables('apiAppServiceName'), '-private-link-scoped-', parameters('utcValue'))]",
             "type": "Microsoft.Resources/deployments",
