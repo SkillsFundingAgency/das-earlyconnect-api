@@ -79,26 +79,17 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             await _dbContext.SaveChangesAsync();
         }
-
+        
         public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync()
         {
-            var theSurveys = new List<StudentSurvey>();
-
-            var query = _dbContext.StudentData
+            return await _dbContext.StudentData
                 .AsNoTracking()
-                .Include(a => a.StudentSurveys)
-                .Where(a => a.LepsId == 3 &&
-                        a.StudentSurveys != null
-                        && a.StudentSurveys.Any(s => s.DateEmailReminderSent == null && s.DateCompleted == null && s.DateAdded < DateTime.Now.Date.AddDays(-2)));
-
-            foreach (StudentData collection in query)
-            {
-                foreach (StudentSurvey theSurvery in collection.StudentSurveys)
-                {
-                    theSurveys.Add(theSurvery);
-                }
-            }
-            return theSurveys;
+                .Where(a => a.LepsId == 3)
+                .SelectMany(a => a.StudentSurveys
+                    .Where(s => s.DateEmailReminderSent == null 
+                                && s.DateCompleted == null 
+                                && s.DateAdded < DateTime.Now.Date.AddDays(-2)))
+                .ToListAsync();
         }
     }
 }
