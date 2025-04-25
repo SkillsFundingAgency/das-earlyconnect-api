@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
+using System.Globalization;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
@@ -78,5 +79,47 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
 
             await _dbContext.SaveChangesAsync();
         }
+
+        //public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync()
+        //{
+        //    return await _dbContext.StudentSurveys
+        //        .Where(studentSurvey => studentSurvey.DateCompleted != null)
+        //        .Where(studentSurvey => studentSurvey.DateCompleted < new DateTime(2025, 1, 1))
+        //        .ToListAsync();
+        //}
+
+        //public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync()
+        //{
+        //    return await _dbContext.StudentSurveys
+        //        .Where(studentSurvey => studentSurvey.DateCompleted.HasValue)
+        //        .Where(studentSurvey => studentSurvey.DateCompleted.Value < new DateTime(2024, 12, 31))
+        //        .ToListAsync();
+        //}
+
+        public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync()
+        {
+            DateTime cutoffDate;
+            if (!DateTime.TryParseExact("2024-12-31 00:00:00", "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out cutoffDate))
+            {
+                // Handle parsing error (shouldn't happen with a fixed format)
+                cutoffDate = new DateTime(2024, 12, 31);
+            }
+
+            return await _dbContext.StudentSurveys
+                .Where(studentSurvey => studentSurvey.DateCompleted.HasValue)
+                .Where(studentSurvey => studentSurvey.DateCompleted.Value < cutoffDate.ToUniversalTime())
+                .ToListAsync();
+        }
+
+        //public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync()
+        //{
+        //    return await _dbContext.StudentSurveys.Take(10).ToListAsync(); // Retrieve the first 10 rows
+        //}
+
+        //public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync()
+        //{
+        //    return await _dbContext.StudentSurveys.Skip(10).Take(10).ToListAsync(); // Retrieve rows 11-20
+        //}
+
     }
 }

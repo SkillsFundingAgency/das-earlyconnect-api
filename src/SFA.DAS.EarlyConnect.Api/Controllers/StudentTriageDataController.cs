@@ -8,6 +8,7 @@ using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Models;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 using SFA.DAS.EarlyConnect.Application.Responses;
 using System.Net;
@@ -120,6 +121,13 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             });
 
             return Ok(queryResult.StudentTriageData);
+        }
+
+        [HttpGet("resenddatatolondon")]
+        public async Task<IActionResult> ResendDataToLondon()
+        {
+            var result = await _mediator.Send(new GetStudentDataTriageByDateQuery());
+            return Ok(result.StudentTriageData);
         }
     }
 }

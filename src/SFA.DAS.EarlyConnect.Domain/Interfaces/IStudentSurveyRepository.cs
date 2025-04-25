@@ -10,5 +10,6 @@ namespace SFA.DAS.EarlyConnect.Domain.Interfaces
         Task<StudentSurvey> GetStudentSurveyByStudentIdAsync(int studentId, int surveyId);
         Task UpdateStudentSurveyAsync(StudentSurvey studentSurvey);
         Task UpdateStudentSurveyReminderEmailDateAsync(Guid? surveyId);
+        Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync();
     }
 }
