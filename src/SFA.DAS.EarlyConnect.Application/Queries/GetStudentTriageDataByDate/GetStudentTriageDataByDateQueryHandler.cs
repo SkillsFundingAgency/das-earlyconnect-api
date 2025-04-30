@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate
 {
-    [ExcludeFromCodeCoverage]
     public class GetStudentDataTriageByDateQueryHandler : IRequestHandler<GetStudentDataTriageByDateQuery, GetStudentDataTriageByDateResult>
     {
         private readonly IStudentDataRepository _studentDataRepository;
@@ -59,65 +58,42 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate
 
                 var studentTriageDataDto = new StudentTriageDataDto
                 {
-                    Id = student.Id,
-                    LepDateSent = student.LepDateSent,
-                    LepsId = student.LepsId,
-                    LepCode = lepsCode,
-                    LogId = student.LogId,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    DateOfBirth = student.DateOfBirth,
-                    SchoolName = student.SchoolName,
-                    URN = student.URN,
-                    Email = student.Email,
-                    Telephone = student.Telephone,
-                    Postcode = student.Postcode,
-                    DataSource = student.DataSource,
-                    Industry = student.Industry,
+                    // Student properties
+                    Id = student.Id, LepDateSent = student.LepDateSent, LepsId = student.LepsId,
+                    LepCode = lepsCode, LogId = student.LogId, FirstName = student.FirstName,
+                    LastName = student.LastName, DateOfBirth = student.DateOfBirth,
+                    SchoolName = student.SchoolName, URN = student.URN, Email = student.Email,
+                    Telephone = student.Telephone, Postcode = student.Postcode,
+                    DataSource = student.DataSource, Industry = student.Industry,
                     DateInterest = student.DateInterestShown,
+
+                    // Student survey
                     StudentSurvey = new StudentSurveyDto
                     {
-                        Id = studentSurvey.Id,
-                        StudentId = studentSurvey.StudentId,
-                        SurveyId = studentSurvey.SurveyId,
-                        LastUpdated = studentSurvey.LastUpdated,
-                        DateCompleted = studentSurvey.DateCompleted,
-                        DateEmailSent = studentSurvey.DateEmailSent,
-                        DateAdded = studentSurvey.DateAdded,
+                        Id = studentSurvey.Id, StudentId = studentSurvey.StudentId, SurveyId = studentSurvey.SurveyId,
+                        LastUpdated = studentSurvey.LastUpdated, DateCompleted = studentSurvey.DateCompleted,
+                        DateEmailSent = studentSurvey.DateEmailSent, DateAdded = studentSurvey.DateAdded,
                         ResponseAnswers = studentAnswers.Select(sa => new ResponseAnswersDto
                         {
-                            Id = sa.Id,
-                            StudentSurveyId = sa.StudentSurveyId,
-                            QuestionId = sa.QuestionId,
-                            AnswerId = sa.AnswerId,
-                            Response = sa.Response,
-                            DateAdded = sa.DateAdded
+                            Id = sa.Id, StudentSurveyId = sa.StudentSurveyId, QuestionId = sa.QuestionId,
+                            AnswerId = sa.AnswerId, Response = sa.Response, DateAdded = sa.DateAdded
                         }).ToList()
                     },
+
+                    // Survey questions
                     SurveyQuestions = questions.Select(question => new SurveyQuestionsDto
                     {
-                        Id = question.Id,
-                        SurveyId = question.SurveyId,
-                        QuestionTypeId = question.QuestionTypeId,
-                        QuestionText = question.QuestionText,
-                        ShortDescription = question.ShortDescription,
-                        SummaryLabel = question.SummaryLabel,
-                        ValidationMessage = question.ValidationMessage,
-                        GroupLabel = question.GroupLabel,
-                        GroupNumber = question.GroupNumber,
-                        DefaultToggleAnswerId = question.DefaultToggleAnswerId,
-                        SortOrder = question.SortOrder,
-                        Answers = _answerRepository.GetAnswerByQuestionIdAsync(question.Id)
-                            .Result
+                        Id = question.Id, SurveyId = question.SurveyId, QuestionTypeId = question.QuestionTypeId,
+                        QuestionText = question.QuestionText, ShortDescription = question.ShortDescription,
+                        SummaryLabel = question.SummaryLabel, ValidationMessage = question.ValidationMessage,
+                        GroupLabel = question.GroupLabel, GroupNumber = question.GroupNumber,
+                        DefaultToggleAnswerId = question.DefaultToggleAnswerId, SortOrder = question.SortOrder,
+                        Answers = _answerRepository.GetAnswerByQuestionIdAsync(question.Id).Result
                             .Select(answer => new AnswersDto
                             {
-                                Id = answer.Id,
-                                QuestionId = answer.QuestionId,
-                                AnswerText = answer.AnswerText,
-                                ShortDescription = answer.ShortDescription,
-                                GroupLabel = answer.GroupLabel,
-                                GroupNumber = answer.GroupNumber,
-                                SortOrder = answer.SortOrder,
+                                Id = answer.Id, QuestionId = answer.QuestionId, AnswerText = answer.AnswerText,
+                                ShortDescription = answer.ShortDescription, GroupLabel = answer.GroupLabel,
+                                GroupNumber = answer.GroupNumber, SortOrder = answer.SortOrder
                             }).ToList()
                     }).ToList()
                 };
