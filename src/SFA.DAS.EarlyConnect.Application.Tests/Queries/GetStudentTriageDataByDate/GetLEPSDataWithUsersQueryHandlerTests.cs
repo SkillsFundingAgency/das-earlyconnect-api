@@ -81,6 +81,9 @@ namespace SFA.DAS.EarlyConnect.Application.Tests.Queries.GetStudentTriageDataByD
 
             var result = await _handler.Handle(query, CancellationToken.None);
 
+            _answerRepository.Verify(x => x.GetAnswerByQuestionIdAsync(It.IsAny<int>()), Times.AtLeastOnce);
+            _studentSurveyRepository.Verify(x => x.GetStudentSurveysForLondonAsync(It.IsAny<DateTime>(),It.IsAny<DateTime>()), Times.Once);
+            
             Assert.That(result, Is.InstanceOf<GetStudentDataTriageByDateResult>());
             Assert.That(result, Is.Not.Null);
             Assert.That(result.StudentTriageData, Is.Not.Null);
