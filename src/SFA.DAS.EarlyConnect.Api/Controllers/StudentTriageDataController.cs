@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Diagnostics.CodeAnalysis;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
@@ -18,6 +19,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
     [ApiVersion("1.0")]
     [ApiController]
     [Route("/api/student-triage-data/")]
+    [ExcludeFromCodeCoverage]
     public class StudentTriageDataController : ControllerBase
     {
         private readonly IMediator _mediator;
