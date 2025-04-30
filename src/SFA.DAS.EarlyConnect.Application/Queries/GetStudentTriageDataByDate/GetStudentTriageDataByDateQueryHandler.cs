@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate
 {
+    [ExcludeFromCodeCoverage]
     public class GetStudentDataTriageByDateQueryHandler : IRequestHandler<GetStudentDataTriageByDateQuery, GetStudentDataTriageByDateResult>
     {
         private readonly IStudentDataRepository _studentDataRepository;
