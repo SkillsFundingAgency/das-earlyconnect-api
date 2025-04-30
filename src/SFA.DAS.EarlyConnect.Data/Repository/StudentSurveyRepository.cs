@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 using System.Globalization;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
+    [ExcludeFromCodeCoverage]
     public class StudentSurveyRepository : IStudentSurveyRepository
     {
         private readonly EarlyConnectDataContext _dbContext;

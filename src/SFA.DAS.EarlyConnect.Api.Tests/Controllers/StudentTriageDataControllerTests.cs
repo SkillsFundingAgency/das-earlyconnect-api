@@ -174,5 +174,6 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             Assert.That(okObjectResult, Is.Not.Null);
             Assert.That(okObjectResult.StatusCode.Equals(200));
         }
+        
     }
 }

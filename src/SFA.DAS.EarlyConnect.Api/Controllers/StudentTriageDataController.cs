@@ -123,11 +123,16 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
             return Ok(queryResult.StudentTriageData);
         }
 
-        [HttpGet("resenddatatolondon")]
+        [HttpGet]
+        [Route("resenddatatolondon")]
         public async Task<IActionResult> ResendDataToLondon(DateTime toDate, DateTime fromDate)
         {
-            var result = await _mediator.Send(new GetStudentDataTriageByDateQuery() {ToDate = toDate, FromDate = fromDate});
-            return Ok(result.StudentTriageData);
+            var queryResult = await _mediator.Send(new GetStudentDataTriageByDateQuery()
+            {
+                ToDate = toDate,
+                FromDate = fromDate
+            });
+            return Ok(queryResult.StudentTriageData);
         }
     }
 }
