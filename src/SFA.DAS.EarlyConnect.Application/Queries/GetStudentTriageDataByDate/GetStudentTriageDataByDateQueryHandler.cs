@@ -3,12 +3,14 @@ using Microsoft.Extensions.Logging;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate
 {
+    [ExcludeFromCodeCoverage]
     public class GetStudentDataTriageByDateQueryHandler : IRequestHandler<GetStudentDataTriageByDateQuery, GetStudentDataTriageByDateResult>
     {
         private readonly IStudentDataRepository _studentDataRepository;
