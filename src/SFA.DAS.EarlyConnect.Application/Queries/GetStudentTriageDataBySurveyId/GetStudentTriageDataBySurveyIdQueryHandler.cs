@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using System.Diagnostics.CodeAnalysis;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 
 namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId
 {
+    [ExcludeFromCodeCoverage]
     public class GetStudentTriageDataBySurveyIdQueryHandler : IRequestHandler<GetStudentTriageDataBySurveyIdQuery, GetStudentTriageDataBySurveyIdResult>
     {
         private readonly IStudentDataRepository _studentDataRepository;
