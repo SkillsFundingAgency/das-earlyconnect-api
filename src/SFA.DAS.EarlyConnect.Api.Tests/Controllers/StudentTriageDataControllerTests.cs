@@ -175,5 +175,52 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             Assert.That(okObjectResult.StatusCode.Equals(200));
         }
         
+        [Test]
+        public async Task ResendDataToLondon_ReturnsExpectedData()
+        {
+            // Arrange
+            var mockMediator = new Mock<IMediator>();
+            var controller = new StudentTriageDataController(mockMediator.Object);
+        
+            var testDateFrom = new DateTime(2023, 1, 1);
+            var testDateTo = new DateTime(2023, 12, 31);
+            var expectedData = new List<StudentTriageDataDto>
+            {
+                new StudentTriageDataDto { Id = 1, Email = "test1@example.com" },
+                new StudentTriageDataDto { Id = 2, Email = "test2@example.com" }
+            };
+
+            mockMediator.Setup(m => m.Send(
+                    It.Is<GetStudentDataTriageByDateQuery>(q => 
+                        q.FromDate == testDateFrom && 
+                        q.ToDate == testDateTo),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetStudentDataTriageByDateResult 
+                { 
+                    StudentTriageData = expectedData 
+                });
+
+            // Act
+            var result = await controller.ResendDataToLondon(testDateTo, testDateFrom);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                // Verify result type
+                Assert.That(result, Is.InstanceOf<OkObjectResult>());
+            
+                // Verify returned data
+                var okResult = result as OkObjectResult;
+                Assert.That(okResult?.Value, Is.EqualTo(expectedData));
+            
+                // Verify mediator was called correctly
+                mockMediator.Verify(m => m.Send(
+                    It.Is<GetStudentDataTriageByDateQuery>(q => 
+                        q.FromDate == testDateFrom && 
+                        q.ToDate == testDateTo),
+                    It.IsAny<CancellationToken>()), Times.Once);
+            });
+        }
+        
     }
 }
