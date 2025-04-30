@@ -80,7 +80,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             await _dbContext.SaveChangesAsync();
         }
         
-        public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync()
+        public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync(DateTime toDate, DateTime fromDate)
         {
             return await _dbContext.StudentData
                 .AsNoTracking()
@@ -88,7 +88,7 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
                 .SelectMany(a => a.StudentSurveys
                     .Where(s => s.DateEmailReminderSent == null 
                                 && s.DateCompleted == null 
-                                && s.DateAdded < DateTime.Now.Date.AddDays(-2)))
+                                && s.DateAdded <= toDate && s.DateAdded >= fromDate))
                 .ToListAsync();
         }
     }

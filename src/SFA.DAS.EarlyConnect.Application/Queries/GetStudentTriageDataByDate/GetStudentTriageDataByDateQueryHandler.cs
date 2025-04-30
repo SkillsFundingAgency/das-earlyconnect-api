@@ -39,7 +39,7 @@ namespace SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate
 
         public async Task<GetStudentDataTriageByDateResult> Handle(GetStudentDataTriageByDateQuery request, CancellationToken cancellationToken)
         {
-            var studentSurveys = await _studentSurveyRepository.GetStudentSurveysForLondonAsync();
+            var studentSurveys = await _studentSurveyRepository.GetStudentSurveysForLondonAsync(request.ToDate, request.FromDate);
             var studentDataTriageDtos = new List<StudentTriageDataDto>();
 
             foreach (var studentSurvey in studentSurveys)
