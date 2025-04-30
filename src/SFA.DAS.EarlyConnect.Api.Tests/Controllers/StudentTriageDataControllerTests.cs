@@ -1,6 +1,9 @@
-﻿using AutoFixture;
+﻿using System.Security.Claims;
+using AutoFixture;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
@@ -9,6 +12,7 @@ using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
@@ -145,6 +149,26 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
                 .ReturnsAsync(expectedResult);
 
             var actionResult = await _studentTriageDataController.StudentTriageData(surveyGuid);
+            var okObjectResult = actionResult as OkObjectResult;
+
+            Assert.That(okObjectResult, Is.Not.Null);
+            Assert.That(okObjectResult.StatusCode.Equals(200));
+        }
+        
+        [Test]
+        public async Task GET_ResendDataToLondon()
+        {
+            DateTime fromdate = new DateTime(2020, 01, 01);
+            DateTime todate = new DateTime(2020, 01, 01);
+            
+            var expectedResult = _fixture.Build<GetStudentDataTriageByDateResult>()
+                .With(x => x.StudentTriageData)
+                .Create();
+
+            _mediator.Setup(x => x.Send(It.IsAny<GetStudentDataTriageByDateQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(expectedResult);
+
+            var actionResult = await _studentTriageDataController.ResendDataToLondon(fromdate, todate);
             var okObjectResult = actionResult as OkObjectResult;
 
             Assert.That(okObjectResult, Is.Not.Null);
