@@ -121,6 +121,20 @@ namespace SFA.DAS.EarlyConnect.Api
             {
                 config.MapControllerRoute(name: "default", pattern: "api/{controller=Users}/{action=Index}/{id?}");
             });
+            
+            app.Use(async (context, next) =>
+            {
+                context.Response.OnStarting(() =>
+                {
+                    if (context.Response.Headers.ContainsKey("X-Powered-By"))
+                    {
+                        context.Response.Headers.Remove("X-Powered-By");
+                    }
+                    return Task.CompletedTask;
+                });
+                await next();
+            });            
+            
         }
 
         private bool ConfigurationIsLocalOrDev()

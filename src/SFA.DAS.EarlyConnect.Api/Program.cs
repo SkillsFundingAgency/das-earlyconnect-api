@@ -24,9 +24,11 @@ namespace SFA.DAS.EarlyConnect.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => {
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
                     webBuilder
-                    .UseStartup<Startup>();
+                        .ConfigureKestrel(c => c.AddServerHeader = false)
+                        .UseStartup<Startup>();
                 });
     }
 }
