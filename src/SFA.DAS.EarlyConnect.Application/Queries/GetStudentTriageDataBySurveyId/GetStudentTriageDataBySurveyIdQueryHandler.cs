@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Diagnostics.CodeAnalysis;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
 

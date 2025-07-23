@@ -1,6 +1,9 @@
-﻿using AutoFixture;
+﻿using System.Security.Claims;
+using AutoFixture;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.EarlyConnect.Api.Controllers;
@@ -9,6 +12,7 @@ using SFA.DAS.EarlyConnect.Api.Responses.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 
 namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
@@ -150,5 +154,73 @@ namespace SFA.DAS.EarlyConnect.Api.Tests.Controllers
             Assert.That(okObjectResult, Is.Not.Null);
             Assert.That(okObjectResult.StatusCode.Equals(200));
         }
+        
+        [Test]
+        public async Task GET_ResendDataToLondon()
+        {
+            DateTime fromdate = new DateTime(2020, 01, 01);
+            DateTime todate = new DateTime(2020, 01, 01);
+            
+            var expectedResult = _fixture.Build<GetStudentDataTriageByDateResult>()
+                .With(x => x.StudentTriageData)
+                .Create();
+
+            _mediator.Setup(x => x.Send(It.IsAny<GetStudentDataTriageByDateQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(expectedResult);
+
+            var actionResult = await _studentTriageDataController.ResendDataToLondon(fromdate, todate);
+            var okObjectResult = actionResult as OkObjectResult;
+
+            Assert.That(okObjectResult, Is.Not.Null);
+            Assert.That(okObjectResult.StatusCode.Equals(200));
+        }
+        
+        [Test]
+        public async Task ResendDataToLondon_ReturnsExpectedData()
+        {
+            // Arrange
+            var mockMediator = new Mock<IMediator>();
+            var controller = new StudentTriageDataController(mockMediator.Object);
+        
+            var testDateFrom = new DateTime(2023, 1, 1);
+            var testDateTo = new DateTime(2023, 12, 31);
+            var expectedData = new List<StudentTriageDataDto>
+            {
+                new StudentTriageDataDto { Id = 1, Email = "test1@example.com" },
+                new StudentTriageDataDto { Id = 2, Email = "test2@example.com" }
+            };
+
+            mockMediator.Setup(m => m.Send(
+                    It.Is<GetStudentDataTriageByDateQuery>(q => 
+                        q.FromDate == testDateFrom && 
+                        q.ToDate == testDateTo),
+                    It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GetStudentDataTriageByDateResult 
+                { 
+                    StudentTriageData = expectedData 
+                });
+
+            // Act
+            var result = await controller.ResendDataToLondon(testDateTo, testDateFrom);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                // Verify result type
+                Assert.That(result, Is.InstanceOf<OkObjectResult>());
+            
+                // Verify returned data
+                var okResult = result as OkObjectResult;
+                Assert.That(okResult?.Value, Is.EqualTo(expectedData));
+            
+                // Verify mediator was called correctly
+                mockMediator.Verify(m => m.Send(
+                    It.Is<GetStudentDataTriageByDateQuery>(q => 
+                        q.FromDate == testDateFrom && 
+                        q.ToDate == testDateTo),
+                    It.IsAny<CancellationToken>()), Times.Once);
+            });
+        }
+        
     }
 }

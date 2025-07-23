@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore;
 using SFA.DAS.EarlyConnect.Domain.Entities;
 using SFA.DAS.EarlyConnect.Domain.Interfaces;
+using System.Globalization;
 
 namespace SFA.DAS.EarlyConnect.Data.Repository
 {
+    [ExcludeFromCodeCoverage]
     public class StudentSurveyRepository : IStudentSurveyRepository
     {
         private readonly EarlyConnectDataContext _dbContext;
@@ -77,6 +80,18 @@ namespace SFA.DAS.EarlyConnect.Data.Repository
             studentSurvey.DateEmailReminderSent = DateTime.Now;
 
             await _dbContext.SaveChangesAsync();
+        }
+        
+        public async Task<List<StudentSurvey>> GetStudentSurveysForLondonAsync(DateTime toDate, DateTime fromDate)
+        {
+            return await _dbContext.StudentData
+                .AsNoTracking()
+                .Where(a => a.LepsId == 3)
+                .SelectMany(a => a.StudentSurveys
+                    .Where(s => s.DateEmailReminderSent == null 
+                                && s.DateCompleted == null 
+                                && s.DateAdded <= toDate && s.DateAdded >= fromDate))
+                .ToListAsync();
         }
     }
 }
