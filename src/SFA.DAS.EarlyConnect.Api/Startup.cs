@@ -103,6 +103,7 @@ namespace SFA.DAS.EarlyConnect.Api
                 context.Response.Headers.Remove("X-Powered-By");
                 context.Response.Headers.Remove("X-AspNet-Version");
                 context.Response.Headers.Remove("X-AspNetMvc-Version");
+                context.Response.Headers.Remove("X-Version");
                 
                 // Additional security headers
                 context.Response.Headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains";
