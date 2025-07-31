@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System.Diagnostics.CodeAnalysis;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SFA.DAS.EarlyConnect.Api.Mappers;
 using SFA.DAS.EarlyConnect.Api.Requests.PostRequests;
@@ -8,6 +9,7 @@ using SFA.DAS.EarlyConnect.Application.Commands.CreateOtherStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentData;
 using SFA.DAS.EarlyConnect.Application.Commands.CreateStudentTriageData;
 using SFA.DAS.EarlyConnect.Application.Models;
+using SFA.DAS.EarlyConnect.Application.Queries.GetStudentDataTriageByDate;
 using SFA.DAS.EarlyConnect.Application.Queries.GetStudentTriageDataBySurveyId;
 using SFA.DAS.EarlyConnect.Application.Responses;
 using System.Net;
@@ -17,6 +19,7 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
     [ApiVersion("1.0")]
     [ApiController]
     [Route("/api/student-triage-data/")]
+    [ExcludeFromCodeCoverage]
     public class StudentTriageDataController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -119,6 +122,18 @@ namespace SFA.DAS.EarlyConnect.Api.Controllers
                 StudentSurveyId = studentSurveyGuid
             });
 
+            return Ok(queryResult.StudentTriageData);
+        }
+
+        [HttpGet]
+        [Route("resenddatatolondon")]
+        public async Task<IActionResult> ResendDataToLondon(DateTime toDate, DateTime fromDate)
+        {
+            var queryResult = await _mediator.Send(new GetStudentDataTriageByDateQuery()
+            {
+                ToDate = toDate,
+                FromDate = fromDate
+            });
             return Ok(queryResult.StudentTriageData);
         }
     }
