@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Server.Kestrel.Core;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Options;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.EarlyConnect.Api.AppStart;
@@ -16,8 +17,10 @@ using SFA.DAS.EarlyConnect.Domain.Interfaces;
 using SFA.DAS.EarlyConnect.Application.RegistrationExtensions;
 using System.Runtime.InteropServices; // For OS platform detection
 
+
 namespace SFA.DAS.EarlyConnect.Api
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         private readonly IConfiguration _configuration;

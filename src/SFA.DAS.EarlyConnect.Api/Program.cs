@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Security;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Logging.ApplicationInsights;
@@ -17,6 +18,7 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace SFA.DAS.EarlyConnect.Api
 {
+    [ExcludeFromCodeCoverage]
     public class Program
     {
         public static void Main(string[] args)
