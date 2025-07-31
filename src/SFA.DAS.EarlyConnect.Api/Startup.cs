@@ -111,7 +111,6 @@ namespace SFA.DAS.EarlyConnect.Api
                 context.Response.Headers["X-Frame-Options"] = "DENY";
                 context.Response.Headers["Content-Security-Policy"] = "default-src 'self'";
                 context.Response.Headers["Referrer-Policy"] = "no-referrer";
-                context.Response.Headers["Permissions-Policy"] = "geolocation=(), microphone=()";
                 
                 await next();
             });
